@@ -63,22 +63,25 @@ export default function WelcomeFirstStep() {
 
   return (
     <View style={styles.root}>
-      <Svg
-        style={StyleSheet.absoluteFill}
-        viewBox="0 0 100 200"
-        preserveAspectRatio="none"
-      >
-        <Defs>
-          <RadialGradient id="warmGlow" cx="50%" cy="60%" r="60%">
-            <Stop offset="0%" stopColor="#FFF6E6" stopOpacity={0.5} />
-            <Stop offset="100%" stopColor={tokens.palette.coralPink} stopOpacity={0} />
-          </RadialGradient>
-        </Defs>
-        <Rect x={0} y={0} width={100} height={80} fill={tokens.palette.peach} />
-        <Rect x={0} y={80} width={100} height={70} fill={tokens.palette.coralPink} />
-        <Rect x={0} y={150} width={100} height={50} fill={tokens.palette.goldenPeach} />
-        <Rect x={0} y={0} width={100} height={200} fill="url(#warmGlow)" />
-      </Svg>
+      {/* pointerEvents="none" so the SVG doesn't intercept button taps on web */}
+      <View style={StyleSheet.absoluteFill} pointerEvents="none">
+        <Svg
+          style={StyleSheet.absoluteFill}
+          viewBox="0 0 100 200"
+          preserveAspectRatio="none"
+        >
+          <Defs>
+            <RadialGradient id="warmGlow" cx="50%" cy="60%" r="60%">
+              <Stop offset="0%" stopColor="#FFF6E6" stopOpacity={0.5} />
+              <Stop offset="100%" stopColor={tokens.palette.coralPink} stopOpacity={0} />
+            </RadialGradient>
+          </Defs>
+          <Rect x={0} y={0} width={100} height={80} fill={tokens.palette.peach} />
+          <Rect x={0} y={80} width={100} height={70} fill={tokens.palette.coralPink} />
+          <Rect x={0} y={150} width={100} height={50} fill={tokens.palette.goldenPeach} />
+          <Rect x={0} y={0} width={100} height={200} fill="url(#warmGlow)" />
+        </Svg>
+      </View>
 
       <ScrollView
         contentContainerStyle={styles.content}
@@ -156,23 +159,23 @@ const styles = StyleSheet.create({
     marginTop: 18,
     marginBottom: 14,
     fontFamily: tokens.fonts.bodyMedium,
-    fontSize: 10,
+    fontSize: 13,
     letterSpacing: 2,
     color: tokens.semantic.accent,
   },
   h1: {
     fontFamily: tokens.fonts.display,
-    fontSize: 30,
-    lineHeight: 38,
+    fontSize: 38,
+    lineHeight: 46,
     color: tokens.semantic.textPrimary,
-    marginBottom: 14,
+    marginBottom: 16,
   },
   body: {
     fontFamily: tokens.fonts.body,
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 17,
+    lineHeight: 26,
     color: tokens.semantic.textSecondary,
-    marginBottom: 28,
+    marginBottom: 30,
   },
 
   bloomWrap: {
@@ -189,7 +192,7 @@ const styles = StyleSheet.create({
   axisText: {
     fontFamily: tokens.fonts.body,
     fontStyle: 'italic',
-    fontSize: 12,
+    fontSize: 15,
     color: tokens.semantic.textTertiary,
   },
 
@@ -211,12 +214,12 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontFamily: tokens.fonts.body,
-    fontSize: 13,
+    fontSize: 15,
     color: tokens.semantic.textTertiary,
   },
   primaryBtn: {
     width: '100%',
-    paddingVertical: 14,
+    paddingVertical: 17,
     borderRadius: tokens.radii.pill,
     backgroundColor: tokens.semantic.accent,
     alignItems: 'center',
@@ -224,16 +227,16 @@ const styles = StyleSheet.create({
   },
   primaryBtnText: {
     fontFamily: tokens.fonts.bodyMedium,
-    fontSize: 15,
+    fontSize: 18,
     letterSpacing: 0.5,
     color: tokens.semantic.textInverse,
   },
   skipLink: {
-    paddingVertical: 6,
+    paddingVertical: 8,
   },
   skipLinkText: {
     fontFamily: tokens.fonts.body,
-    fontSize: 12,
+    fontSize: 15,
     color: tokens.semantic.textTertiary,
   },
 });

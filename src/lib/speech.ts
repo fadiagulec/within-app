@@ -30,11 +30,33 @@ export interface VoicePreference {
 }
 
 export const DEFAULT_VOICE: VoicePreference = {
-  rate: 0.92,    // a touch slow — guided / meditative
-  pitch: 1.0,
-  volume: 0.95,
+  rate: 0.82,    // slow — guided / meditative, not chirpy
+  pitch: 0.92,   // slightly lower — calmer
+  volume: 0.7,   // softer — so the fallback voice doesn't feel like shouting
   lang: 'en-US',
 };
+
+/**
+ * Heuristic list of "calm" voice URI substrings we prefer when picking
+ * a Web Speech voice. Falls back to first English voice if none match.
+ * (When ElevenLabs is configured we don't hit this code path at all.)
+ */
+const PREFERRED_VOICE_HINTS = [
+  // Apple — soft / measured
+  'samantha',
+  'karen',
+  'moira',
+  'fiona',
+  'tessa',
+  // Google — warmer female voices
+  'google uk english female',
+  'google us english',
+  // Microsoft natural — much gentler than the legacy SAPI voices
+  'aria',
+  'jenny',
+  'sonia',
+  'libby',
+];
 
 export interface SpeechHandle {
   /** True while audio is actively being spoken. */
@@ -82,12 +104,34 @@ export function speak(
   u.volume = cfg.volume;
   u.lang = cfg.lang;
 
-  // Pick a voice matching lang preference if available
+  // Pick a voice matching lang preference if available.
+  // We try, in order:
+  //   1. An explicit voiceURI override
+  //   2. One of the preferred calm voices (Samantha / Aria / Google UK female / etc.)
+  //   3. Any English voice that doesn't sound chirpy (no 'Microsoft Zira', no default Mac novelty voices)
+  //   4. First English voice
   const voices = synth.getVoices();
   if (voices.length > 0) {
     let chosen: SpeechSynthesisVoice | undefined;
     if (cfg.voiceURI) {
       chosen = voices.find((v) => v.voiceURI === cfg.voiceURI);
+    }
+    if (!chosen) {
+      const lc = (v: SpeechSynthesisVoice) => `${v.name} ${v.voiceURI}`.toLowerCase();
+      // Prefer the calm-voice hints, in priority order.
+      for (const hint of PREFERRED_VOICE_HINTS) {
+        chosen = voices.find((v) => lc(v).includes(hint));
+        if (chosen) break;
+      }
+    }
+    if (!chosen) {
+      // Avoid the loud / robotic ones explicitly.
+      const bad = ['zira', 'novelty', 'whisper', 'shouting', 'cellos'];
+      chosen = voices.find(
+        (v) =>
+          v.lang.toLowerCase().startsWith('en') &&
+          !bad.some((b) => v.name.toLowerCase().includes(b))
+      );
     }
     if (!chosen) {
       chosen = voices.find((v) => v.lang.startsWith(cfg.lang.split('-')[0] ?? 'en'));

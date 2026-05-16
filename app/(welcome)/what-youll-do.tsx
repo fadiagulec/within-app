@@ -79,22 +79,25 @@ export default function WelcomeWhatYoullDo() {
 
   return (
     <View style={styles.root}>
-      <Svg
-        style={StyleSheet.absoluteFill}
-        viewBox="0 0 100 200"
-        preserveAspectRatio="none"
-      >
-        <Defs>
-          <RadialGradient id="centerGlow" cx="50%" cy="50%" r="60%">
-            <Stop offset="0%" stopColor="#FFF6E6" stopOpacity={0.5} />
-            <Stop offset="100%" stopColor={tokens.palette.peach} stopOpacity={0} />
-          </RadialGradient>
-        </Defs>
-        <Rect x={0} y={0} width={100} height={70} fill={tokens.palette.skyMid} />
-        <Rect x={0} y={70} width={100} height={70} fill={tokens.palette.peach} />
-        <Rect x={0} y={140} width={100} height={60} fill={tokens.palette.coralPink} />
-        <Rect x={0} y={0} width={100} height={200} fill="url(#centerGlow)" />
-      </Svg>
+      {/* pointerEvents="none" so the SVG doesn't intercept button taps on web */}
+      <View style={StyleSheet.absoluteFill} pointerEvents="none">
+        <Svg
+          style={StyleSheet.absoluteFill}
+          viewBox="0 0 100 200"
+          preserveAspectRatio="none"
+        >
+          <Defs>
+            <RadialGradient id="centerGlow" cx="50%" cy="50%" r="60%">
+              <Stop offset="0%" stopColor="#FFF6E6" stopOpacity={0.5} />
+              <Stop offset="100%" stopColor={tokens.palette.peach} stopOpacity={0} />
+            </RadialGradient>
+          </Defs>
+          <Rect x={0} y={0} width={100} height={70} fill={tokens.palette.skyMid} />
+          <Rect x={0} y={70} width={100} height={70} fill={tokens.palette.peach} />
+          <Rect x={0} y={140} width={100} height={60} fill={tokens.palette.coralPink} />
+          <Rect x={0} y={0} width={100} height={200} fill="url(#centerGlow)" />
+        </Svg>
+      </View>
 
       <ScrollView
         contentContainerStyle={styles.content}
@@ -173,36 +176,36 @@ const styles = StyleSheet.create({
     marginTop: 18,
     marginBottom: 14,
     fontFamily: tokens.fonts.bodyMedium,
-    fontSize: 10,
+    fontSize: 13,
     letterSpacing: 2,
     color: tokens.semantic.accent,
   },
   h1: {
     fontFamily: tokens.fonts.display,
-    fontSize: 32,
-    lineHeight: 40,
+    fontSize: 40,
+    lineHeight: 48,
     color: tokens.semantic.textPrimary,
-    marginBottom: 24,
+    marginBottom: 26,
   },
 
   list: {
-    gap: 10,
-    marginBottom: 28,
+    gap: 12,
+    marginBottom: 30,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 14,
-    padding: 14,
+    gap: 16,
+    padding: 18,
     borderRadius: tokens.radii.lg,
     backgroundColor: tokens.palette.cream100,
     borderWidth: 1,
     borderColor: tokens.semantic.borderSubtle,
   },
   glyphWrap: {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
+    width: 54,
+    height: 54,
+    borderRadius: 14,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -210,24 +213,25 @@ const styles = StyleSheet.create({
   rowText: { flex: 1, minWidth: 0 },
   rowTitle: {
     fontFamily: tokens.fonts.bodyMedium,
-    fontSize: 14,
+    fontSize: 18,
     color: tokens.semantic.textPrimary,
-    marginBottom: 2,
+    marginBottom: 4,
   },
   rowSub: {
     fontFamily: tokens.fonts.body,
-    fontSize: 12,
+    fontSize: 15,
+    lineHeight: 21,
     color: tokens.semantic.textSecondary,
   },
 
   quote: {
     fontFamily: tokens.fonts.display,
     fontStyle: 'italic',
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 20,
+    lineHeight: 30,
     color: tokens.semantic.textSecondary,
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 12,
   },
 
   footer: {
@@ -246,19 +250,19 @@ const styles = StyleSheet.create({
   },
   skipText: {
     fontFamily: tokens.fonts.body,
-    fontSize: 13,
+    fontSize: 15,
     color: tokens.semantic.textTertiary,
   },
   primaryBtn: {
-    paddingVertical: 12,
-    paddingHorizontal: 28,
+    paddingVertical: 15,
+    paddingHorizontal: 32,
     borderRadius: tokens.radii.pill,
     backgroundColor: tokens.semantic.accent,
     ...tokens.shadows.gold,
   },
   primaryBtnText: {
     fontFamily: tokens.fonts.bodyMedium,
-    fontSize: 14,
+    fontSize: 17,
     letterSpacing: 0.4,
     color: tokens.semantic.textInverse,
   },

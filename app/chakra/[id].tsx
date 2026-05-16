@@ -79,19 +79,19 @@ export default function ChakraDetail() {
             accessibilityRole="button"
             accessibilityLabel="Go back"
           >
-            <Text variant="label" style={{ color: '#FFFFFF' }}>← Back</Text>
+            <Text variant="label" style={{ color: '#FFFFFF', fontSize: 16, letterSpacing: 0.5 }}>← Back</Text>
           </Pressable>
           <View style={{ alignItems: 'center', marginTop: 16 }}>
             <ChakraSymbol chakraId={normalizedId} size={140} />
           </View>
           <View style={{ marginTop: 28, alignItems: 'center' }}>
-            <Text variant="eyebrow" style={{ color: '#FFFFFF', letterSpacing: 2.5, opacity: 0.9 }}>
+            <Text variant="eyebrow" style={{ color: '#FFFFFF', letterSpacing: 2.5, opacity: 0.95, fontSize: 14 }}>
               CHAKRA {content.number} · {content.sanskritName.toUpperCase()}
             </Text>
-            <Text variant="heading1" style={[styles.heroTitle, { color: '#FFFFFF', textAlign: 'center', fontSize: 40, marginTop: 8 }]}>
+            <Text variant="heading1" style={[styles.heroTitle, { color: '#FFFFFF', textAlign: 'center', fontSize: 52, lineHeight: 60, marginTop: 8 }]}>
               {content.name}
             </Text>
-            <Text variant="body" style={[styles.heroSubtitle, { color: 'rgba(255,255,255,0.92)', textAlign: 'center', fontStyle: 'italic', fontSize: 16, maxWidth: 320, marginTop: 12 }]}>
+            <Text variant="body" style={[styles.heroSubtitle, { color: '#FFFFFF', textAlign: 'center', fontStyle: 'italic', fontSize: 19, lineHeight: 28, maxWidth: 360, marginTop: 14 }]}>
               {content.simpleDefinition}
             </Text>
           </View>
@@ -116,6 +116,8 @@ export default function ChakraDetail() {
                 style={{
                   color: phase === p ? tokens.semantic.textPrimary : tokens.semantic.textSecondary,
                   textTransform: 'uppercase',
+                  fontSize: 14,
+                  letterSpacing: 1.2,
                 }}
               >
                 {p === 'learn' ? '1. Learn' : p === 'affirm' ? '2. Affirm' : '3. Heal'}
@@ -169,11 +171,13 @@ function LearnPhase({ content, accent }: { content: ReturnType<typeof getChakraC
       <InfoRow label="Sense" value={content.sense} />
 
       <Section title="What This Chakra Governs">
-        <Text variant="body">{content.whatItGoverns}</Text>
+        <Text variant="body" style={{ fontSize: 17, lineHeight: 26 }}>
+          {content.whatItGoverns}
+        </Text>
       </Section>
 
       <Section title={`The Shadow: ${content.shadowFeeling}`} accent={accent}>
-        <Text variant="body" style={{ fontStyle: 'italic' }}>
+        <Text variant="body" style={{ fontStyle: 'italic', fontSize: 17, lineHeight: 26 }}>
           {content.shadowDescription}
         </Text>
       </Section>
@@ -191,7 +195,7 @@ function LearnPhase({ content, accent }: { content: ReturnType<typeof getChakraC
       </Section>
 
       <Section title="The Science">
-        <Text variant="body" style={{ color: tokens.semantic.textSecondary }}>
+        <Text variant="body" style={{ color: tokens.semantic.textSecondary, fontSize: 16, lineHeight: 25 }}>
           {content.scienceNote}
         </Text>
       </Section>
@@ -261,13 +265,15 @@ function AffirmPhase({
             },
           ]}
         >
-          <Text variant="heading3" style={{ fontStyle: 'italic', lineHeight: 32 }}>
+          <Text variant="heading3" style={{ fontStyle: 'italic', fontSize: 22, lineHeight: 32 }}>
             "{aff}"
           </Text>
           <Text
             variant="label"
             style={{
               marginTop: tokens.spacing.s3,
+              fontSize: 13,
+              letterSpacing: 1,
               color: received[i] ? accent : tokens.semantic.textSecondary,
             }}
           >
@@ -469,7 +475,15 @@ function UnblockStepCard({
 function Section({ title, children, accent }: { title: string; children: React.ReactNode; accent?: string }) {
   return (
     <View>
-      <Text variant="heading3" style={{ color: accent ?? tokens.semantic.textPrimary, marginBottom: tokens.spacing.s2 }}>
+      <Text
+        variant="heading3"
+        style={{
+          color: accent ?? tokens.semantic.textPrimary,
+          marginBottom: tokens.spacing.s3,
+          fontSize: 22,
+          lineHeight: 28,
+        }}
+      >
         {title}
       </Text>
       {children}
@@ -480,10 +494,10 @@ function Section({ title, children, accent }: { title: string; children: React.R
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <View style={styles.infoRow}>
-      <Text variant="label" style={{ color: tokens.semantic.textSecondary, flex: 1 }}>
+      <Text variant="label" style={{ color: tokens.semantic.textSecondary, flex: 1, fontSize: 13, letterSpacing: 1 }}>
         {label.toUpperCase()}
       </Text>
-      <Text variant="body" style={{ flex: 2 }}>
+      <Text variant="body" style={{ flex: 2, fontSize: 17, lineHeight: 25 }}>
         {value}
       </Text>
     </View>
@@ -494,7 +508,7 @@ function BulletLine({ text, color }: { text: string; color: string }) {
   return (
     <View style={styles.bulletRow}>
       <View style={[styles.bulletDot, { backgroundColor: color }]} />
-      <Text variant="body" style={{ flex: 1 }}>
+      <Text variant="body" style={{ flex: 1, fontSize: 17, lineHeight: 25 }}>
         {text}
       </Text>
     </View>

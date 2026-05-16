@@ -35,21 +35,24 @@ export default function WelcomeWhatThisIs() {
 
   return (
     <View style={styles.root}>
-      <Svg
-        style={StyleSheet.absoluteFill}
-        viewBox="0 0 100 200"
-        preserveAspectRatio="none"
-      >
-        <Defs>
-          <RadialGradient id="topGlow" cx="50%" cy="0%" r="80%" fx="50%" fy="0%">
-            <Stop offset="0%" stopColor={tokens.palette.skyTop} stopOpacity={1} />
-            <Stop offset="100%" stopColor={tokens.palette.peach} stopOpacity={0} />
-          </RadialGradient>
-        </Defs>
-        <Rect x={0} y={0} width={100} height={120} fill={tokens.palette.skyMid} />
-        <Rect x={0} y={120} width={100} height={80} fill={tokens.palette.peach} />
-        <Rect x={0} y={0} width={100} height={200} fill="url(#topGlow)" />
-      </Svg>
+      {/* pointerEvents="none" so the SVG doesn't intercept button taps on web */}
+      <View style={StyleSheet.absoluteFill} pointerEvents="none">
+        <Svg
+          style={StyleSheet.absoluteFill}
+          viewBox="0 0 100 200"
+          preserveAspectRatio="none"
+        >
+          <Defs>
+            <RadialGradient id="topGlow" cx="50%" cy="0%" r="80%" fx="50%" fy="0%">
+              <Stop offset="0%" stopColor={tokens.palette.skyTop} stopOpacity={1} />
+              <Stop offset="100%" stopColor={tokens.palette.peach} stopOpacity={0} />
+            </RadialGradient>
+          </Defs>
+          <Rect x={0} y={0} width={100} height={120} fill={tokens.palette.skyMid} />
+          <Rect x={0} y={120} width={100} height={80} fill={tokens.palette.peach} />
+          <Rect x={0} y={0} width={100} height={200} fill="url(#topGlow)" />
+        </Svg>
+      </View>
 
       <ScrollView
         contentContainerStyle={styles.content}
@@ -136,73 +139,73 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 14,
     fontFamily: tokens.fonts.bodyMedium,
-    fontSize: 10,
+    fontSize: 13,
     letterSpacing: 2,
     color: tokens.semantic.accent,
   },
   h1: {
     fontFamily: tokens.fonts.display,
-    fontSize: 32,
-    lineHeight: 40,
+    fontSize: 40,
+    lineHeight: 48,
     color: tokens.semantic.textPrimary,
-    marginBottom: 24,
+    marginBottom: 26,
   },
 
   bodyPrimary: {
     fontFamily: tokens.fonts.body,
-    fontSize: 15,
-    lineHeight: 24,
+    fontSize: 18,
+    lineHeight: 28,
     color: tokens.semantic.textPrimary,
-    marginBottom: 12,
+    marginBottom: 14,
   },
   bodySecondary: {
     fontFamily: tokens.fonts.body,
-    fontSize: 15,
-    lineHeight: 24,
+    fontSize: 18,
+    lineHeight: 28,
     color: tokens.semantic.textSecondary,
-    marginBottom: 22,
+    marginBottom: 24,
   },
 
   quote: {
     fontFamily: tokens.fonts.display,
     fontStyle: 'italic',
-    fontSize: 18,
-    lineHeight: 26,
+    fontSize: 22,
+    lineHeight: 32,
     color: tokens.semantic.textPrimary,
-    marginBottom: 30,
+    marginBottom: 32,
   },
 
   sectionLabel: {
     fontFamily: tokens.fonts.bodyMedium,
-    fontSize: 10,
+    fontSize: 13,
     letterSpacing: 2,
     color: tokens.semantic.textTertiary,
-    marginBottom: 10,
+    marginBottom: 12,
   },
   stageRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 6,
+    gap: 8,
   },
   stagePill: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    gap: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 9,
     borderRadius: tokens.radii.pill,
     backgroundColor: tokens.palette.cream100,
     borderWidth: 1,
     borderColor: tokens.semantic.borderSubtle,
   },
   stagePillDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
+    width: 7,
+    height: 7,
+    borderRadius: 3.5,
   },
   stagePillText: {
     fontFamily: tokens.fonts.body,
-    fontSize: 11,
+    fontSize: 14,
     color: tokens.semantic.textPrimary,
   },
 
@@ -221,19 +224,19 @@ const styles = StyleSheet.create({
   },
   skipText: {
     fontFamily: tokens.fonts.body,
-    fontSize: 13,
+    fontSize: 15,
     color: tokens.semantic.textTertiary,
   },
   primaryBtn: {
-    paddingVertical: 12,
-    paddingHorizontal: 28,
+    paddingVertical: 15,
+    paddingHorizontal: 32,
     borderRadius: tokens.radii.pill,
     backgroundColor: tokens.semantic.accent,
     ...tokens.shadows.gold,
   },
   primaryBtnText: {
     fontFamily: tokens.fonts.bodyMedium,
-    fontSize: 14,
+    fontSize: 17,
     letterSpacing: 0.4,
     color: tokens.semantic.textInverse,
   },

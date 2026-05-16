@@ -35,7 +35,11 @@ export default function WelcomeArrival() {
   return (
     <View style={styles.root}>
       {/* Full-bleed warm pastel gradient — drawn with SVG so it renders
-          consistently on every device, no extra dependency required. */}
+          consistently on every device, no extra dependency required.
+          Wrapped in pointerEvents="none" so taps fall through to the
+          content underneath (without this the SVG intercepts every tap
+          on web). */}
+      <View style={StyleSheet.absoluteFill} pointerEvents="none">
       <Svg
         style={StyleSheet.absoluteFill}
         viewBox="0 0 100 200"
@@ -61,6 +65,7 @@ export default function WelcomeArrival() {
         <Rect x={0} y={150} width={100} height={50} fill={tokens.palette.coralPink} />
         <Rect x={0} y={0} width={100} height={200} fill="url(#sunGlow)" />
       </Svg>
+      </View>
 
       <View style={styles.content}>
         {/* Top — brand mark, very small, very far away */}
@@ -148,17 +153,17 @@ const styles = StyleSheet.create({
   },
   taglineHead: {
     fontFamily: tokens.fonts.display,
-    fontSize: 26,
-    lineHeight: 34,
+    fontSize: 34,
+    lineHeight: 42,
     color: tokens.semantic.textPrimary,
     textAlign: 'center',
-    marginBottom: 12,
+    marginBottom: 14,
   },
   taglineSub: {
     fontFamily: tokens.fonts.displayRegular,
     fontStyle: 'italic',
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 18,
+    lineHeight: 28,
     color: tokens.semantic.textSecondary,
     textAlign: 'center',
   },
@@ -168,7 +173,7 @@ const styles = StyleSheet.create({
   },
   primaryBtn: {
     width: '100%',
-    paddingVertical: 14,
+    paddingVertical: 17,
     borderRadius: tokens.radii.pill,
     backgroundColor: tokens.semantic.accent,
     alignItems: 'center',
@@ -176,18 +181,18 @@ const styles = StyleSheet.create({
   },
   primaryBtnText: {
     fontFamily: tokens.fonts.bodyMedium,
-    fontSize: 15,
+    fontSize: 18,
     letterSpacing: 0.6,
     color: tokens.semantic.textInverse,
   },
   secondaryBtn: {
-    marginTop: 14,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
+    marginTop: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
   },
   secondaryBtnText: {
     fontFamily: tokens.fonts.body,
-    fontSize: 12,
+    fontSize: 15,
     letterSpacing: 0.4,
     color: tokens.semantic.textTertiary,
   },
