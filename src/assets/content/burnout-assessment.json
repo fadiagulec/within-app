@@ -1,0 +1,224 @@
+{
+  "assessment": {
+    "title": "The Burnout Check-In",
+    "subtitle": "A 3-minute honest look at where you actually are.",
+    "intro": "This is not a test. There are no wrong answers. Answer from the body, not the mind — the first response is usually the truest. This assessment is inspired by clinical burnout research but not a diagnostic tool. If you are in crisis, please speak with a qualified professional.",
+    "timeEstimate": "3-4 minutes",
+    "questionCount": 20,
+    "scaleLabels": {
+      "0": "Never",
+      "1": "Rarely",
+      "2": "Sometimes",
+      "3": "Often",
+      "4": "Almost always"
+    }
+  },
+  "categories": {
+    "emotional_exhaustion": {
+      "name": "Emotional Exhaustion",
+      "description": "The wrung-out feeling. Nothing left to give.",
+      "weight": 1.0
+    },
+    "cynicism": {
+      "name": "Cynicism & Disconnection",
+      "description": "Caring less. Going through the motions.",
+      "weight": 1.0
+    },
+    "reduced_accomplishment": {
+      "name": "Reduced Sense of Accomplishment",
+      "description": "Doubting your effectiveness. Wins don't land.",
+      "weight": 1.0
+    },
+    "somatic": {
+      "name": "Somatic Symptoms",
+      "description": "What the body is holding.",
+      "weight": 1.2
+    }
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "category": "emotional_exhaustion",
+      "text": "By the end of the day, I feel completely used up.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q02",
+      "category": "emotional_exhaustion",
+      "text": "I wake up already tired — like I never actually rested.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q03",
+      "category": "emotional_exhaustion",
+      "text": "Small requests feel disproportionately heavy.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q04",
+      "category": "emotional_exhaustion",
+      "text": "I have nothing left for the people I love when I'm done with work.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q05",
+      "category": "emotional_exhaustion",
+      "text": "I feel like I'm running on fumes most of the time.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q06",
+      "category": "cynicism",
+      "text": "I've become more detached from things I used to care about.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q07",
+      "category": "cynicism",
+      "text": "I find myself being sharper or more impatient with people than I want to be.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q08",
+      "category": "cynicism",
+      "text": "The thought of another week feels crushing before it even starts.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q09",
+      "category": "cynicism",
+      "text": "I feel like I'm just going through the motions.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q10",
+      "category": "cynicism",
+      "text": "I've stopped looking forward to things I used to enjoy.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q11",
+      "category": "reduced_accomplishment",
+      "text": "I question whether what I do actually matters.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q12",
+      "category": "reduced_accomplishment",
+      "text": "When I finish something difficult, I don't feel any real satisfaction.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q13",
+      "category": "reduced_accomplishment",
+      "text": "I feel less competent than I used to, even at things I know well.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q14",
+      "category": "reduced_accomplishment",
+      "text": "It's hard to focus for long stretches the way I once could.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q15",
+      "category": "reduced_accomplishment",
+      "text": "I second-guess decisions I would've made quickly a year ago.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q16",
+      "category": "somatic",
+      "text": "I notice tension in my shoulders, neck, jaw, or chest most days.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q17",
+      "category": "somatic",
+      "text": "My sleep is broken — I wake in the night or wake unrested.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q18",
+      "category": "somatic",
+      "text": "My digestion feels off — bloating, appetite shifts, or stomach tightness.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q19",
+      "category": "somatic",
+      "text": "I get more frequent headaches, sickness, or low-grade aches than I used to.",
+      "scale": "0-4"
+    },
+    {
+      "id": "q20",
+      "category": "somatic",
+      "text": "My breath often feels shallow — like it doesn't reach the bottom of my lungs.",
+      "scale": "0-4"
+    }
+  ],
+  "scoring": {
+    "method": "Sum all responses, weighting somatic questions by 1.2. Maximum weighted score: 84.",
+    "calculation": "For each answer (0-4), sum them. Multiply the sum of somatic (q16-q20) by 1.2. Final score = sum(q1-q15) + 1.2 * sum(q16-q20).",
+    "tiers": [
+      {
+        "range": "0-20",
+        "level": "Mild stress",
+        "title": "You're holding the line — let's keep it that way.",
+        "message": "You're navigating stress, but your system is still resourced. A short reset will top up the reserves before they deplete. Prevention is easier than recovery.",
+        "recommendation": {
+          "primary": "7-Day Reset",
+          "journey": "7-day-reset",
+          "supporting": ["Daily breathwork (Box Breath or 4-7-8)", "One evening chakra session per week", "Morning intention practice"],
+          "urgency": "low"
+        },
+        "redFlag": false
+      },
+      {
+        "range": "21-40",
+        "level": "Moderate burnout",
+        "title": "You're deeper in than you've been letting yourself admit.",
+        "message": "The signs are here. Exhaustion, disconnection, and your body is starting to speak up. This is a critical window — ignored now, it compounds. Caught now, it reverses. The 21-Day Journey was designed for exactly this moment.",
+        "recommendation": {
+          "primary": "21-Day Burnout Recovery Journey",
+          "journey": "21-day-burnout",
+          "supporting": ["Commit to daily practice for 21 days", "Protect sleep aggressively", "Reduce one commitment this week"],
+          "urgency": "medium"
+        },
+        "redFlag": false
+      },
+      {
+        "range": "41-60",
+        "level": "Severe burnout",
+        "title": "Your system is asking for a real pause. Listen.",
+        "message": "You are running on depletion — not willpower. This level of burnout does not heal through doing more. It heals through structured nervous system restoration, and often, a second set of eyes. The 21-Day Journey plus a 1:1 session will give you both.",
+        "recommendation": {
+          "primary": "21-Day Journey + 1:1 Coaching",
+          "journey": "21-day-burnout",
+          "additional": "1-on-1-coaching",
+          "supporting": ["Seriously consider a week off", "Prioritize sleep and movement above all else", "Reach out to one trusted human today"],
+          "urgency": "high"
+        },
+        "redFlag": false
+      },
+      {
+        "range": "61-84",
+        "level": "Critical burnout",
+        "title": "Please read this slowly.",
+        "message": "Your answers indicate a level of exhaustion and disconnection that deserves professional care. Burnout at this stage can mask — or coexist with — depression, anxiety disorders, or thyroid and hormonal issues. We strongly encourage you to speak with a doctor or qualified mental health professional this week. Use the gentle daily practices in this app as support, not as a replacement for care.",
+        "recommendation": {
+          "primary": "Medical / mental health professional",
+          "journey": "gentle-daily-practices",
+          "supporting": ["Contact your GP or a therapist this week", "Use only the shortest, gentlest practices for now (Box Breath, Deep Rest)", "Tell one person in your life what you just read"],
+          "urgency": "critical",
+          "resources": [
+            { "label": "Find a therapist", "type": "external" },
+            { "label": "Emergency mental health lines", "type": "external" }
+          ]
+        },
+        "redFlag": true
+      }
+    ]
+  },
+  "safetyDisclaimer": "This assessment is a self-reflection tool, not a clinical diagnosis. If you are experiencing thoughts of self-harm, overwhelming hopelessness, or are unable to function in daily life, please contact a qualified mental health professional or emergency services immediately."
+}

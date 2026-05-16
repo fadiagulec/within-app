@@ -1,0 +1,271 @@
+/**
+ * Magnetic Self — 21-day plan.
+ *
+ * Targeted at: people who feel scattered, identity-fuzzy, "always becoming
+ * never being". The arc to becoming the person who attracts what they want
+ * — without performing, hustling, or contorting.
+ *
+ * Anchored to the upper triangle: Soul Star (timeless self) / Third Eye
+ * (clear seeing) / Crown (trust the larger source) — with Throat for
+ * speaking the new shape into the world.
+ *
+ * Architecture:
+ *   Week 1 — OPEN:       see who you actually are underneath the performing
+ *   Week 2 — RELEASE:    drop the version of you built for other people
+ *   Week 3 — INTEGRATE:  embody the new self + speak it into being
+ *
+ * Voice: short, plain English, no "high-vibe abundance frequency activation".
+ */
+
+import type { Plan } from './types';
+
+export const MAGNETIC_SELF: Plan = {
+  id: 'magnetic-self',
+  title: 'Magnetic Self',
+  subtitle: 'Three weeks to become the person you have been trying to attract.',
+  description:
+    "Magnetic is not a vibe — it is a coherence. When inner self matches outer expression, the right things land. Three weeks to drop the performing, see the real you, and start moving from there.",
+  tagline: 'Stop chasing it. Become the kind of person it comes to.',
+  durationDays: 21,
+  coverColor: '#5645A6', // third eye indigo — this plan's signature
+  priceUSD: null,
+
+  days: [
+    // ─────────── WEEK 1 — OPEN ───────────
+    {
+      day: 1,
+      phase: 'open',
+      chakraId: 'soul-star',
+      title: 'Day 1 · Underneath the costumes',
+      intent: 'Strip the roles. Worker, partner, child, "the funny one". What is left?',
+      affirmation: 'I am not only the parts of me other people see.',
+      breathworkId: 'breath-4-7-8',
+      practice: { kind: 'meditation', id: 'med-evening' },
+      journalPrompt: 'Without my roles, my title, or what I do for others — who am I?',
+    },
+    {
+      day: 2,
+      phase: 'open',
+      chakraId: 'third-eye',
+      title: 'Day 2 · See yourself clearly',
+      intent: 'Most self-perception is filtered through other peoples eyes. Today, see for yourself.',
+      affirmation: 'I do not need a mirror to know who I am.',
+      breathworkId: 'breath-alternate-nostril',
+      practice: { kind: 'frequency', chakraId: 'third-eye', minutes: 10 },
+      journalPrompt: 'If no one was watching and no one would judge — what would I do with today?',
+    },
+    {
+      day: 3,
+      phase: 'open',
+      chakraId: 'third-eye',
+      title: 'Day 3 · The performance audit',
+      intent: 'Notice every time today you adjust yourself for someone else. Just notice. No fixing yet.',
+      affirmation: 'Awareness is the first move.',
+      breathworkId: 'breath-box',
+      practice: { kind: 'unblocking', chakraId: 'third-eye' },
+      journalPrompt: 'When did I shrink today? When did I inflate? When was I just me?',
+    },
+    {
+      day: 4,
+      phase: 'open',
+      chakraId: 'crown',
+      title: 'Day 4 · The you that already exists',
+      intent: 'The magnetic version of you is not in the future. They already exist underneath.',
+      affirmation: 'I am not becoming someone new. I am uncovering who I already am.',
+      breathworkId: 'breath-4-7-8',
+      practice: { kind: 'meditation', id: 'med-morning' },
+      journalPrompt: 'Describe in detail the version of me who already lives the life I want. What do they do at 9am?',
+    },
+    {
+      day: 5,
+      phase: 'open',
+      chakraId: 'crown',
+      title: 'Day 5 · The values underneath',
+      intent: 'Magnetism comes from coherence. Coherence comes from knowing your actual values.',
+      affirmation: 'My values are mine — even if they are inconvenient.',
+      breathworkId: 'breath-grounding',
+      practice: { kind: 'frequency', chakraId: 'crown', minutes: 10 },
+      journalPrompt: 'List 5 things I actually value (not what sounds good). Now circle the 3 my life currently honors.',
+    },
+    {
+      day: 6,
+      phase: 'open',
+      chakraId: 'soul-star',
+      title: 'Day 6 · The longer arc',
+      intent: 'You are not your worst week. You are not your best week either. Both are passing.',
+      affirmation: 'My worth is not measured in this week.',
+      breathworkId: 'breath-4-7-8',
+      practice: { kind: 'meditation', id: 'med-deep-rest' },
+      journalPrompt: 'Looking back five years from now, what will I wish I had done less of? More of?',
+    },
+    {
+      day: 7,
+      phase: 'open',
+      chakraId: 'soul-star',
+      title: 'Day 7 · Permission to be more',
+      intent: 'Some of you stays small to keep people comfortable. Today, name who.',
+      affirmation: 'I do not need permission to take up the room I take up.',
+      breathworkId: 'breath-grounding',
+      practice: { kind: 'meditation', id: 'med-evening' },
+      journalPrompt: 'Whose comfort am I shrinking myself for? What would they have to deal with if I stopped?',
+    },
+
+    // ─────────── WEEK 2 — RELEASE ───────────
+    {
+      day: 8,
+      phase: 'release',
+      chakraId: 'third-eye',
+      title: 'Day 8 · The story you tell yourself',
+      intent: 'You have a daily inner narrative. Most of it is autopilot. Catch it today.',
+      affirmation: 'I am not obligated to believe every thought I have.',
+      breathworkId: 'breath-box',
+      practice: { kind: 'unblocking', chakraId: 'third-eye' },
+      journalPrompt: 'What is the loudest sentence about myself I keep hearing in my head?',
+    },
+    {
+      day: 9,
+      phase: 'release',
+      chakraId: 'third-eye',
+      title: 'Day 9 · The story rewrite',
+      intent: 'Replace one of those autopilot sentences with a truer one. Not "I am amazing". A real one.',
+      affirmation: 'I am allowed to update my own story.',
+      breathworkId: 'breath-alternate-nostril',
+      practice: { kind: 'frequency', chakraId: 'third-eye', minutes: 12 },
+      journalPrompt: 'Take the loudest sentence from yesterday. What is the truer version?',
+    },
+    {
+      day: 10,
+      phase: 'release',
+      chakraId: 'throat',
+      title: 'Day 10 · Stop pre-apologizing',
+      intent: 'Notice every "sorry to bother", "this might be stupid", "I might be wrong but". Drop one.',
+      affirmation: 'I do not need to apologize for taking up space.',
+      breathworkId: 'breath-alternate-nostril',
+      practice: { kind: 'unblocking', chakraId: 'throat' },
+      journalPrompt: 'Where did I pre-apologize today? What would dropping it sound like?',
+    },
+    {
+      day: 11,
+      phase: 'release',
+      chakraId: 'throat',
+      title: 'Day 11 · Say the unpopular thing',
+      intent: 'You have one opinion you have been softening. Today, say it cleanly to one person.',
+      affirmation: 'My voice is mine to use.',
+      breathworkId: 'breath-grounding',
+      practice: { kind: 'frequency', chakraId: 'throat', minutes: 10 },
+      journalPrompt: 'What true thing have I been softening to keep people comfortable? Who needs to hear it un-softened?',
+    },
+    {
+      day: 12,
+      phase: 'release',
+      chakraId: 'crown',
+      title: 'Day 12 · Drop the deserve-test',
+      intent: 'You do not have to pass a test to deserve what you want. Most people are not waiting for you to earn it.',
+      affirmation: 'I am allowed to want what I want.',
+      breathworkId: 'breath-4-7-8',
+      practice: { kind: 'meditation', id: 'med-abundance' },
+      journalPrompt: 'What am I waiting to "deserve" before I let myself have? What if waiting was the only thing in the way?',
+    },
+    {
+      day: 13,
+      phase: 'release',
+      chakraId: 'crown',
+      title: 'Day 13 · Release the timeline',
+      intent: 'You wanted it by 30. By the wedding. By the new year. Today, let the deadline go.',
+      affirmation: 'On time and on schedule are not the same thing.',
+      breathworkId: 'breath-4-7-8',
+      practice: { kind: 'meditation', id: 'med-evening' },
+      journalPrompt: 'What am I behind on by an arbitrary deadline I set? What if it just took longer?',
+    },
+    {
+      day: 14,
+      phase: 'release',
+      chakraId: 'soul-star',
+      title: 'Day 14 · Drop the version that fits in',
+      intent: 'You built a version of yourself for the room you grew up in. It is allowed to be too small now.',
+      affirmation: 'The version of me built for the old room does not have to come into the new one.',
+      breathworkId: 'breath-grounding',
+      practice: { kind: 'unblocking', chakraId: 'soul-star' },
+      journalPrompt: 'What part of me was built to fit in somewhere I no longer live? Can I let her stay there?',
+    },
+
+    // ─────────── WEEK 3 — INTEGRATE ───────────
+    {
+      day: 15,
+      phase: 'integrate',
+      chakraId: 'soul-star',
+      title: 'Day 15 · Embody the next version',
+      intent: 'Today, do one small thing the magnetic version of you would do. Not a big thing. A small consistent one.',
+      affirmation: 'I act as the version of me I am becoming.',
+      breathworkId: 'breath-fire',
+      practice: { kind: 'meditation', id: 'med-super-performance' },
+      journalPrompt: 'What is one tiny daily thing the magnetic version of me does? Start it today.',
+    },
+    {
+      day: 16,
+      phase: 'integrate',
+      chakraId: 'third-eye',
+      title: 'Day 16 · Stop scanning others',
+      intent: 'Magnetism is not built by reading the room. It is built by being unmistakably yourself in it.',
+      affirmation: 'I do not need their reaction to know I am being myself.',
+      breathworkId: 'breath-box',
+      practice: { kind: 'frequency', chakraId: 'third-eye', minutes: 10 },
+      journalPrompt: 'When did I check the room today instead of trusting myself? What would not checking feel like?',
+    },
+    {
+      day: 17,
+      phase: 'integrate',
+      chakraId: 'throat',
+      title: 'Day 17 · Speak as the new self',
+      intent: 'Today, in one situation, talk as the future you, not the apologizing past you.',
+      affirmation: 'My voice does not need to shrink to be heard.',
+      breathworkId: 'breath-alternate-nostril',
+      practice: { kind: 'unblocking', chakraId: 'throat' },
+      journalPrompt: 'In what conversation today did I sound like the future me? In what one did I default to old me?',
+    },
+    {
+      day: 18,
+      phase: 'integrate',
+      chakraId: 'heart',
+      title: 'Day 18 · The room you build',
+      intent: 'Magnetic people curate their rooms. Who is in your life because of habit, not choice?',
+      affirmation: 'I am allowed to choose the people I spend my one life with.',
+      breathworkId: 'breath-grounding',
+      practice: { kind: 'meditation', id: 'med-relationship-magic' },
+      journalPrompt: 'Who in my life is here from old momentum, not active choice? What does honest curation look like?',
+    },
+    {
+      day: 19,
+      phase: 'integrate',
+      chakraId: 'crown',
+      title: 'Day 19 · Trust the right things to land',
+      intent: 'When you stop chasing, the right things have room to come. Not all of them. The right ones.',
+      affirmation: 'The right things land when I stop forcing the wrong ones.',
+      breathworkId: 'breath-4-7-8',
+      practice: { kind: 'meditation', id: 'med-abundance' },
+      journalPrompt: 'What have I been chasing that I sense is not actually for me? What would letting it go open?',
+    },
+    {
+      day: 20,
+      phase: 'integrate',
+      chakraId: 'soul-star',
+      title: 'Day 20 · The longer self',
+      intent: 'You are a 50-year project. Today is one day in it. That changes how today feels.',
+      affirmation: 'I am building something that takes time. I have time.',
+      breathworkId: 'breath-grounding',
+      practice: { kind: 'meditation', id: 'med-evening' },
+      journalPrompt: 'What can I afford to be patient about now that I could not yesterday?',
+    },
+    {
+      day: 21,
+      phase: 'integrate',
+      chakraId: 'soul-star',
+      title: 'Day 21 · The new shape',
+      intent: 'Three weeks. The shape is starting to settle. Notice what feels different — even quietly.',
+      affirmation: 'I am the kind of person who finishes the work and becomes new.',
+      breathworkId: 'breath-4-7-8',
+      practice: { kind: 'frequency', chakraId: 'soul-star', minutes: 15 },
+      journalPrompt: 'How would I describe myself today versus 21 days ago? What is my next 21 days?',
+    },
+  ],
+};

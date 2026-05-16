@@ -1,0 +1,137 @@
+{
+  "library": {
+    "title": "SOMA — Vision & Manifestation",
+    "description": "Not magical thinking. Nervous-system-aligned intention. What you focus on, regulated, becomes possible.",
+    "totalPrompts": 45,
+    "philosophy": "Manifestation without regulation is a wish. Regulation without direction is drift. This library is both."
+  },
+  "visionSetting": [
+    { "id": "vs01", "category": "vision-setting", "prompt": "If you could design your life from the body up — not the resume up — what would the first hour of your day look like?", "reflection": "What does that reveal about what your nervous system is actually asking for?" },
+    { "id": "vs02", "category": "vision-setting", "prompt": "Describe the version of you one year from now — not in accomplishments, in felt sense. How does she move? How does she speak? What does she choose?", "reflection": "What's one quality of hers you can try on today?" },
+    { "id": "vs03", "category": "vision-setting", "prompt": "What would your life look like if it were built around your energy, not around other people's expectations?", "reflection": "Where is the first place to begin that redesign?" },
+    { "id": "vs04", "category": "vision-setting", "prompt": "What have you been calling in for years that hasn't arrived? What might need to shift internally for it to land?", "reflection": "What belief about it has been quietly blocking the reception?" },
+    { "id": "vs05", "category": "vision-setting", "prompt": "Name the three non-negotiables of the life you're building — the things that, without them, nothing else matters.", "reflection": "Which of those are already present? Which need cultivation?" },
+    { "id": "vs06", "category": "vision-setting", "prompt": "What would you create if you knew the work itself would be enough — regardless of who saw it?", "reflection": "What's stopping you from starting?" },
+    { "id": "vs07", "category": "vision-setting", "prompt": "What does enough look like for you? Not the comparison enough. Your enough.", "reflection": "How close are you already?" },
+    { "id": "vs08", "category": "vision-setting", "prompt": "If every yes in your life had to come from your body — not from duty, not from performance — what would your calendar look like?", "reflection": "What's one yes you can reclaim this week?" },
+    { "id": "vs09", "category": "vision-setting", "prompt": "What are you building that you want to still be here in twenty years?", "reflection": "What's today's contribution to it?" },
+    { "id": "vs10", "category": "vision-setting", "prompt": "If you had another forty years to live, fully — what would you stop postponing?", "reflection": "Why have you been postponing it?" }
+  ],
+  "limitingBeliefRewrites": [
+    { "id": "lb01", "category": "limiting-belief-rewrite", "oldBelief": "I have to work harder to be worth more.", "newBelief": "My worth is not performative. I am worthy because I exist.", "integration": "Name one place today you'll practice this new belief in action." },
+    { "id": "lb02", "category": "limiting-belief-rewrite", "oldBelief": "If I rest, I'll fall behind.", "newBelief": "Rest is what lets me stay ahead. Depletion is the cost I can't afford.", "integration": "Take one intentional rest today. Notice what follows." },
+    { "id": "lb03", "category": "limiting-belief-rewrite", "oldBelief": "Asking for help is a weakness.", "newBelief": "Asking for help is a muscle. People who can ask are the ones who can build.", "integration": "Ask for one thing today you'd normally handle alone." },
+    { "id": "lb04", "category": "limiting-belief-rewrite", "oldBelief": "Money is scarce. I have to grip it.", "newBelief": "Money is energy. It flows where attention and regulation are both present.", "integration": "Thank something you recently spent on. Let the gratitude land." },
+    { "id": "lb05", "category": "limiting-belief-rewrite", "oldBelief": "If I set boundaries, I'll lose people.", "newBelief": "The people worth keeping will respect my yes because they can trust my no.", "integration": "Say one small, truthful no today." },
+    { "id": "lb06", "category": "limiting-belief-rewrite", "oldBelief": "I'm too old / too late / too behind.", "newBelief": "I'm exactly on time for my own life. The timeline was never someone else's.", "integration": "Do one thing today that future-you will thank you for." },
+    { "id": "lb07", "category": "limiting-belief-rewrite", "oldBelief": "I have to figure it all out before I start.", "newBelief": "Clarity comes through motion. The next right step is enough.", "integration": "Take one small action on the thing you've been researching for months." },
+    { "id": "lb08", "category": "limiting-belief-rewrite", "oldBelief": "If it's easy, it doesn't count.", "newBelief": "Ease is a signal of alignment, not a shortcut. Struggle is not proof of value.", "integration": "Notice one thing that was easy today. Let yourself count it." },
+    { "id": "lb09", "category": "limiting-belief-rewrite", "oldBelief": "I'll be loved when I'm fixed.", "newBelief": "I am lovable now — in progress, in healing, in this exact moment.", "integration": "Receive one piece of kindness today without deflecting." },
+    { "id": "lb10", "category": "limiting-belief-rewrite", "oldBelief": "My dreams are too much / too big / too strange.", "newBelief": "What feels too big to my small self is exactly the size of my next self.", "integration": "Tell one trusted person one of your 'too big' dreams this week." }
+  ],
+  "gratitudeActivations": [
+    { "id": "ga01", "category": "gratitude-activation", "prompt": "Write a thank-you, in detail, to your future self for the thing she is about to receive.", "framing": "Speak as if it has already arrived. What does she say about how it feels to have it?" },
+    { "id": "ga02", "category": "gratitude-activation", "prompt": "Describe the afternoon, one year from now, when the thing you're calling in is simply part of your life.", "framing": "Not the arrival moment — the normal Tuesday with it." },
+    { "id": "ga03", "category": "gratitude-activation", "prompt": "What are you grateful for about right now, exactly as it is, that will still matter in five years?", "framing": "Get beneath the gratitude for circumstances to the gratitude for the essence." },
+    { "id": "ga04", "category": "gratitude-activation", "prompt": "Thank the three people who are helping you become the version of you who receives what you're calling in.", "framing": "They may not know yet. Thank them anyway." },
+    { "id": "ga05", "category": "gratitude-activation", "prompt": "Name three parts of your body that have carried you through everything — and thank each one specifically.", "framing": "The feet that walked it. The heart that beat through it. The hands that held it." },
+    { "id": "ga06", "category": "gratitude-activation", "prompt": "What 'no' in your past turned out to be a protection?", "framing": "Thank the no. It was working for you, even when it didn't feel like it." },
+    { "id": "ga07", "category": "gratitude-activation", "prompt": "Three things you're grateful for that you didn't have to earn.", "framing": "The breath. The light. The ground. What else?" },
+    { "id": "ga08", "category": "gratitude-activation", "prompt": "Write a gratitude letter to the hardest year of your life. What did it give you that only it could?", "framing": "You don't have to be grateful for the pain. You can be grateful for the strength that grew in response to it." },
+    { "id": "ga09", "category": "gratitude-activation", "prompt": "Name one thing you used to pray for that you now have and take for granted.", "framing": "Receive it again, today, as if it just arrived." },
+    { "id": "ga10", "category": "gratitude-activation", "prompt": "What's one beautiful thing about your current life that your ten-year-old self would be overjoyed to hear about?", "framing": "Let her feel it." }
+  ],
+  "dailyIntentionRituals": [
+    {
+      "id": "dr01",
+      "category": "daily-ritual",
+      "title": "The Three Breaths",
+      "duration": 2,
+      "instructions": "Before your feet touch the floor: take three slow breaths. On the first, say: Thank you. On the second, say: I am here. On the third, say one intention for the day.",
+      "bestTime": "First thing in the morning"
+    },
+    {
+      "id": "dr02",
+      "category": "daily-ritual",
+      "title": "The Candle Commitment",
+      "duration": 3,
+      "instructions": "Light a small candle at your vision board or somewhere meaningful. Look at one item on your board. Say: 'I'm willing to become who receives this.' Sit with it for three breaths. Blow out the candle with intention.",
+      "bestTime": "Morning"
+    },
+    {
+      "id": "dr03",
+      "category": "daily-ritual",
+      "title": "The Body Check",
+      "duration": 4,
+      "instructions": "Three times a day, pause for one minute. Ask your body: 'What do you need right now?' Listen without fixing. Give one small thing — a breath, water, a stretch, a no. Move on.",
+      "bestTime": "Three times a day"
+    },
+    {
+      "id": "dr04",
+      "category": "daily-ritual",
+      "title": "The Evening Empty",
+      "duration": 5,
+      "instructions": "Before bed, write down three things from today: one you're proud of, one you're letting go of, one you're calling in for tomorrow. Close the notebook. That's the transition.",
+      "bestTime": "Before sleep"
+    },
+    {
+      "id": "dr05",
+      "category": "daily-ritual",
+      "title": "The Mirror Meeting",
+      "duration": 2,
+      "instructions": "Look into your own eyes in a mirror for 60 seconds. Don't perform. Don't look away. Say one honest thing. Could be 'I see you.' Could be 'I'm sorry.' Could be 'I'm proud of you.' Let it land.",
+      "bestTime": "Morning or evening"
+    }
+  ],
+  "weeklyReview": [
+    { "id": "wr01", "category": "weekly-review", "prompt": "What landed this week — felt received, integrated, real?", "followUp": "What does that teach me about how I receive?" },
+    { "id": "wr02", "category": "weekly-review", "prompt": "Where did I abandon myself this week? Where did I come back?", "followUp": "What made the return possible?" },
+    { "id": "wr03", "category": "weekly-review", "prompt": "What did my body tell me this week that I finally listened to — and what is it still asking me to hear?", "followUp": "How will I listen next week?" },
+    { "id": "wr04", "category": "weekly-review", "prompt": "Where was I most aligned this week? Least aligned?", "followUp": "What's one small adjustment for next week?" },
+    { "id": "wr05", "category": "weekly-review", "prompt": "What belief did I catch running this week — and am I ready to retire it?", "followUp": "What's the updated version?" }
+  ],
+  "moonRituals": [
+    {
+      "id": "mr01",
+      "category": "new-moon",
+      "title": "New Moon Seed Planting",
+      "duration": 15,
+      "script": "The new moon is the dark — the moment before growth. What you plant here grows over the next 28 days.\n\nLight a candle. Sit somewhere quiet. Three deep breaths to arrive.\n\nAsk yourself: what am I planting this cycle? Not ten things. Three. Choose carefully.\n\nWrite them on a piece of paper. Read them out loud.\n\nSay: 'I plant these in the dark. I trust the dark to grow them. I'll tend them without rushing them.'\n\nFold the paper. Keep it somewhere private. Blow out the candle. The ritual is complete.\n\nReturn to the paper at the full moon and reflect on what has shifted.",
+      "bestTime": "Within 48 hours of the new moon"
+    },
+    {
+      "id": "mr02",
+      "category": "full-moon",
+      "title": "Full Moon Release",
+      "duration": 15,
+      "script": "The full moon is illumination — the moment to see clearly and release what you don't need to carry forward.\n\nLight a candle. Sit somewhere quiet. Three deep breaths to arrive.\n\nAsk yourself: what am I ready to release this cycle? Not everything. Choose what is most ready to go.\n\nWrite it on paper. Read it out loud. Feel where it lives in the body.\n\nSay: 'I release you. You did what you came to do. I'm not going to carry you into the next cycle.'\n\nBurn the paper safely (in a fire-proof bowl, outside, or over the sink). Flush the ashes, or scatter them.\n\nClose by saying: 'Thank you. I am lighter. I am whole.'\n\nBlow out the candle. Feel what is now available in the space that weight occupied.",
+      "bestTime": "Within 48 hours of the full moon",
+      "safety": "Fire safety first. Use a stainless-steel or ceramic bowl. Have water nearby. Do not leave unattended."
+    },
+    {
+      "id": "mr03",
+      "category": "new-moon",
+      "title": "New Moon Body Prayer",
+      "duration": 10,
+      "script": "Lie on your back. Hands on your belly.\n\nTake three slow breaths. Feel the warmth of your own hands.\n\nSay silently: 'This body is the ground I grow from. What I plant this month, I plant in myself first.'\n\nBring to mind what you're calling in. See it in your body — not in your head. Where does it live?\n\nBreathe into that place. Let it get warm. Let it feel wanted.\n\nStay there for five minutes. Nothing else.\n\nClose by putting both hands on your heart and saying: 'I'm ready.'",
+      "bestTime": "Evening of or within 24 hours of new moon"
+    },
+    {
+      "id": "mr04",
+      "category": "full-moon",
+      "title": "Full Moon Water Blessing",
+      "duration": 12,
+      "script": "Fill a glass of water. Sit somewhere quiet with it in front of you.\n\nThree deep breaths to arrive.\n\nLook at the water. Speak into it, out loud:\n\n'Thank you for the month that was. I release what I no longer need to carry. I bless what I am becoming. I drink this with gratitude.'\n\nDrink the water slowly. Feel it move into the body.\n\nSay: 'This body is my home. This moment is enough. I am whole.'\n\nSit quietly for a few minutes after. Let the work settle.",
+      "bestTime": "Full moon evening"
+    },
+    {
+      "id": "mr05",
+      "category": "new-moon",
+      "title": "New Moon Vision Board Activation",
+      "duration": 20,
+      "script": "Take out your vision board. Look at it slowly. Not with the mind — with the body.\n\nThree deep breaths.\n\nFor each image or word on the board, pause briefly. Ask: 'Do I still want this? Does my body still want this?' Some may have shifted. That's wisdom, not failure.\n\nAdd anything that's been calling. Remove anything that's grown quiet.\n\nNow light a candle and place it near the board. Say:\n\n'I am willing to become the version of me who receives everything on this board — and I'm willing to receive it at the speed it arrives, not the speed I demand.'\n\nSit with the board for five minutes. Let it speak.\n\nBlow out the candle. The month has begun.",
+      "bestTime": "Within 72 hours of new moon",
+      "recommendation": "Pair with the Morning Activation ritual script (rituals/morning-activation.txt)"
+    }
+  ]
+}

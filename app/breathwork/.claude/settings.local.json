@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "PowerShell(Push-Location 'C:\\\\Users\\\\serka\\\\soma\\\\app'; try { $out = & 'C:\\\\Program Files\\\\nodejs\\\\npx.cmd' tsc --noEmit 2>&1; \"exit=$LASTEXITCODE\"; \"lines=$\\($out.Count\\)\"; $out | Select-Object -First 50 } finally { Pop-Location })",
+      "Bash(grep -E \"\\\\.\\(md|json\\)$\")",
+      "Read(//c/Users/serka/soma/app/.expo/**)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__browser_batch",
+      "mcp__Claude_in_Chrome__navigate",
+      "PowerShell($test = Test-NetConnection -ComputerName localhost -Port 8081 -InformationLevel Quiet -WarningAction SilentlyContinue; \"port_8081_open=$test\"; Get-Process -Name node -ErrorAction SilentlyContinue | Measure-Object | Select-Object -ExpandProperty Count | ForEach-Object { \"node_processes=$_\" })",
+      "PowerShell($test = Test-NetConnection -ComputerName localhost -Port 8081 -InformationLevel Quiet -WarningAction SilentlyContinue; \"port_8081_open=$test\")",
+      "Read(//c/Users/serka/soma/app/node_modules/circular-natal-horoscope-js/**)",
+      "Read(//c/Users/serka/soma/app/**)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri 'https://dist-sage-ten-11.vercel.app' -Method Get -TimeoutSec 15 -ErrorAction Stop; Write-Output \"STATUS $\\($r.StatusCode\\)\"; Write-Output $r.Content.Substring\\(0, [Math]::Min\\(800, $r.Content.Length\\)\\) } catch { Write-Output \"STATUS $\\($_.Exception.Response.StatusCode.value__\\)\"; if \\($_.Exception.Response\\) { $stream = $_.Exception.Response.GetResponseStream\\(\\); $reader = New-Object System.IO.StreamReader\\($stream\\); Write-Output $reader.ReadToEnd\\(\\).Substring\\(0, 800\\) } })",
+      "Bash(mkdir -p \"C:/Users/serka/soma/app/app/path\")",
+      "Bash(ls -la \"C:/Users/serka/soma/app/\" 2>&1 | head -20; echo \"---\"; ls -la \"C:/Users/serka/soma/\" 2>&1 | head -10)",
+      "Bash(gh --version)",
+      "Bash(git --version)",
+      "Bash(gh auth *)"
+    ]
+  }
+}

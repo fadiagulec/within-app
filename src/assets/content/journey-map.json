@@ -1,0 +1,584 @@
+{
+  "program": {
+    "title": "The 21-Day Burnout Recovery Journey",
+    "subtitle": "Come back to yourself. In three weeks.",
+    "description": "A clinically-informed, chakra-grounded path out of burnout. Every day builds on the last. Morning practice resets the nervous system; evening session does the deeper work; journaling and integration lock it in.",
+    "totalDays": 21,
+    "dailyTimeCommitment": "25-40 minutes total",
+    "weeks": [
+      { "week": 1, "theme": "GROUND", "focus": "Nervous System Reset", "color": "#8B4513", "days": "1-7" },
+      { "week": 2, "theme": "RELEASE", "focus": "Emotional Unblock", "color": "#E85D4A", "days": "8-14" },
+      { "week": 3, "theme": "RISE", "focus": "Clarity & Rebuild", "color": "#4A6FE8", "days": "15-21" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1,
+      "week": 1,
+      "weekTheme": "GROUND",
+      "dayTitle": "Arriving in Your Body",
+      "chakra": "root",
+      "hook": "You are allowed to stop running. Let's begin where you actually are.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/05-box-breath.txt",
+        "duration": 10,
+        "title": "Box Breath — Find Center"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/01-root-01-awaken.txt",
+        "duration": 15,
+        "title": "Root Awaken — The Ground Beneath You"
+      },
+      "journalingPrompt": "What does it feel like in your body right now, without trying to fix anything?",
+      "integrationAction": "Before bed, place one hand on your heart and one on your belly. Take five slow breaths. Notice which hand moved more.",
+      "reflectionQuestion": "What is one sensation in your body that surprised you today?",
+      "mantra": "LAM",
+      "scienceNote": "Box breathing activates the parasympathetic nervous system within 90 seconds. This is your biological return-to-baseline."
+    },
+    {
+      "day": 2,
+      "week": 1,
+      "weekTheme": "GROUND",
+      "dayTitle": "The Ground Beneath You",
+      "chakra": "root",
+      "hook": "Your body has been carrying things that were never yours. Today we start putting them down.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/02-alternate-nostril.txt",
+        "duration": 10,
+        "title": "Alternate Nostril — Balance"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/01-root-02-release.txt",
+        "duration": 15,
+        "title": "Root Release — What You've Been Carrying"
+      },
+      "journalingPrompt": "What is one burden I've been carrying that was never actually mine to hold?",
+      "integrationAction": "Walk barefoot outside for three minutes. Grass, dirt, tile, carpet — anything. Let the feet feel held by the earth.",
+      "reflectionQuestion": "Where in my life am I bracing for something that hasn't happened yet?",
+      "mantra": "LAM",
+      "scienceNote": "Alternate nostril breathing balances the left and right hemispheres and regulates heart rate variability — a key marker of nervous system health."
+    },
+    {
+      "day": 3,
+      "week": 1,
+      "weekTheme": "GROUND",
+      "dayTitle": "Safety Is Possible",
+      "chakra": "root",
+      "hook": "Burnout taught your body that safety is a lie. Today we tell the body the truth.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/04-four-seven-eight.txt",
+        "duration": 8,
+        "title": "4-7-8 Breath — Down-Regulate"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/01-root-03-activate.txt",
+        "duration": 15,
+        "title": "Root Activate — Belonging Here"
+      },
+      "journalingPrompt": "When was the last time my body felt genuinely safe? What was happening around me?",
+      "integrationAction": "Find one object in your home that has been with you a long time. Hold it. Thank it for staying.",
+      "reflectionQuestion": "What does safety feel like in my body — not as an idea, but as a sensation?",
+      "mantra": "LAM",
+      "scienceNote": "The 4-7-8 pattern stimulates the vagus nerve and down-regulates cortisol. Use it anytime the body spikes into fight-or-flight."
+    },
+    {
+      "day": 4,
+      "week": 1,
+      "weekTheme": "GROUND",
+      "dayTitle": "You Are Allowed to Feel",
+      "chakra": "sacral",
+      "hook": "You didn't burn out because you felt too much. You burned out because you weren't allowed to.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/02-alternate-nostril.txt",
+        "duration": 10,
+        "title": "Alternate Nostril — Emotional Balance"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/02-sacral-01-awaken.txt",
+        "duration": 15,
+        "title": "Sacral Awaken — The Body Remembers"
+      },
+      "journalingPrompt": "What emotion have I been swallowing lately? What would it say if I let it speak?",
+      "integrationAction": "Put on one song that makes you feel something — anything. Let your body move with it, even subtly, for one full song.",
+      "reflectionQuestion": "Which emotion am I most uncomfortable feeling — and why?",
+      "mantra": "VAM",
+      "scienceNote": "Emotions that aren't processed get stored somatically. Movement and breath are the body's primary release channels."
+    },
+    {
+      "day": 5,
+      "week": 1,
+      "weekTheme": "GROUND",
+      "dayTitle": "Release What Was Never Yours",
+      "chakra": "sacral",
+      "hook": "Some of what you're feeling belongs to someone else. Today we return it.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/03-diaphragm-release.txt",
+        "duration": 12,
+        "title": "Diaphragm Release — Open the Vessel"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/02-sacral-02-release.txt",
+        "duration": 15,
+        "title": "Sacral Release — Not Yours To Carry"
+      },
+      "journalingPrompt": "Whose feelings, expectations, or fears have I absorbed as my own? What would it mean to give them back?",
+      "integrationAction": "Write one sentence on paper: 'This was never mine.' Then tear it up, burn it safely, or flush it. Let the body feel the release.",
+      "reflectionQuestion": "What do I feel lighter about after today's session?",
+      "mantra": "VAM",
+      "scienceNote": "The diaphragm holds chronic emotional tension. Releasing it frees the vagus nerve and unlocks deep breath capacity."
+    },
+    {
+      "day": 6,
+      "week": 1,
+      "weekTheme": "GROUND",
+      "dayTitle": "The Body Remembers",
+      "chakra": "sacral",
+      "hook": "Creativity is not a luxury. It's how the body heals.",
+      "morningPractice": {
+        "type": "meditation",
+        "reference": "meditations/07-morning-practice.txt",
+        "duration": 12,
+        "title": "Morning Elevation — Prime the System"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/02-sacral-03-activate.txt",
+        "duration": 15,
+        "title": "Sacral Activate — The Creative Well"
+      },
+      "journalingPrompt": "What have I stopped making, doing, or creating because I told myself I didn't have time?",
+      "integrationAction": "Spend five uninterrupted minutes making something with your hands. A doodle, a meal, a rearranged shelf. No purpose. Just making.",
+      "reflectionQuestion": "What lit me up today that I'd forgotten I loved?",
+      "mantra": "VAM",
+      "scienceNote": "Creative flow states lower cortisol and raise dopamine. Creativity is a somatic antidote to burnout."
+    },
+    {
+      "day": 7,
+      "week": 1,
+      "weekTheme": "GROUND",
+      "dayTitle": "Integration & Rest",
+      "chakra": "root-sacral",
+      "hook": "Rest is not the reward for doing the work. Rest is the work.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/07-grounding-breath.txt",
+        "duration": 10,
+        "title": "Ujjayi Grounding — Anchor"
+      },
+      "eveningSession": {
+        "type": "meditation",
+        "reference": "meditations/05-deep-rest.txt",
+        "duration": 25,
+        "title": "Deep Rest — Yoga Nidra"
+      },
+      "journalingPrompt": "Looking back on week one: what has softened? What has surfaced? What has my body been trying to tell me?",
+      "integrationAction": "Take a real rest today. Not a scroll. Not a task. Twenty minutes of nothing. Yes — you're allowed.",
+      "reflectionQuestion": "What do I already know that I've been pretending not to know?",
+      "mantra": "LAM + VAM",
+      "scienceNote": "Yoga nidra produces measurable shifts in brainwave state — moving from beta (thinking) into alpha and theta (restoration). Twenty minutes equals roughly two hours of sleep, neurologically."
+    },
+    {
+      "day": 8,
+      "week": 2,
+      "weekTheme": "RELEASE",
+      "dayTitle": "Reclaim Your Worth",
+      "chakra": "solar-plexus",
+      "hook": "Your worth was never tied to your output. Today we take it back.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/01-fire-breath.txt",
+        "duration": 12,
+        "title": "Fire Breath — Ignite"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/03-solar-01-awaken.txt",
+        "duration": 15,
+        "title": "Solar Plexus Awaken — Reclaim Your Power"
+      },
+      "journalingPrompt": "Where have I confused my worth with my productivity? Who taught me that?",
+      "integrationAction": "Say one 'no' today that you usually say yes to. Even a small one. Notice what happens in your body after.",
+      "reflectionQuestion": "What would I be doing right now if I truly believed I was enough?",
+      "mantra": "RAM",
+      "scienceNote": "Fire breath oxygenates the bloodstream and activates the core — physiologically reinforcing a sense of internal power."
+    },
+    {
+      "day": 9,
+      "week": 2,
+      "weekTheme": "RELEASE",
+      "dayTitle": "The Fire Returns",
+      "chakra": "solar-plexus",
+      "hook": "The fire didn't die. It just got buried. Today we dig.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/01-fire-breath.txt",
+        "duration": 12,
+        "title": "Fire Breath — Stoke"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/03-solar-02-release.txt",
+        "duration": 15,
+        "title": "Solar Plexus Release — Shame Out"
+      },
+      "journalingPrompt": "What am I quietly ashamed of that, when I look at it clearly, I didn't actually do anything wrong?",
+      "integrationAction": "Look in a mirror. Hold your own eyes for 60 seconds without looking away. Say, 'I'm still here.'",
+      "reflectionQuestion": "What did the session bring up that I haven't let myself feel before?",
+      "mantra": "RAM",
+      "scienceNote": "Shame lives in the body as collapse — curled posture, shallow breath, averted gaze. Mirror work and breath practice directly interrupt that pattern."
+    },
+    {
+      "day": 10,
+      "week": 2,
+      "weekTheme": "RELEASE",
+      "dayTitle": "Unshakeable",
+      "chakra": "solar-plexus",
+      "hook": "Power is not pushing harder. Power is knowing you can stop.",
+      "morningPractice": {
+        "type": "meditation",
+        "reference": "meditations/07-morning-practice.txt",
+        "duration": 12,
+        "title": "Morning Elevation — Step Into The Day"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/03-solar-03-activate.txt",
+        "duration": 15,
+        "title": "Solar Plexus Activate — Unshakeable"
+      },
+      "journalingPrompt": "When in my life have I felt most like myself? What conditions made that possible?",
+      "integrationAction": "Stand tall. Feet wide. Hands on hips. Stay there for two minutes. Breathe into your belly. Let your body remember its full size.",
+      "reflectionQuestion": "What decision have I been avoiding that I already know the answer to?",
+      "mantra": "RAM",
+      "scienceNote": "Expansive posture for two minutes shifts testosterone and cortisol ratios — a measurable biochemical signature of confidence."
+    },
+    {
+      "day": 11,
+      "week": 2,
+      "weekTheme": "RELEASE",
+      "dayTitle": "Opening The Heart",
+      "chakra": "heart",
+      "hook": "You didn't become hard. You became protected. Now — gently — we soften.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/02-alternate-nostril.txt",
+        "duration": 10,
+        "title": "Alternate Nostril — Open the Channels"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/04-heart-01-awaken.txt",
+        "duration": 15,
+        "title": "Heart Awaken — The Door Unlatches"
+      },
+      "journalingPrompt": "What have I been closed to, and what did I lose when I closed?",
+      "integrationAction": "Text or call one person you love. No agenda. Just: 'I was thinking of you.'",
+      "reflectionQuestion": "Where in my life have I traded connection for self-protection?",
+      "mantra": "YAM",
+      "scienceNote": "The heart has its own neural network (the 'heart-brain'). When it opens, the vagus nerve broadcasts coherence signals to every organ."
+    },
+    {
+      "day": 12,
+      "week": 2,
+      "weekTheme": "RELEASE",
+      "dayTitle": "Grief Has A Home",
+      "chakra": "heart",
+      "hook": "There is grief in you that has been waiting. Today we make space for it.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/03-diaphragm-release.txt",
+        "duration": 12,
+        "title": "Diaphragm Release — Open the Grief"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/04-heart-02-release.txt",
+        "duration": 15,
+        "title": "Heart Release — Let the Grief Move"
+      },
+      "journalingPrompt": "What or who have I never fully grieved? What would it look like to finally let that matter?",
+      "integrationAction": "Light a candle for someone or something lost. Sit with it for five minutes. No prayer needed — just presence.",
+      "reflectionQuestion": "What did I cry for today that I didn't know I was still holding?",
+      "mantra": "YAM",
+      "scienceNote": "Unprocessed grief shows up as chronic chest tightness, shallow breath, and low-grade depression. Feeling it is how it moves."
+    },
+    {
+      "day": 13,
+      "week": 2,
+      "weekTheme": "RELEASE",
+      "dayTitle": "Love Is Still Here",
+      "chakra": "heart",
+      "hook": "After the grief — love. More of it than you remembered you could hold.",
+      "morningPractice": {
+        "type": "meditation",
+        "reference": "meditations/07-morning-practice.txt",
+        "duration": 12,
+        "title": "Morning Elevation — Heart Open"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/04-heart-03-activate.txt",
+        "duration": 15,
+        "title": "Heart Activate — Love Is Still Here",
+        "pairedWith": {
+          "reference": "meditations/03-relationship-magic.txt",
+          "duration": 20,
+          "title": "Relationship Magic (optional deeper dive)"
+        }
+      },
+      "journalingPrompt": "Who in my life deserves more of me than I've been giving? What would change if I showed up fully?",
+      "integrationAction": "Write a letter to someone living. Tell them what they mean to you. Send it — or don't. The writing is the work.",
+      "reflectionQuestion": "Where is love already present in my life that I've stopped noticing?",
+      "mantra": "YAM",
+      "scienceNote": "Heart coherence — a measurable state of synchronized heart-brain rhythm — is triggered most reliably by felt gratitude and love, not thought about them."
+    },
+    {
+      "day": 14,
+      "week": 2,
+      "weekTheme": "RELEASE",
+      "dayTitle": "Midpoint Integration",
+      "chakra": "heart",
+      "hook": "Two weeks in. Something is different. Let's meet it.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/07-grounding-breath.txt",
+        "duration": 10,
+        "title": "Ujjayi Grounding — Anchor In"
+      },
+      "eveningSession": {
+        "type": "meditation",
+        "reference": "meditations/04-body-temple.txt",
+        "duration": 20,
+        "title": "Body Temple — Return to Home",
+        "pairedWith": {
+          "reference": "meditations/08-evening-integration.txt",
+          "duration": 15,
+          "title": "Evening Integration"
+        }
+      },
+      "journalingPrompt": "Who am I today that I wasn't two weeks ago? What am I ready to leave behind permanently?",
+      "integrationAction": "Take a long shower or bath. Wash slowly. Thank each part of the body out loud as you cleanse it.",
+      "reflectionQuestion": "If I kept doing this work, who could I become in another six months?",
+      "mantra": "YAM",
+      "scienceNote": "Integration days consolidate neuroplastic changes. The practice isn't less important — it's the day the changes actually lock in."
+    },
+    {
+      "day": 15,
+      "week": 3,
+      "weekTheme": "RISE",
+      "dayTitle": "Speak Your Truth",
+      "chakra": "throat",
+      "hook": "The things you've stopped saying are what's making you sick.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/07-grounding-breath.txt",
+        "duration": 10,
+        "title": "Ujjayi — Find the Voice"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/05-throat-01-awaken.txt",
+        "duration": 15,
+        "title": "Throat Awaken — The Honest Voice"
+      },
+      "journalingPrompt": "What am I not saying? To whom? And what is it costing me to keep it in?",
+      "integrationAction": "Say one true thing today that you'd normally keep to yourself. Small and honest. Out loud.",
+      "reflectionQuestion": "Where in my life am I performing instead of speaking?",
+      "mantra": "HAM",
+      "scienceNote": "Ujjayi breath vibrates the vocal folds and stimulates the vagus nerve — literally tuning the instrument of your voice."
+    },
+    {
+      "day": 16,
+      "week": 3,
+      "weekTheme": "RISE",
+      "dayTitle": "The Voice You Silenced",
+      "chakra": "throat",
+      "hook": "Somewhere, a younger you decided it wasn't safe to speak. We're going to find her.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/03-diaphragm-release.txt",
+        "duration": 12,
+        "title": "Diaphragm Release — Free the Channel"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/05-throat-02-release.txt",
+        "duration": 15,
+        "title": "Throat Release — Unsilence"
+      },
+      "journalingPrompt": "When did I learn it wasn't safe to speak? What happened? What did I decide about myself?",
+      "integrationAction": "Hum or sing for three minutes. Anywhere — shower, car, kitchen. Let the vocal cords remember they're yours.",
+      "reflectionQuestion": "What would the younger version of me need to hear right now?",
+      "mantra": "HAM",
+      "scienceNote": "The throat and diaphragm are connected by fascial lines. Releasing one frees the other — this is why breath practice unlocks speech."
+    },
+    {
+      "day": 17,
+      "week": 3,
+      "weekTheme": "RISE",
+      "dayTitle": "Clear Sight",
+      "chakra": "third-eye",
+      "hook": "Your intuition didn't leave. It just got drowned out. Today we listen again.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/02-alternate-nostril.txt",
+        "duration": 10,
+        "title": "Alternate Nostril — Clear the Channels"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/06-third-eye-01-awaken.txt",
+        "duration": 15,
+        "title": "Third Eye Awaken — Inner Sight"
+      },
+      "journalingPrompt": "What have I known but refused to know? What has my intuition been telling me that I keep overriding?",
+      "integrationAction": "Spend five minutes today doing absolutely nothing. No phone. No music. No plan. Let the mind clear so you can hear it.",
+      "reflectionQuestion": "What did I 'just know' today that turned out to be right?",
+      "mantra": "OM",
+      "scienceNote": "Intuition is pattern recognition the cortex hasn't verbalized yet. Stillness is how the signal becomes audible."
+    },
+    {
+      "day": 18,
+      "week": 3,
+      "weekTheme": "RISE",
+      "dayTitle": "See Clearly Again",
+      "chakra": "third-eye",
+      "hook": "When the noise drops, the next right step becomes obvious.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/05-box-breath.txt",
+        "duration": 10,
+        "title": "Box Breath — Steady the Vision"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/06-third-eye-02-release.txt",
+        "duration": 15,
+        "title": "Third Eye Release — Drop the Distortion",
+        "pairedWith": {
+          "reference": "chakras/06-third-eye-03-activate.txt",
+          "duration": 15,
+          "title": "Third Eye Activate — Inner Knowing"
+        }
+      },
+      "journalingPrompt": "What story have I been telling myself about my life that I'm ready to retire? What's closer to the truth?",
+      "integrationAction": "Write down the next one true decision in your life. Not the strategy. The decision. Keep it visible for a week.",
+      "reflectionQuestion": "What became obvious today that was foggy a week ago?",
+      "mantra": "OM",
+      "scienceNote": "Decision fatigue is a real neurological state. Practices that quiet the default-mode network restore the capacity for clear seeing."
+    },
+    {
+      "day": 19,
+      "week": 3,
+      "weekTheme": "RISE",
+      "dayTitle": "Remember Who You Are",
+      "chakra": "crown",
+      "hook": "You are not what happened to you. You are what chose to rise from it.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/06-activation-breath.txt",
+        "duration": 15,
+        "title": "Activation Breath — Open the Crown"
+      },
+      "eveningSession": {
+        "type": "chakra",
+        "reference": "chakras/07-crown-01-awaken.txt",
+        "duration": 15,
+        "title": "Crown Awaken — Remember",
+        "pairedWith": {
+          "reference": "chakras/07-crown-02-release.txt",
+          "duration": 15,
+          "title": "Crown Release — Drop the Mask",
+          "alsoPairedWith": {
+            "reference": "chakras/07-crown-03-activate.txt",
+            "duration": 15,
+            "title": "Crown Activate — Wholeness"
+          }
+        }
+      },
+      "journalingPrompt": "What have I always known about myself that the world has tried to talk me out of?",
+      "integrationAction": "Write three things about yourself that are unchanging — not jobs, not roles, not achievements. Essence. Pin them where you'll see them.",
+      "reflectionQuestion": "Who have I always been, underneath all of it?",
+      "mantra": "AH / Silence",
+      "scienceNote": "Rhythmic hyperventilation-style breath practices shift blood chemistry briefly and can produce profound state changes. Work within your capacity and never practice in water."
+    },
+    {
+      "day": 20,
+      "week": 3,
+      "weekTheme": "RISE",
+      "dayTitle": "Abundance Returns",
+      "chakra": "all",
+      "hook": "When the nervous system is regulated, abundance is not manifested — it's received.",
+      "morningPractice": {
+        "type": "breathwork",
+        "reference": "breathwork/01-fire-breath.txt",
+        "duration": 12,
+        "title": "Fire Breath — Power"
+      },
+      "eveningSession": {
+        "type": "meditation",
+        "reference": "meditations/01-abundance-activation.txt",
+        "duration": 20,
+        "title": "Abundance Activation",
+        "pairedWith": {
+          "reference": "meditations/06-money-clearing.txt",
+          "duration": 18,
+          "title": "Money Clearing — Release Scarcity"
+        }
+      },
+      "journalingPrompt": "What belief about money, worth, or scarcity did I inherit? Where does it live in my body?",
+      "integrationAction": "Spend something today — time, money, energy — on yourself without guilt. Small is fine. The practice is the unguilty part.",
+      "reflectionQuestion": "What in my life right now is already more abundant than I've been letting myself admit?",
+      "mantra": "All Seven",
+      "scienceNote": "Scarcity creates measurable narrowing of attention and working memory. Regulating the system literally expands the sense of possibility."
+    },
+    {
+      "day": 21,
+      "week": 3,
+      "weekTheme": "RISE",
+      "dayTitle": "The Rise",
+      "chakra": "all",
+      "hook": "You came in depleted. You are leaving integrated. Today we crown the work.",
+      "morningPractice": {
+        "type": "meditation",
+        "reference": "meditations/07-morning-practice.txt",
+        "duration": 12,
+        "title": "Morning Elevation — Full Spectrum"
+      },
+      "eveningSession": {
+        "type": "meditation",
+        "reference": "meditations/02-super-performance.txt",
+        "duration": 22,
+        "title": "Super Performance — Integrated Self",
+        "pairedWith": {
+          "reference": "meditations/08-evening-integration.txt",
+          "duration": 15,
+          "title": "Evening Integration — Graduation Ritual"
+        }
+      },
+      "journalingPrompt": "Write a letter to the you who started this journey on Day 1. What do you want her to know?",
+      "integrationAction": "Graduation ritual: Light a candle. Read your Day 1 journal entry aloud. Then read your Day 21 entry. Let the difference land. Blow the candle out with intention.",
+      "reflectionQuestion": "What is one commitment I am making to the version of me who just rose?",
+      "mantra": "All Seven + Silence",
+      "scienceNote": "The final integration day consolidates three weeks of neurological change into long-term pattern. Rituals mark transitions for the body — they are how the nervous system knows something is finished."
+    }
+  ],
+  "graduation": {
+    "message": "You didn't fix yourself. You came home. The rest of your life is the practice.",
+    "nextSteps": [
+      "Pick three practices from the journey to keep daily",
+      "Schedule a 'return week' at 60 days to revisit the work",
+      "Consider 1:1 coaching or community for deeper integration"
+    ]
+  }
+}
