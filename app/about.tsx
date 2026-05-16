@@ -72,7 +72,7 @@ export default function AboutPage() {
               accessibilityLabel="Open the app"
               style={[styles.btnPrimary, { backgroundColor: tokens.semantic.accent }]}
             >
-              <Text variant="body" color={tokens.semantic.textOnGold} style={{ fontSize: 15 }}>
+              <Text variant="body" color={tokens.semantic.textOnGold} style={{ fontSize: 18 }}>
                 Open the app →
               </Text>
             </Pressable>
@@ -82,7 +82,7 @@ export default function AboutPage() {
               accessibilityLabel="See retreats"
               style={[styles.btnGhost, { borderColor: tokens.semantic.borderStrong }]}
             >
-              <Text variant="body" color={tokens.semantic.textPrimary} style={{ fontSize: 15 }}>
+              <Text variant="body" color={tokens.semantic.textPrimary} style={{ fontSize: 18 }}>
                 See retreats
               </Text>
             </Pressable>
@@ -125,13 +125,13 @@ export default function AboutPage() {
                 key={f.title}
                 style={[styles.featCard, { borderColor: `${f.accent}55`, backgroundColor: `${f.accent}10` }]}
               >
-                <Text variant="mono" color={f.accent} style={{ fontSize: 11, letterSpacing: 1.5 }}>
+                <Text variant="mono" color={f.accent} style={{ fontSize: 13, letterSpacing: 1.5 }}>
                   {f.kicker}
                 </Text>
-                <Text variant="heading3" color={tokens.semantic.textPrimary} style={{ marginTop: 6, fontSize: 18 }}>
+                <Text variant="heading3" color={tokens.semantic.textPrimary} style={{ marginTop: 8, fontSize: 22 }}>
                   {f.title}
                 </Text>
-                <Text variant="bodySmall" color={tokens.semantic.textSecondary} style={{ marginTop: 6, fontSize: 13, lineHeight: 19 }}>
+                <Text variant="bodySmall" color={tokens.semantic.textSecondary} style={{ marginTop: 8, fontSize: 16, lineHeight: 24 }}>
                   {f.desc}
                 </Text>
               </View>
@@ -158,15 +158,15 @@ export default function AboutPage() {
               style={[styles.planRow, { borderColor: `${p.accent}55`, backgroundColor: `${p.accent}14` }]}
             >
               <View style={{ flex: 1 }}>
-                <Text variant="heading3" color={tokens.semantic.textPrimary} style={{ fontSize: 19 }}>
+                <Text variant="heading3" color={tokens.semantic.textPrimary} style={{ fontSize: 23 }}>
                   {p.title}
                 </Text>
-                <Text variant="displayItalic" color={tokens.semantic.textSecondary} style={{ marginTop: 4, fontSize: 16 }}>
+                <Text variant="displayItalic" color={tokens.semantic.textSecondary} style={{ marginTop: 6, fontSize: 18 }}>
                   {p.tagline}
                 </Text>
               </View>
               <View style={[styles.planTag, { backgroundColor: `${p.accent}33`, borderColor: p.accent }]}>
-                <Text variant="mono" color={tokens.semantic.textPrimary} style={{ fontSize: 11, letterSpacing: 1.5 }}>
+                <Text variant="mono" color={tokens.semantic.textPrimary} style={{ fontSize: 13, letterSpacing: 1.5 }}>
                   21 DAYS
                 </Text>
               </View>
@@ -176,7 +176,7 @@ export default function AboutPage() {
 
         {/* ─── Section 4 — Brand voice quote ────────────────── */}
         <View style={[styles.quoteSection, { borderColor: `${tokens.semantic.accent}66`, backgroundColor: `${tokens.semantic.accent}1A` }]}>
-          <Text variant="mono" color={tokens.semantic.accent} style={{ fontSize: 11, letterSpacing: 1.8 }}>
+          <Text variant="mono" color={tokens.semantic.accent} style={{ fontSize: 13, letterSpacing: 1.8 }}>
             HOW WE TALK TO YOU
           </Text>
           <Text
@@ -214,10 +214,10 @@ export default function AboutPage() {
           <Text variant="eyebrow" color={tokens.semantic.accent}>
             START NOW
           </Text>
-          <Text variant="heading1" style={{ marginTop: 6, fontSize: 32 }}>
+          <Text variant="heading1" style={{ marginTop: 8, fontSize: 40 }}>
             Open the app.
           </Text>
-          <Text variant="body" color={tokens.semantic.textSecondary} style={{ marginTop: 12, fontSize: 15, lineHeight: 23 }}>
+          <Text variant="body" color={tokens.semantic.textSecondary} style={{ marginTop: 14, fontSize: 19, lineHeight: 29 }}>
             Free preview. Every paid section is unlocked while we finish payments.
             Take the Wheel of Life, get your daily protocol, listen to your first
             chakra frequency — in five minutes you will know if this is for you.
@@ -229,17 +229,17 @@ export default function AboutPage() {
             accessibilityLabel="Open the app"
             style={[styles.btnPrimaryLarge, { backgroundColor: tokens.semantic.accent }]}
           >
-            <Text variant="body" color={tokens.semantic.textOnGold} style={{ fontSize: 16 }}>
+            <Text variant="body" color={tokens.semantic.textOnGold} style={{ fontSize: 19 }}>
               Open Within →
             </Text>
           </Pressable>
 
           <View style={styles.waitlistBlock}>
-            <Text variant="mono" color={tokens.semantic.textTertiary} style={{ fontSize: 11, letterSpacing: 1.8, marginBottom: 8 }}>
+            <Text variant="mono" color={tokens.semantic.textTertiary} style={{ fontSize: 13, letterSpacing: 1.8, marginBottom: 10 }}>
               OR · JOIN THE LAUNCH LIST
             </Text>
             {done ? (
-              <Text variant="body" color={tokens.semantic.successSage} style={{ fontSize: 15 }}>
+              <Text variant="body" color={tokens.semantic.successSage} style={{ fontSize: 18 }}>
                 ✓ You are on the list. We will write before we open.
               </Text>
             ) : (
@@ -270,7 +270,7 @@ export default function AboutPage() {
                     },
                   ]}
                 >
-                  <Text variant="body" color={validEmail ? tokens.semantic.textOnGold : tokens.semantic.textTertiary} style={{ fontSize: 14 }}>
+                  <Text variant="body" color={validEmail ? tokens.semantic.textOnGold : tokens.semantic.textTertiary} style={{ fontSize: 17 }}>
                     Join
                   </Text>
                 </Pressable>
@@ -281,10 +281,10 @@ export default function AboutPage() {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text variant="mono" color={tokens.semantic.textTertiary} style={{ fontSize: 11, letterSpacing: 1.5 }}>
+          <Text variant="mono" color={tokens.semantic.textTertiary} style={{ fontSize: 13, letterSpacing: 1.5 }}>
             WITHIN · {Platform.OS === 'web' ? 'WEB PREVIEW' : 'BETA'}
           </Text>
-          <Text variant="bodySmall" color={tokens.semantic.textTertiary} style={{ marginTop: 8, fontSize: 12, lineHeight: 19, textAlign: 'center' }}>
+          <Text variant="bodySmall" color={tokens.semantic.textTertiary} style={{ marginTop: 10, fontSize: 15, lineHeight: 23, textAlign: 'center' }}>
             Built for people who are done waiting to feel like themselves.
           </Text>
         </View>
@@ -376,20 +376,20 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   eyebrow: {
-    fontSize: 12,
+    fontSize: 14,
     letterSpacing: 4,
-    marginBottom: 14,
+    marginBottom: 16,
   },
   h1: {
-    fontSize: 44,
-    lineHeight: 52,
+    fontSize: 56,
+    lineHeight: 64,
   },
   lead: {
-    marginTop: 22,
-    fontSize: 17,
-    lineHeight: 27,
+    marginTop: 26,
+    fontSize: 20,
+    lineHeight: 32,
     color: tokens.semantic.textPrimary,
-    maxWidth: 540,
+    maxWidth: 620,
   },
   ctaRow: {
     marginTop: 32,
@@ -419,21 +419,21 @@ const styles = StyleSheet.create({
     paddingVertical: 36,
   },
   sectionLabel: {
-    fontSize: 11,
+    fontSize: 13,
     letterSpacing: 2,
-    marginBottom: 12,
+    marginBottom: 14,
   },
   sectionH: {
-    fontSize: 32,
-    lineHeight: 40,
+    fontSize: 40,
+    lineHeight: 48,
     color: tokens.semantic.textPrimary,
   },
   sectionBody: {
-    marginTop: 16,
-    fontSize: 16,
-    lineHeight: 25,
+    marginTop: 18,
+    fontSize: 19,
+    lineHeight: 30,
     color: tokens.semantic.textPrimary,
-    maxWidth: 600,
+    maxWidth: 640,
   },
   featGrid: {
     marginTop: 22,
@@ -472,9 +472,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   quote: {
-    marginTop: 14,
-    fontSize: 24,
-    lineHeight: 36,
+    marginTop: 16,
+    fontSize: 30,
+    lineHeight: 44,
   },
   finalCta: {
     marginHorizontal: 24,
@@ -491,14 +491,14 @@ const styles = StyleSheet.create({
   },
   emailInput: {
     flex: 1,
-    minWidth: 200,
+    minWidth: 220,
     backgroundColor: tokens.semantic.bgElevated,
     borderWidth: 1,
     borderColor: tokens.semantic.borderDefault,
     borderRadius: tokens.radii.md,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    fontSize: 15,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: 17,
     color: tokens.semantic.textPrimary,
     fontFamily: tokens.fonts.body,
   },
