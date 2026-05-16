@@ -59,6 +59,39 @@ export default function JourneyDayDetail() {
 
   function openSession(sid: string) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+
+    // Route to the voice-guided screen for each kind of session.
+    //
+    //   chakra-root-awaken / chakra-heart-release / ... → /full-healing/<chakra>
+    //     The full-healing reader has the founder-voice LISTEN button
+    //     with the complete healing script (Root Awaken: The Ground Beneath
+    //     You is the day-1 evening session, for example).
+    //
+    //   breath-box / breath-4-7-8 / ... → /breathwork/<id>
+    //     The breathwork detail page shows the GUIDED PRACTICE card
+    //     with voice-counted rounds (Box Breath morning session, etc.).
+    //
+    //   anything else → fall back to the audio session player.
+    if (sid.startsWith('chakra-')) {
+      // Extract the chakra slug — e.g. "chakra-root-awaken" → "root".
+      const chakraSlug = sid.replace(/^chakra-/, '').replace(/-(awaken|release|activate)$/, '');
+      const normalised = chakraSlug === 'thirdeye' ? 'third-eye' : chakraSlug;
+      router.push({
+        pathname: '/full-healing/[id]',
+        params: { id: normalised },
+      } as never);
+      return;
+    }
+
+    if (sid.startsWith('breath-')) {
+      router.push({
+        pathname: '/breathwork/[id]',
+        params: { id: sid },
+      } as never);
+      return;
+    }
+
+    // Fallback for meditations + any other session type.
     router.push({
       pathname: '/session/[id]',
       params: { id: sid, journeyDay: String(dayNum) },
