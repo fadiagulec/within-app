@@ -22,7 +22,12 @@
       "Read(//c/Users/serka/Downloads/**)",
       "Bash(unzip -l \"C:/Users/serka/Downloads/files \\(1\\).zip\")",
       "Bash(rm -- \",+\" \"sum\" \"{}\\)\" 2>&1; echo \"---after---\"; ls -la 2>&1)",
-      "Bash(mkdir -p \"C:/Users/serka/soma/app/api\" 2>&1; ls \"C:/Users/serka/soma/app/api\" 2>&1)"
+      "Bash(mkdir -p \"C:/Users/serka/soma/app/api\" 2>&1; ls \"C:/Users/serka/soma/app/api\" 2>&1)",
+      "Bash(curl -s -X POST 'https://dist-sage-ten-11.vercel.app/api/tts' -H 'Content-Type: application/json' -d '{\"text\":\"hi\"}' -w '\\\\n---STATUS: %{http_code}\\\\n' --max-time 30)",
+      "Bash(curl -s -X POST 'https://dist-sage-ten-11.vercel.app/api/tts' -H 'Content-Type: application/json' -d '{\"text\":\"Welcome. Take a deep breath in.\",\"voiceId\":\"kHL7MFWSwpF69uhr0qwj\"}' -o /tmp/tts.mp3 -w 'STATUS: %{http_code}\\\\nCONTENT-TYPE: %{content_type}\\\\nSIZE: %{size_download} bytes\\\\n' --max-time 30)",
+      "Read(//tmp/**)",
+      "Bash(xxd)",
+      "Bash(curl -s -X POST 'https://dist-sage-ten-11.vercel.app/api/tts' -H 'Content-Type: application/json' -d '{\"text\":\"Welcome. Take a deep breath in.\",\"voiceId\":\"kHL7MFWSwpF69uhr0qwj\"}' -o /tmp/tts.mp3 -w 'STATUS: %{http_code}\\\\nCONTENT-TYPE: %{content_type}\\\\nSIZE: %{size_download} bytes\\\\nTIME: %{time_total}s\\\\n' --max-time 60)"
     ]
   }
 }

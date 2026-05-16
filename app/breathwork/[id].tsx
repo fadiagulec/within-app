@@ -11,6 +11,7 @@ import { findBreathworkById } from '@/data/breathwork';
 import { getLevel } from '@/data/levels';
 import { useProgressStore } from '@/store/useProgressStore';
 import { PaywallModal } from '@/features/payments/PaywallModal';
+import { getGuidedBreathScript } from '@/data/guided-breathwork-scripts';
 
 export default function BreathworkDetail() {
   const router = useRouter();
@@ -54,6 +55,7 @@ export default function BreathworkDetail() {
   const level = getLevel(session.levelRequired);
   const priceLabel =
     level && level.priceUSD !== 'free' ? `$${level.priceUSD}` : 'see price';
+  const guided = getGuidedBreathScript(session.id);
 
   function play() {
     if (!unlocked) {
@@ -82,16 +84,16 @@ export default function BreathworkDetail() {
       </View>
 
       <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 120 }}>
-        <Text variant="eyebrow" color={tokens.semantic.accent}>
+        <Text variant="eyebrow" color={tokens.semantic.accent} style={{ fontSize: 13, letterSpacing: 2 }}>
           · TECHNIQUE · {session.technique.toUpperCase()}
         </Text>
-        <Text variant="heading1" style={{ marginTop: 10 }}>
+        <Text variant="heading1" style={{ marginTop: 12, fontSize: 38, lineHeight: 46 }}>
           {session.title}
         </Text>
         <Text
           variant="displayItalic"
           color={tokens.semantic.textSecondary}
-          style={{ marginTop: 14 }}
+          style={{ marginTop: 14, fontSize: 19, lineHeight: 28 }}
         >
           {session.subtitle}
         </Text>
@@ -99,7 +101,7 @@ export default function BreathworkDetail() {
         <Text
           variant="body"
           color={tokens.semantic.textSecondary}
-          style={{ marginTop: 22, lineHeight: 22 }}
+          style={{ marginTop: 22, fontSize: 17, lineHeight: 26 }}
         >
           {session.theme}
         </Text>
@@ -107,7 +109,7 @@ export default function BreathworkDetail() {
         <View style={styles.chipRow}>
           {session.chips.map((c) => (
             <View key={c} style={styles.chip}>
-              <Text variant="mono" color={tokens.semantic.textPrimary} style={{ fontSize: 11 }}>
+              <Text variant="mono" color={tokens.semantic.textPrimary} style={{ fontSize: 13, letterSpacing: 1.2 }}>
                 {c.toUpperCase()}
               </Text>
             </View>
@@ -116,12 +118,12 @@ export default function BreathworkDetail() {
 
         {session.safetyWarning ? (
           <View style={styles.safetyBox}>
-            <Text variant="eyebrow" color={tokens.semantic.warningAmber}>
+            <Text variant="eyebrow" color={tokens.semantic.warningAmber} style={{ fontSize: 13, letterSpacing: 2 }}>
               SAFETY NOTE
             </Text>
             <Text
               variant="bodySmall"
-              style={{ marginTop: 8, lineHeight: 20 }}
+              style={{ marginTop: 10, fontSize: 16, lineHeight: 24 }}
               color={tokens.semantic.textSecondary}
             >
               {session.safetyWarning}
@@ -131,7 +133,7 @@ export default function BreathworkDetail() {
 
         <View style={styles.scienceBox}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-            <Text variant="eyebrow">THE SCIENCE</Text>
+            <Text variant="eyebrow" style={{ fontSize: 13, letterSpacing: 2 }}>THE SCIENCE</Text>
             <SpeechPlayer
               text={`${session.title}. ${session.subtitle}. ${session.theme}. ${session.technique}. ${session.science}`}
               accent={tokens.semantic.accent}
@@ -142,11 +144,37 @@ export default function BreathworkDetail() {
           <Text
             variant="bodySmall"
             color={tokens.semantic.textSecondary}
-            style={{ marginTop: 8, lineHeight: 20 }}
+            style={{ marginTop: 10, fontSize: 16, lineHeight: 24 }}
           >
             {session.science}
           </Text>
         </View>
+
+        {/* Guided practice — voice walks the user through every breath */}
+        {guided ? (
+          <View style={styles.guidedCard}>
+            <Text variant="mono" style={styles.guidedKicker}>
+              GUIDED PRACTICE · {guided.durationMin} MIN · {guided.rounds} ROUNDS
+            </Text>
+            <Text variant="heading2" style={styles.guidedTitle}>
+              {guided.title}
+            </Text>
+            <Text variant="body" style={styles.guidedBlurb}>
+              {guided.blurb}
+            </Text>
+            <Text variant="bodySmall" style={styles.guidedHowTo}>
+              Sit upright. Eyes closed if you can. Tap LISTEN below and just
+              follow the voice. Every breath is counted for you.
+            </Text>
+            <View style={{ marginTop: 14, alignSelf: 'flex-start' }}>
+              <SpeechPlayer
+                text={guided.body}
+                accent="#FFFFFF"
+                label="LISTEN — BEGIN GUIDED PRACTICE"
+              />
+            </View>
+          </View>
+        ) : null}
       </ScrollView>
 
       <View style={styles.footer}>
@@ -178,12 +206,43 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   chip: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
     borderRadius: tokens.radii.pill,
     backgroundColor: tokens.semantic.bgElevated,
     borderWidth: 1,
     borderColor: tokens.semantic.borderSubtle,
+  },
+  guidedCard: {
+    marginTop: 24,
+    padding: 22,
+    borderRadius: tokens.radii.xl,
+    backgroundColor: tokens.semantic.accent,
+    gap: 6,
+  },
+  guidedKicker: {
+    fontSize: 11,
+    letterSpacing: 2,
+    color: 'rgba(255,255,255,0.9)',
+  },
+  guidedTitle: {
+    marginTop: 6,
+    fontSize: 26,
+    lineHeight: 32,
+    color: '#FFFFFF',
+  },
+  guidedBlurb: {
+    marginTop: 6,
+    fontSize: 17,
+    lineHeight: 25,
+    color: 'rgba(255,255,255,0.95)',
+  },
+  guidedHowTo: {
+    marginTop: 12,
+    fontSize: 15,
+    lineHeight: 22,
+    color: 'rgba(255,255,255,0.85)',
+    fontStyle: 'italic',
   },
   safetyBox: {
     marginTop: 24,
