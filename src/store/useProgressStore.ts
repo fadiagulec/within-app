@@ -61,10 +61,26 @@ function todayStr(): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
+/**
+ * Days between two YYYY-MM-DD strings.
+ *
+ * IMPORTANT: parse each string as a LOCAL midnight (not via
+ * `new Date('2026-05-17')` which parses as UTC midnight). Mixing the
+ * UTC-parsed result with `todayStr`'s local-date string produced
+ * off-by-one bugs at timezone boundaries — e.g. a user in UTC+8
+ * checking in at 11pm would see their streak reset because
+ * "tomorrow's UTC" minus "today's local" rounded to 0 not 1.
+ *
+ * Parsing as local midnight keeps `todayStr` and `daysBetween` in the
+ * same time domain, so streaks behave consistently regardless of
+ * timezone or DST.
+ */
 function daysBetween(a: string, b: string): number {
-  const da = new Date(a).getTime();
-  const db = new Date(b).getTime();
-  return Math.round((db - da) / (1000 * 60 * 60 * 24));
+  const parseLocal = (s: string): number => {
+    const [y, m, d] = s.split('-').map((n) => parseInt(n, 10));
+    return new Date(y ?? 1970, (m ?? 1) - 1, d ?? 1).getTime();
+  };
+  return Math.round((parseLocal(b) - parseLocal(a)) / (1000 * 60 * 60 * 24));
 }
 
 export const useProgressStore = create<ProgressState>()(

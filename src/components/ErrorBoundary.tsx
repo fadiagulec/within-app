@@ -13,6 +13,7 @@ import React from 'react';
 import { View, StyleSheet, Pressable, ScrollView, Platform } from 'react-native';
 import { Text } from '@/components/Text';
 import { tokens } from '@/theme/tokens';
+import { reportError } from '@/lib/reportError';
 
 interface State {
   error: Error | null;
@@ -32,6 +33,12 @@ export class ErrorBoundary extends React.Component<Props, State> {
   componentDidCatch(error: Error, info: React.ErrorInfo): void {
     // eslint-disable-next-line no-console
     console.error('[ErrorBoundary]', error, info.componentStack);
+    // Forward to the server-side log sink so the founder has visibility
+    // into real-user crashes. No-op on native / SSR / missing fetch.
+    reportError(error, {
+      tag: 'react-error-boundary',
+      componentStack: info.componentStack ?? undefined,
+    });
   }
 
   reload = () => {

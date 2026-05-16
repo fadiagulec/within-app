@@ -50,22 +50,87 @@ const DEFAULT_ALLOWED_ORIGINS = [
 // Rate-limit config: 20 requests per 60 seconds per IP.
 const RATE_WINDOW_MS = 60_000;
 const RATE_MAX = 20;
+
+// In-memory fallback. Per Vercel-instance (each cold start has its own
+// counter), so a distributed attacker can spread requests across regions
+// to bypass this. The KV-backed limiter below is the real protection
+// when KV_REST_API_URL + KV_REST_API_TOKEN env vars are set.
 const ipBucket = new Map<string, { count: number; resetAt: number }>();
 
-function checkRateLimit(ip: string): { ok: boolean; retryAfter?: number } {
+function checkRateLimitInMemory(ip: string): { ok: boolean; retryAfter?: number } {
   const now = Date.now();
   const existing = ipBucket.get(ip);
   if (existing === undefined || existing.resetAt <= now) {
     ipBucket.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
     return { ok: true };
   }
-  // existing is guaranteed defined here — narrow it explicitly for TS.
   const e = existing;
   if (e.count >= RATE_MAX) {
     return { ok: false, retryAfter: Math.ceil((e.resetAt - now) / 1000) };
   }
   e.count += 1;
   return { ok: true };
+}
+
+/**
+ * Vercel KV / Upstash REST-backed rate limiter. Shared across all
+ * serverless instances + regions, so a distributed attacker can no
+ * longer spread requests to bypass.
+ *
+ * Activation:
+ *   1. Vercel dashboard → Storage → Create KV (or use any Upstash Redis)
+ *   2. Connect to project — Vercel auto-injects KV_REST_API_URL +
+ *      KV_REST_API_TOKEN env vars on next deploy
+ *   3. No code change needed — this function auto-detects and uses KV
+ *
+ * Strategy: INCR a per-IP counter with a 60s TTL. Atomic and very cheap
+ * (1 round-trip per request). Falls through to in-memory on KV failure
+ * so a Redis blip doesn't take down /api/tts.
+ */
+async function checkRateLimitKv(
+  ip: string,
+  kvUrl: string,
+  kvToken: string
+): Promise<{ ok: boolean; retryAfter?: number }> {
+  const key = `tts:rl:${ip}`;
+  try {
+    // Pipeline: INCR, then EXPIRE on first hit. Upstash REST returns
+    // results in pipeline order as an array of { result } objects.
+    const resp = await fetch(`${kvUrl}/pipeline`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${kvToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify([
+        ['INCR', key],
+        ['EXPIRE', key, String(Math.ceil(RATE_WINDOW_MS / 1000)), 'NX'],
+      ]),
+    });
+    if (!resp.ok) {
+      // Fall through to in-memory on KV error rather than block requests.
+      console.warn('[tts] KV rate-limit failed, falling back to in-memory');
+      return checkRateLimitInMemory(ip);
+    }
+    const data = (await resp.json()) as Array<{ result: number }>;
+    const count = data[0]?.result ?? 0;
+    if (count > RATE_MAX) {
+      return { ok: false, retryAfter: Math.ceil(RATE_WINDOW_MS / 1000) };
+    }
+    return { ok: true };
+  } catch (err: any) {
+    console.warn('[tts] KV rate-limit error:', err?.message ?? err);
+    return checkRateLimitInMemory(ip);
+  }
+}
+
+async function checkRateLimit(ip: string): Promise<{ ok: boolean; retryAfter?: number }> {
+  const kvUrl = process.env.KV_REST_API_URL;
+  const kvToken = process.env.KV_REST_API_TOKEN;
+  if (kvUrl && kvToken) {
+    return checkRateLimitKv(ip, kvUrl, kvToken);
+  }
+  return checkRateLimitInMemory(ip);
 }
 
 function getClientIp(req: any): string {
@@ -124,9 +189,9 @@ export default async function handler(req: any, res: any) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
 
-  // Rate limit per IP
+  // Rate limit per IP (KV-backed if env vars set, in-memory otherwise)
   const ip = getClientIp(req);
-  const rl = checkRateLimit(ip);
+  const rl = await checkRateLimit(ip);
   if (!rl.ok) {
     res.setHeader('Retry-After', String(rl.retryAfter ?? 60));
     return res.status(429).json({ error: 'Too many requests. Try again shortly.' });

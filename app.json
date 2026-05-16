@@ -22,7 +22,7 @@
         "NSMicrophoneUsageDescription": "Within records optional voice journal entries when you choose to add them.",
         "NSPhotoLibraryUsageDescription": "Within lets you add images to your vision board from your photo library."
       },
-      "associatedDomains": ["applinks:soma.app"]
+      "associatedDomains": ["applinks:within.app"]
     },
     "android": {
       "package": "com.soma.app",
@@ -31,16 +31,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#D6C7A8"
       },
+      "permissions": ["RECORD_AUDIO"],
       "intentFilters": [
         {
           "action": "VIEW",
-          "data": [{ "scheme": "soma" }],
+          "data": [{ "scheme": "withinme" }],
           "category": ["BROWSABLE", "DEFAULT"]
         },
         {
           "action": "VIEW",
           "autoVerify": true,
-          "data": [{ "scheme": "https", "host": "soma.app" }],
+          "data": [{ "scheme": "https", "host": "within.app" }],
           "category": ["BROWSABLE", "DEFAULT"]
         }
       ]

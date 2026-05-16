@@ -30,7 +30,10 @@ export default function ChakraQuiz() {
   const wheelAvailable = !!latestWheel;
 
   const [index, setIndex] = useState(0);
-  const [localValue, setLocalValue] = useState<number>(50);
+  // Start unselected so the user has to engage with each question.
+  // Previously defaulted to 50 (neutral) — users could blast through 21
+  // taps without reading, producing a random "lowest chakra" diagnosis.
+  const [localValue, setLocalValue] = useState<number | null>(null);
   const q = quizQuestions[index]!;
   const chakra = useMemo(() => chakras.find((c) => c.key === q.chakra)!, [q]);
 
@@ -45,10 +48,13 @@ export default function ChakraQuiz() {
   }
 
   function advance() {
+    // Guard — Next is disabled when localValue is null, but belt-and-
+    // suspenders against a missed render.
+    if (localValue === null) return;
     setQuizAnswer(q.id, localValue);
     if (index < quizQuestions.length - 1) {
       setIndex((i) => i + 1);
-      setLocalValue(50);
+      setLocalValue(null);
     } else {
       // Finalise: compute weakest chakra (lowest avg) as primary focus.
       const answers = { ...useUserStore.getState().user.quizAnswers, [q.id]: localValue };
@@ -136,7 +142,12 @@ export default function ChakraQuiz() {
       </View>
 
       <View style={styles.footer}>
-        <Button block size="lg" onPress={advance}>
+        <Button
+          block
+          size="lg"
+          disabled={localValue === null}
+          onPress={advance}
+        >
           {index === quizQuestions.length - 1 ? 'See my map' : 'Next'}
         </Button>
       </View>

@@ -54,8 +54,15 @@ import { tokens } from '@/theme/tokens';
 import { LoadingView } from '@/components/LoadingView';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
+import { installGlobalErrorReporter } from '@/lib/reportError';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
+
+// Install one-shot global error handlers on web — catches uncaught
+// errors + unhandled promise rejections that React's ErrorBoundary
+// can't intercept (async failures, event handler throws, etc.) and
+// POSTs them to /api/log-error.
+installGlobalErrorReporter();
 
 const queryClient = new QueryClient({
   defaultOptions: {
