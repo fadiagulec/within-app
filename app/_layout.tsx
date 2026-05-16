@@ -191,6 +191,7 @@ function GatedStack() {
       <Stack.Screen name="chakra/[id]" />
       <Stack.Screen name="meditation/[id]" />
       <Stack.Screen name="breathwork/[id]" />
+      <Stack.Screen name="full-healing/[id]" />
       <Stack.Screen name="journey/day/[n]" />
       <Stack.Screen name="journey/overview" />
       <Stack.Screen

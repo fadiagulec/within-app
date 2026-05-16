@@ -19,6 +19,8 @@ import { ChakraBackground } from '@/components/ChakraBackground';
 import type { SpineChakraId } from '@/data/chakra-spine';
 import type { ChakraKey } from '@/types';
 import { getScriptByChakra, type UnblockingScript, type ScriptStep } from '@/data/unblocking-scripts';
+import { getChakraAffirmations } from '@/data/chakra-affirmations';
+import { getFullHealingScript } from '@/data/full-healing-scripts';
 
 type Phase = 'learn' | 'affirm' | 'heal';
 
@@ -125,7 +127,7 @@ export default function ChakraDetail() {
         {/* Phase content */}
         <View style={styles.phaseContent}>
           {phase === 'learn' && <LearnPhase content={content} accent={accent} />}
-          {phase === 'affirm' && <AffirmPhase content={content} accent={accent} />}
+          {phase === 'affirm' && <AffirmPhase content={content} accent={accent} chakraId={normalizedId as SpineChakraId} />}
           {phase === 'heal' && (
             <HealPhase
               content={content}
@@ -134,6 +136,12 @@ export default function ChakraDetail() {
               onBeginScript={() =>
                 router.push({
                   pathname: '/unblock/[id]',
+                  params: { id: normalizedId },
+                } as never)
+              }
+              onOpenFullSession={() =>
+                router.push({
+                  pathname: '/full-healing/[id]',
                   params: { id: normalizedId },
                 } as never)
               }
@@ -192,9 +200,25 @@ function LearnPhase({ content, accent }: { content: ReturnType<typeof getChakraC
 }
 
 // ============ AFFIRM PHASE ============
-function AffirmPhase({ content, accent }: { content: ReturnType<typeof getChakraContent>; accent: string }) {
+// Uses the founder's curated affirmations from chakra-affirmations.ts.
+// Falls back to chakra-content.ts affirmations only if the new set is
+// missing for some id (defensive — all 8 are populated today).
+function AffirmPhase({
+  content,
+  accent,
+  chakraId,
+}: {
+  content: ReturnType<typeof getChakraContent>;
+  accent: string;
+  chakraId: SpineChakraId;
+}) {
+  const affirmSet = getChakraAffirmations(chakraId);
+  const affirmations = affirmSet?.affirmations ?? content.affirmations;
+  const shiftLabel = affirmSet?.shiftLabel;
+  const lifeArea = affirmSet?.lifeArea;
+
   const [received, setReceived] = useState<boolean[]>(
-    Array(content.affirmations.length).fill(false)
+    Array(affirmations.length).fill(false)
   );
 
   const toggle = (i: number) => {
@@ -211,16 +235,21 @@ function AffirmPhase({ content, accent }: { content: ReturnType<typeof getChakra
   return (
     <View style={{ gap: tokens.spacing.s5 }}>
       <Section title="Affirmation Practice">
+        {shiftLabel ? (
+          <Text variant="mono" style={{ color: accent, fontSize: 11, letterSpacing: 1.6, marginBottom: 6 }}>
+            {shiftLabel.toUpperCase()}{lifeArea ? ` · ${lifeArea.toUpperCase()}` : ''}
+          </Text>
+        ) : null}
         <Text variant="body" style={{ color: tokens.semantic.textSecondary }}>
           Read each affirmation slowly. Let it land. When it does, tap "I receive this."
           Notice which land easily and which resist — the resistant ones are where the healing is.
         </Text>
         <Text variant="label" style={{ color: accent, marginTop: tokens.spacing.s3 }}>
-          {completed} / {content.affirmations.length} received today
+          {completed} / {affirmations.length} received today
         </Text>
       </Section>
 
-      {content.affirmations.map((aff, i) => (
+      {affirmations.map((aff, i) => (
         <Pressable
           key={i}
           onPress={() => toggle(i)}
@@ -261,13 +290,16 @@ function HealPhase({
   accent,
   chakraId,
   onBeginScript,
+  onOpenFullSession,
 }: {
   content: ReturnType<typeof getChakraContent>;
   accent: string;
   chakraId: SpineChakraId;
   onBeginScript: () => void;
+  onOpenFullSession: () => void;
 }) {
   const script: UnblockingScript | undefined = getScriptByChakra(chakraId);
+  const fullSession = getFullHealingScript(chakraId);
 
   if (!script) {
     // Soft fallback — should never happen since all 8 scripts exist.
@@ -286,6 +318,40 @@ function HealPhase({
       <Section title={`Release the ${content.shadowFeeling}`} accent={accent}>
         <Text variant="body">{content.healingInvitation}</Text>
       </Section>
+
+      {/* FULL GUIDED HEALING SESSION — the primary CTA, founder-voiced */}
+      {fullSession ? (
+        <Pressable
+          onPress={onOpenFullSession}
+          accessibilityRole="button"
+          accessibilityLabel={`Begin the full guided healing session — ${fullSession.title}`}
+          style={({ pressed }) => [
+            {
+              padding: 22,
+              borderRadius: tokens.radii.xl,
+              backgroundColor: accent,
+              gap: 8,
+            },
+            pressed && { opacity: 0.92 },
+          ]}
+        >
+          <Text variant="mono" style={{ color: '#FFFFFF', fontSize: 11, letterSpacing: 2, opacity: 0.9 }}>
+            FULL GUIDED HEALING · {fullSession.durationMin} MIN · {fullSession.bijaSound}
+          </Text>
+          <Text variant="heading2" style={{ color: '#FFFFFF', marginTop: 4, fontSize: 24 }}>
+            {fullSession.subtitle}
+          </Text>
+          <Text variant="body" style={{ color: 'rgba(255,255,255,0.92)', marginTop: 6, fontSize: 14, lineHeight: 21 }}>
+            A long-form session, voice-guided. Timeline travel, journal prompts,
+            sound activation. Sit or lie down. Eyes closed if you can.
+          </Text>
+          <View style={{ marginTop: 12, alignSelf: 'flex-start', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 999, backgroundColor: 'rgba(255,255,255,0.18)' }}>
+            <Text variant="label" style={{ color: '#FFFFFF', fontSize: 13, letterSpacing: 0.5 }}>
+              ▶  Begin guided session
+            </Text>
+          </View>
+        </Pressable>
+      ) : null}
 
       {/* The script — title + tagline + LISTEN + Begin guided walkthrough */}
       <View style={[styles.scriptHero, { borderColor: `${accent}55`, backgroundColor: `${accent}12` }]}>

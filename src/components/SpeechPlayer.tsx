@@ -13,6 +13,10 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import { Text } from '@/components/Text';
 import { tokens } from '@/theme/tokens';
 import { isSpeechSupported, speak, type SpeechHandle } from '@/lib/speech';
+import {
+  isElevenLabsSupported,
+  speakViaElevenLabs,
+} from '@/lib/speech-elevenlabs';
 
 interface Props {
   text: string;
@@ -66,17 +70,38 @@ export function SpeechPlayer({
     return () => clearInterval(i);
   }, [playing]);
 
-  if (!supported) return null;
+  if (!supported && !isElevenLabsSupported()) return null;
 
-  function toggle() {
+  const [loading, setLoading] = useState(false);
+
+  async function toggle() {
     if (playing) {
       handleRef.current?.stop();
       handleRef.current = null;
       setPlaying(false);
       return;
     }
-    handleRef.current = speak(text, { rate });
-    if (handleRef.current) setPlaying(true);
+
+    // Try ElevenLabs first (web only, falls back if proxy returns 503 or
+    // network error). This is awaitable because the API call has latency
+    // — usually ~1-3s for short text, longer for full healing scripts.
+    if (isElevenLabsSupported()) {
+      setLoading(true);
+      const h = await speakViaElevenLabs(text);
+      setLoading(false);
+      if (h) {
+        handleRef.current = h;
+        setPlaying(true);
+        return;
+      }
+      // Fell through — try Web Speech API as fallback.
+    }
+
+    const h = speak(text, { rate });
+    if (h) {
+      handleRef.current = h;
+      setPlaying(true);
+    }
   }
 
   const dims = size === 'sm'
@@ -100,10 +125,10 @@ export function SpeechPlayer({
     >
       <View style={styles.row}>
         <Text variant="mono" color={a} style={{ fontSize: dims.iconSize }}>
-          {playing ? '◼' : '▶'}
+          {loading ? '◌' : playing ? '◼' : '▶'}
         </Text>
         <Text variant="mono" color={a} style={{ fontSize: dims.fontSize, letterSpacing: 1.4 }}>
-          {playing ? 'STOP' : (label ?? 'READ ALOUD')}
+          {loading ? 'PREPARING…' : playing ? 'STOP' : (label ?? 'READ ALOUD')}
         </Text>
       </View>
     </Pressable>

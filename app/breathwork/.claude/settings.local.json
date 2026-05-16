@@ -20,7 +20,9 @@
       "Bash(gh auth *)",
       "Bash(gh repo *)",
       "Read(//c/Users/serka/Downloads/**)",
-      "Bash(unzip -l \"C:/Users/serka/Downloads/files \\(1\\).zip\")"
+      "Bash(unzip -l \"C:/Users/serka/Downloads/files \\(1\\).zip\")",
+      "Bash(rm -- \",+\" \"sum\" \"{}\\)\" 2>&1; echo \"---after---\"; ls -la 2>&1)",
+      "Bash(mkdir -p \"C:/Users/serka/soma/app/api\" 2>&1; ls \"C:/Users/serka/soma/app/api\" 2>&1)"
     ]
   }
 }
