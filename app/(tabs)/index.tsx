@@ -18,7 +18,9 @@ import { tokens } from '@/theme/tokens';
 import { SkyBackground } from '@/components/SkyBackground';
 import { useUserStore } from '@/store/useUserStore';
 import { usePathStore } from '@/store/usePathStore';
+import { useCheckInStore, type Mood } from '@/store/useCheckInStore';
 import { PATH_STAGES, getStage, getPractice } from '@/data/path';
+import { getCompanionMessage } from '@/coach/companion';
 
 function getGreeting(): string {
   const h = new Date().getHours();
@@ -38,14 +40,54 @@ export default function TodayTab() {
   const stageProgress = usePathStore((s) => s.stageProgress);
   const stageCompletedAt = usePathStore((s) => s.stageCompletedAt);
 
+  // Check-in state — Companion reads from here.
+  const recordCheckIn = useCheckInStore((s) => s.recordCheckIn);
+  const todaysCheckIn = useCheckInStore((s) => s.todaysCheckIn());
+  const hasCheckedInToday = useCheckInStore((s) => s.hasCheckedInToday());
+
   const greeting = getGreeting();
   const firstName = name?.trim().split(' ')[0] ?? '';
   const stage = getStage(currentStageId)!;
   const next = suggestNextPractice();
-  const nextPractice = next ? getPractice(next.stage.id, next.practiceId) : null;
-  const nextStage = next?.stage;
+  const defaultNextPractice = next ? getPractice(next.stage.id, next.practiceId) ?? null : null;
   const dayNum = computeDayNum(usePathStore.getState().stageEnteredAt[stage.id]);
   const progress = stageProgress(stage.id);
+
+  // The Companion — single source of truth for what to say + what to suggest.
+  const companion = React.useMemo(
+    () =>
+      getCompanionMessage({
+        firstName,
+        mood: todaysCheckIn?.mood,
+        hasCheckedInToday,
+        currentStage: stage,
+        daysInStage: dayNum,
+        practicesDone: progress.done,
+        practicesTotal: progress.total,
+        defaultNext: defaultNextPractice,
+        hour: new Date().getHours(),
+      }),
+    [
+      firstName,
+      todaysCheckIn?.mood,
+      hasCheckedInToday,
+      stage,
+      dayNum,
+      progress.done,
+      progress.total,
+      defaultNextPractice,
+    ]
+  );
+
+  // If Companion suggests a mood-aware override, use it. Otherwise the
+  // path's default next-practice stands.
+  const nextPractice = companion.practiceOverride ?? defaultNextPractice;
+  const nextStage =
+    nextPractice && companion.practiceOverride
+      ? PATH_STAGES.find((s) =>
+          s.practices.some((p) => p.id === companion.practiceOverride!.id)
+        ) ?? next?.stage
+      : next?.stage;
 
   function openNext() {
     if (!nextPractice) return;
@@ -53,18 +95,10 @@ export default function TodayTab() {
     router.push(nextPractice.route as never);
   }
 
-  function companionLine(): string {
-    if (!nextPractice) return 'You have walked the full path. Keep returning.';
-    if (progress.done === 0 && stage.order === 1) {
-      return 'Welcome. The first step is small. Trust the order.';
-    }
-    if (progress.pct >= 0.6) {
-      return `You are close to walking ${stage.name}. One more piece, then we move.`;
-    }
-    if (progress.done > 0) {
-      return `You are walking ${stage.name}. Today: one breath at a time.`;
-    }
-    return `Stage ${stage.order} — ${stage.name}. Begin where you are.`;
+  function handleMoodTap(mood: Mood) {
+    recordCheckIn(mood);
+    // Don't navigate — staying on Today is the point. The screen
+    // re-renders with the new Companion line and possibly a new practice.
   }
 
   return (
@@ -108,10 +142,10 @@ export default function TodayTab() {
           </Text>
         </View>
 
-        {/* Companion line */}
-        <Text style={styles.companion}>"{companionLine()}"</Text>
+        {/* Companion line — adapts to mood */}
+        <Text style={styles.companion}>"{companion.line}"</Text>
 
-        {/* THE ONE THING — today's next practice */}
+        {/* THE ONE THING — today's next practice (may be mood-aware override) */}
         {nextPractice && nextStage ? (
           <Pressable
             onPress={openNext}
@@ -124,10 +158,15 @@ export default function TodayTab() {
             ]}
           >
             <Text style={[styles.heroKicker, { color: nextStage.color }]}>
-              TODAY'S PRACTICE
+              {companion.practiceOverride ? 'FOR TODAY · COMPANION SUGGESTS' : "TODAY'S PRACTICE"}
             </Text>
             <Text style={styles.heroTitle}>{nextPractice.title}</Text>
             <Text style={styles.heroBlurb}>{nextPractice.blurb}</Text>
+            {companion.overrideReason ? (
+              <Text style={styles.overrideReason}>
+                {companion.overrideReason}
+              </Text>
+            ) : null}
             <View style={styles.heroFoot}>
               <Text style={styles.heroMeta}>
                 {nextPractice.durationMin} min
@@ -148,26 +187,48 @@ export default function TodayTab() {
           </View>
         )}
 
-        {/* Mood check-in */}
+        {/* Mood check-in — taps RECORD instead of routing */}
         <View style={styles.checkInBlock}>
-          <Text style={styles.checkInLabel}>How are you, really?</Text>
+          <Text style={styles.checkInLabel}>
+            {hasCheckedInToday ? 'You said today is' : 'How are you, really?'}
+          </Text>
           <View style={styles.moodRow}>
-            {MOODS.map((m) => (
-              <Pressable
-                key={m.key}
-                onPress={() => router.push('/check-in' as never)}
-                accessibilityRole="button"
-                accessibilityLabel={m.label}
-                style={({ pressed }) => [
-                  styles.moodBtn,
-                  pressed && { opacity: 0.7 },
-                ]}
-              >
-                <Text style={styles.moodEmoji}>{m.emoji}</Text>
-                <Text style={styles.moodLabel}>{m.label}</Text>
-              </Pressable>
-            ))}
+            {MOODS.map((m) => {
+              const selected = todaysCheckIn?.mood === m.key;
+              return (
+                <Pressable
+                  key={m.key}
+                  onPress={() => handleMoodTap(m.key)}
+                  accessibilityRole="button"
+                  accessibilityLabel={m.label}
+                  accessibilityState={{ selected }}
+                  style={({ pressed }) => [
+                    styles.moodBtn,
+                    selected && styles.moodBtnSelected,
+                    pressed && { opacity: 0.7 },
+                  ]}
+                >
+                  <Text style={styles.moodEmoji}>{m.emoji}</Text>
+                  <Text style={[styles.moodLabel, selected && styles.moodLabelSelected]}>
+                    {m.label}
+                  </Text>
+                </Pressable>
+              );
+            })}
           </View>
+          {hasCheckedInToday ? (
+            <Pressable
+              onPress={() => router.push('/check-in' as never)}
+              accessibilityRole="button"
+              accessibilityLabel="Open the deeper chakra check-in"
+              hitSlop={8}
+              style={({ pressed }) => [styles.deepCheckBtn, pressed && { opacity: 0.6 }]}
+            >
+              <Text style={styles.deepCheckBtnText}>
+                Want to go deeper? Open the chakra check-in →
+              </Text>
+            </Pressable>
+          ) : null}
         </View>
 
         {/* Three anchors */}
@@ -361,6 +422,14 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: tokens.semantic.textSecondary,
   },
+  overrideReason: {
+    marginTop: 12,
+    fontFamily: tokens.fonts.display,
+    fontStyle: 'italic',
+    fontSize: 13,
+    lineHeight: 19,
+    color: tokens.semantic.textTertiary,
+  },
   heroFoot: {
     marginTop: 20,
     flexDirection: 'row',
@@ -410,6 +479,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(45, 41, 53, 0.06)',
   },
+  moodBtnSelected: {
+    backgroundColor: 'rgba(157, 191, 178, 0.22)',
+    borderColor: tokens.palette.mint,
+  },
   moodEmoji: {
     fontSize: 22,
     marginBottom: 4,
@@ -418,6 +491,19 @@ const styles = StyleSheet.create({
     fontFamily: tokens.fonts.body,
     fontSize: 11,
     color: tokens.semantic.textSecondary,
+  },
+  moodLabelSelected: {
+    fontFamily: tokens.fonts.bodyMedium,
+    color: tokens.semantic.textPrimary,
+  },
+  deepCheckBtn: {
+    marginTop: 12,
+    alignItems: 'center',
+  },
+  deepCheckBtnText: {
+    fontFamily: tokens.fonts.body,
+    fontSize: 12,
+    color: tokens.semantic.textTertiary,
   },
 
   anchorsBlock: {
