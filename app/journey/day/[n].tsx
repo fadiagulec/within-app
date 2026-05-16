@@ -265,10 +265,10 @@ export default function JourneyDayDetail() {
               align="center"
               style={{ marginBottom: 10 }}
             >
-              Continue your reset — unlock all 14 days.
+              Continue your reset — unlock all 21 days.
             </Text>
             <Button block size="lg" onPress={openPaywall}>
-              {`Unlock the full 14 days · $${GET_UNSTUCK_PROGRAM.priceUSD}`}
+              {`Unlock the full 21 days · $${GET_UNSTUCK_PROGRAM.priceUSD}`}
             </Button>
           </View>
         ) : dayDone ? (

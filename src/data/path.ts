@@ -156,6 +156,22 @@ export const PATH_STAGES: PathStage[] = [
         cornerstone: true,
       },
       {
+        id: 'ground-burnout-journey',
+        title: '21-Day Burnout Recovery Journey',
+        kind: 'plan',
+        route: '/(tabs)/journey',
+        durationMin: 30,
+        blurb: 'Three weeks of structured practice if the nervous system is fried. Morning + evening, every day.',
+      },
+      {
+        id: 'ground-burnout-quiz',
+        title: 'Burnout Assessment',
+        kind: 'check-in',
+        route: '/burnout-quiz',
+        durationMin: 3,
+        blurb: 'Honest 8-question read. Tells you whether the Journey is what you need right now.',
+      },
+      {
         id: 'ground-4-7-8',
         title: '4-7-8 Breath',
         kind: 'breath',

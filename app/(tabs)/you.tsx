@@ -41,6 +41,22 @@ export default function YouTab() {
       href: '/unblocking-process',
     },
     {
+      id: 'burnout-journey',
+      title: '21-Day Burnout Recovery Journey',
+      subtitle: 'Three weeks. Morning + evening practice. Ground → Release → Rise. Come back to yourself.',
+      accent: '#E07A2C',
+      href: '/(tabs)/journey',
+      status: '21 days',
+    },
+    {
+      id: 'burnout-quiz',
+      title: 'Burnout Assessment',
+      subtitle: 'Honest 8-question read. Tells you which week to start in.',
+      accent: '#E07A2C',
+      href: '/burnout-quiz',
+      status: '~3 min',
+    },
+    {
       id: 'foundations',
       title: 'Foundations — read the why',
       subtitle: '24 briefs: 12 healing modalities + 12 lifestyle pillars for an aligned soul journey.',
