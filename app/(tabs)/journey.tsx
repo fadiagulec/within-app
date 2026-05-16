@@ -60,10 +60,10 @@ export default function JourneyTab() {
   return (
     <Screen scroll padded={false} edges={['top']}>
       <View style={styles.top}>
-        <Text variant="eyebrow" color={tokens.semantic.accent}>
+        <Text variant="eyebrow" color={tokens.semantic.accent} style={{ fontSize: 13, letterSpacing: 2.2 }}>
           YOUR 21-DAY BURNOUT RECOVERY
         </Text>
-        <Text variant="heading1" style={{ marginTop: 6 }}>
+        <Text variant="heading1" style={{ marginTop: 8, fontSize: 42, lineHeight: 50 }}>
           Come back{'\n'}to yourself.
         </Text>
         {weekMeta ? (
@@ -73,7 +73,7 @@ export default function JourneyTab() {
             <View
               style={[styles.weekDot, { backgroundColor: weekMeta.color }]}
             />
-            <Text variant="eyebrow" color={tokens.semantic.textPrimary}>
+            <Text variant="eyebrow" color={tokens.semantic.textPrimary} style={{ fontSize: 12, letterSpacing: 1.6 }}>
               WEEK {weekMeta.week} · {weekMeta.theme} · {weekMeta.focus}
             </Text>
           </View>
@@ -91,17 +91,17 @@ export default function JourneyTab() {
             <Text
               variant="mono"
               color={tokens.semantic.textSecondary}
-              style={{ letterSpacing: 2 }}
+              style={{ letterSpacing: 2, fontSize: 13 }}
             >
               DAY {day.day} OF 21 · {day.mantra}
             </Text>
-            <Text variant="heading2" style={{ marginTop: 8, maxWidth: 280 }}>
+            <Text variant="heading2" style={{ marginTop: 10, maxWidth: 320, fontSize: 28, lineHeight: 36 }}>
               {day.dayTitle}
             </Text>
             <Text
               variant="displayItalic"
               color={tokens.semantic.textSecondary}
-              style={{ marginTop: 12, maxWidth: 300 }}
+              style={{ marginTop: 14, maxWidth: 340, fontSize: 17, lineHeight: 26 }}
             >
               {day.hook}
             </Text>
@@ -195,18 +195,22 @@ export default function JourneyTab() {
           if (!d) return null;
           const done = progress.journeyDaysCompleted.includes(n);
           const isCurrent = n === day.day;
+          // Days ahead of the current cursor are visually softer but
+          // fully tappable — every day in the 21-day program is open.
           const future = !done && !isCurrent && n > day.day;
           return (
             <Pressable
               key={n}
-              onPress={() => (future ? undefined : openDay(n))}
+              onPress={() => openDay(n)}
+              accessibilityRole="button"
+              accessibilityLabel={`Open Day ${n}: ${d.dayTitle}`}
               style={[
                 styles.mapCard,
                 {
                   borderColor: isCurrent
                     ? tokens.semantic.accent
-                    : `${chakraColor(d.chakra)}44`,
-                  opacity: future ? 0.5 : 1,
+                    : `${chakraColor(d.chakra)}66`,
+                  opacity: future ? 0.75 : 1,
                 },
                 isCurrent && { shadowColor: tokens.semantic.accent, shadowOpacity: 0.4, shadowRadius: 14 },
               ]}
@@ -217,29 +221,29 @@ export default function JourneyTab() {
                   { backgroundColor: chakraColor(d.chakra) },
                 ]}
               />
-              <Text variant="mono" color={tokens.semantic.textSecondary}>
+              <Text variant="mono" color={tokens.semantic.textSecondary} style={{ fontSize: 12, letterSpacing: 1.2 }}>
                 DAY {n}
               </Text>
               <Text
                 variant="body"
-                style={{ marginTop: 4, fontSize: 13 }}
+                style={{ marginTop: 6, fontSize: 15, lineHeight: 21 }}
                 numberOfLines={2}
               >
                 {d.dayTitle}
               </Text>
               {done ? (
-                <Text variant="body" color={tokens.semantic.accent} style={{ marginTop: 6 }}>
+                <Text variant="body" color={tokens.semantic.accent} style={{ marginTop: 8, fontSize: 13 }}>
                   ✓ complete
                 </Text>
               ) : isCurrent ? (
-                <Text variant="body" color={tokens.semantic.accent} style={{ marginTop: 6 }}>
+                <Text variant="body" color={tokens.semantic.accent} style={{ marginTop: 8, fontSize: 13 }}>
                   · current
                 </Text>
-              ) : future ? (
-                <Text variant="body" color={tokens.semantic.textTertiary} style={{ marginTop: 6 }}>
-                  locked
+              ) : (
+                <Text variant="body" color={tokens.semantic.textTertiary} style={{ marginTop: 8, fontSize: 13 }}>
+                  preview →
                 </Text>
-              ) : null}
+              )}
             </Pressable>
           );
         })}
@@ -368,17 +372,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   mapCard: {
-    width: 160,
-    padding: 14,
+    width: 180,
+    padding: 18,
     borderRadius: tokens.radii.lg,
     backgroundColor: tokens.semantic.bgElevated,
     borderWidth: 1,
-    minHeight: 120,
+    minHeight: 140,
   },
   mapDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginBottom: 10,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    marginBottom: 12,
   },
 });
