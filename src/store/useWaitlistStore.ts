@@ -118,6 +118,7 @@ export const useWaitlistStore = create<WaitlistState>()(
       name: 'soma:waitlist',
       storage: createJSONStorage(() => zustandAsyncStorage),
       version: 1,
+      migrate: (state) => state as WaitlistState,
       merge: (persisted, current) => {
         if (!persisted || typeof persisted !== 'object') return current;
         const p = persisted as Partial<WaitlistState>;

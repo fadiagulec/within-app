@@ -70,6 +70,7 @@ export const useJournalStore = create<JournalState>()(
       name: 'soma:journal-entries',
       storage: createJSONStorage(() => zustandAsyncStorage),
       version: 1,
+      migrate: (state) => state as JournalState,
       merge: (persisted, current) => {
         if (!persisted || typeof persisted !== 'object') return current;
         const p = persisted as Partial<JournalState>;

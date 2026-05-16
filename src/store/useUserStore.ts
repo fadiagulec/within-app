@@ -54,6 +54,9 @@ export const useUserStore = create<UserState>()(
       name: 'soma:user',
       storage: createJSONStorage(() => zustandAsyncStorage),
       version: 1,
+      // No-op migration v0 -> v1. Preserves existing users' state when
+      // we bump version (without this, Zustand wipes prior state).
+      migrate: (state) => state as UserState,
       // Defensive merge — if a new field is added in a future version,
       // hydration falls back to the default for that field rather than
       // leaving it `undefined` and crashing downstream lookups.

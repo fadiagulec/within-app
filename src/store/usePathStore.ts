@@ -181,6 +181,7 @@ export const usePathStore = create<PathState>()(
       name: 'within-me-path-progress',
       storage: createJSONStorage(() => zustandAsyncStorage),
       version: 1,
+      migrate: (state) => state as PathState,
       merge: (persisted, current) => {
         if (!persisted || typeof persisted !== 'object') return current;
         const p = persisted as Partial<PathState>;

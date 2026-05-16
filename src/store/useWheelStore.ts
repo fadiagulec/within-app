@@ -123,6 +123,7 @@ export const useWheelStore = create<WheelState>()(
       name: 'soma:wheel',
       storage: createJSONStorage(() => zustandAsyncStorage),
       version: 1,
+      migrate: (state) => state as WheelState,
       partialize: (state) => ({
         history: state.history,
         // Intentionally omit currentDraft — drafts are session-scoped.

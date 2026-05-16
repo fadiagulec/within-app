@@ -74,6 +74,7 @@ export const useGratitudeStore = create<GratitudeState>()(
       name: 'soma:gratitude',
       storage: createJSONStorage(() => zustandAsyncStorage),
       version: 1,
+      migrate: (state) => state as GratitudeState,
       merge: (persisted, current) => {
         if (!persisted || typeof persisted !== 'object') return current;
         const p = persisted as Partial<GratitudeState>;
