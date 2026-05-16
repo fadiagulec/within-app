@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { View, StyleSheet, ScrollView, Pressable, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -76,9 +76,13 @@ export default function GratitudeScreen() {
     setItems((prev) => [...prev, '']);
   };
 
+  // Submit-debounce: prevent rapid double-tap from creating duplicate entries.
+  const savingRef = useRef(false);
   const handleSave = () => {
+    if (savingRef.current) return;
     const cleanItems = items.map((i) => i.trim()).filter((i) => i.length > 0);
     if (cleanItems.length === 0) return;
+    savingRef.current = true;
     void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     addEntry({
       time,
@@ -88,6 +92,10 @@ export default function GratitudeScreen() {
     setItems(['', '', '']);
     setReflection('');
     setMode('history');
+    // Release the lock after the next event-loop tick — long enough to
+    // cover the synchronous double-tap, short enough to never block a
+    // legitimate retry.
+    setTimeout(() => { savingRef.current = false; }, 800);
   };
 
   const newPrompt = () => {

@@ -33,7 +33,7 @@ export default function PlanDetail() {
 
   function goBack() {
     if (router.canGoBack()) router.back();
-    else router.replace('/plans' as never);
+    else router.replace('/(tabs)/plans' as never);
   }
 
   if (!plan) {

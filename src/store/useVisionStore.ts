@@ -72,6 +72,16 @@ export const useVisionStore = create<VisionState>()(
     {
       name: 'soma:vision',
       storage: createJSONStorage(() => zustandAsyncStorage),
+      version: 1,
+      merge: (persisted, current) => {
+        if (!persisted || typeof persisted !== 'object') return current;
+        const p = persisted as Partial<VisionState>;
+        return {
+          ...current,
+          ...p,
+          intentions: Array.isArray(p.intentions) ? p.intentions : current.intentions,
+        };
+      },
     }
   )
 );

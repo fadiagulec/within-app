@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
 });
 
 const sizeStyles: Record<Size, ViewStyle> = {
-  sm: { paddingVertical: 10, paddingHorizontal: 16, minHeight: 36 },
+  // sm bumped 36 → 44 to meet iOS 44pt minimum touch target
+  sm: { paddingVertical: 12, paddingHorizontal: 18, minHeight: 44 },
   md: { paddingVertical: 14, paddingHorizontal: 24, minHeight: 48 },
   lg: { paddingVertical: 18, paddingHorizontal: 32, minHeight: 56 },
 };

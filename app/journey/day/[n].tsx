@@ -118,7 +118,12 @@ export default function JourneyDayDetail() {
         style={StyleSheet.absoluteFill}
       />
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()} hitSlop={10}>
+        <Pressable
+          onPress={() => router.back()}
+          hitSlop={10}
+          accessibilityRole="button"
+          accessibilityLabel="Back to journey"
+        >
           <Text variant="body" color={tokens.semantic.textSecondary}>
             ← Journey
           </Text>
@@ -144,7 +149,7 @@ export default function JourneyDayDetail() {
               FREE PREVIEW · DAY 1
             </Text>
             <Text variant="bodySmall" color={tokens.semantic.textSecondary} style={{ marginTop: 6, lineHeight: 18 }}>
-              The morning breath is on us. To go deeper — the evening session, the rest of the 14 days — unlock the full reset.
+              The morning breath is on us. To go deeper — the evening session, the rest of the 21 days — unlock the full reset.
             </Text>
           </View>
         ) : null}
@@ -173,7 +178,13 @@ export default function JourneyDayDetail() {
         <View style={styles.sectionSep} />
 
         <Text variant="eyebrow">MORNING PRACTICE · {day.morningPractice.duration} MIN</Text>
-        <Pressable onPress={() => openSession(morningId)} style={styles.sessionRow}>
+        <Pressable
+          onPress={() => openSession(morningId)}
+          style={styles.sessionRow}
+          accessibilityRole="button"
+          accessibilityLabel={`${morningDone ? 'Replay' : 'Begin'} morning practice: ${day.morningPractice.title}`}
+          accessibilityState={{ selected: morningDone }}
+        >
           <View
             style={[
               styles.sessionCheck,
@@ -211,6 +222,13 @@ export default function JourneyDayDetail() {
             styles.sessionRow,
             eveningLocked && { borderColor: `${tokens.semantic.accent}66` },
           ]}
+          accessibilityRole="button"
+          accessibilityLabel={
+            eveningLocked
+              ? `Unlock evening session: ${day.eveningSession.title}`
+              : `${eveningDone ? 'Replay' : 'Begin'} evening session: ${day.eveningSession.title}`
+          }
+          accessibilityState={{ selected: eveningDone, disabled: false }}
         >
           <View
             style={[
@@ -257,6 +275,8 @@ export default function JourneyDayDetail() {
         <Pressable
           onPress={() => router.push('/journal/write')}
           style={styles.linkRow}
+          accessibilityRole="button"
+          accessibilityLabel="Open journal to write today's reflection"
         >
           <Text variant="body" color={tokens.semantic.accent}>
             Open journal →

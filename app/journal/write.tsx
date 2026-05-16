@@ -159,11 +159,15 @@ export default function WriteEntry() {
     }
   }
 
+  // Submit-debounce: prevent rapid double-tap from creating duplicate entries.
+  const savingRef = useRef(false);
   async function save() {
+    if (savingRef.current) return;
     if (!body.trim() && !voiceUri && !emotionKey) {
       Alert.alert('Nothing to save yet.', 'Add a few words, a colour, or a voice note.');
       return;
     }
+    savingRef.current = true;
     addEntry({
       promptId: prompt.id,
       promptText: prompt.text,
@@ -185,6 +189,8 @@ export default function WriteEntry() {
       () => {}
     );
     router.back();
+    // Reset the lock after navigation — covers the rare back-and-tap-again case.
+    setTimeout(() => { savingRef.current = false; }, 800);
   }
 
   return (

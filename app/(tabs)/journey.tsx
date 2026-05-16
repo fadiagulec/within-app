@@ -80,7 +80,11 @@ export default function JourneyTab() {
         ) : null}
 
         {/* Hero card */}
-        <Pressable onPress={startDay}>
+        <Pressable
+          onPress={startDay}
+          accessibilityRole="button"
+          accessibilityLabel={`Start Day ${day.day}: ${day.dayTitle}`}
+        >
           <View style={[styles.heroCard, { borderColor: `${dayColor}aa` }]}>
             <LinearGradient
               colors={[`${dayColor}44`, 'transparent']}
@@ -153,7 +157,11 @@ export default function JourneyTab() {
           >
             {day.journalingPrompt}
           </Text>
-          <Pressable onPress={() => router.push('/journal/write')}>
+          <Pressable
+            onPress={() => router.push('/journal/write')}
+            accessibilityRole="button"
+            accessibilityLabel="Open journal"
+          >
             <Text
               variant="body"
               color={tokens.semantic.accent}
@@ -176,7 +184,11 @@ export default function JourneyTab() {
         <View style={{ marginTop: 28, marginBottom: 12 }}>
           <View style={styles.mapHeaderRow}>
             <Text variant="eyebrow">THE 21 DAYS</Text>
-            <Pressable onPress={() => router.push('/journey/overview')}>
+            <Pressable
+              onPress={() => router.push('/journey/overview')}
+              accessibilityRole="button"
+              accessibilityLabel="See the full 21-day journey map"
+            >
               <Text variant="mono" color={tokens.semantic.accent}>
                 See map →
               </Text>

@@ -40,7 +40,11 @@ export function SpeechPlayer({
   const a = accent ?? tokens.semantic.accent;
   const handleRef = useRef<SpeechHandle | null>(null);
   const [playing, setPlaying] = useState(false);
+  // IMPORTANT: declare ALL hooks before any conditional return. React enforces
+  // hook order across renders, and an early-return between hooks throws
+  // "Rendered fewer hooks than expected" if `supported` ever flips.
   const [supported] = useState(() => isSpeechSupported());
+  const [loading, setLoading] = useState(false);
 
   // Stop on unmount + when text changes
   useEffect(() => {
@@ -70,9 +74,8 @@ export function SpeechPlayer({
     return () => clearInterval(i);
   }, [playing]);
 
+  // Conditional render — safe AFTER every hook above has run.
   if (!supported && !isElevenLabsSupported()) return null;
-
-  const [loading, setLoading] = useState(false);
 
   async function toggle() {
     if (playing) {

@@ -122,10 +122,21 @@ export const useWheelStore = create<WheelState>()(
     {
       name: 'soma:wheel',
       storage: createJSONStorage(() => zustandAsyncStorage),
+      version: 1,
       partialize: (state) => ({
         history: state.history,
         // Intentionally omit currentDraft — drafts are session-scoped.
       }),
+      merge: (persisted, current) => {
+        if (!persisted || typeof persisted !== 'object') return current;
+        const p = persisted as Partial<WheelState>;
+        return {
+          ...current,
+          ...p,
+          history: Array.isArray(p.history) ? p.history : current.history,
+          currentDraft: {}, // never restore stale drafts
+        };
+      },
     }
   )
 );

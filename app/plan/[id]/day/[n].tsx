@@ -42,7 +42,7 @@ export default function PlanDayRunner() {
   function goBack() {
     if (router.canGoBack()) router.back();
     else if (planId) router.replace({ pathname: '/plan/[id]', params: { id: planId } } as never);
-    else router.replace('/plans' as never);
+    else router.replace('/(tabs)/plans' as never);
   }
 
   if (!plan || !day) {

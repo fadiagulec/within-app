@@ -1,19 +1,12 @@
 /**
  * +html.tsx — Expo Router custom HTML root.
  *
- * Wraps every web-rendered page. We use this to inject a tiny diagnostic
- * layer:
+ * Wraps every web-rendered page. Injects a branded boot splash so the
+ * user sees the Within mark IMMEDIATELY while the JS bundle parses + boots,
+ * and surfaces any uncaught error visibly instead of a white screen.
  *
- *   1. A visible "Loading Within…" splash that the user sees IMMEDIATELY
- *      while the JS bundle parses + boots. If they ever see this for more
- *      than 5 seconds, JS isn't running — and we surface that.
- *
- *   2. A window.onerror handler that catches uncaught errors at module-init
- *      time (BEFORE React's ErrorBoundary can mount) and writes them
- *      visibly to the screen.
- *
- * This way, "blank page" is impossible. Either the app renders, or the
- * user sees a real diagnostic with the error.
+ * The pulsing-dot splash lives here in source so `expo export` regenerates
+ * it reproducibly — no more hand-patching dist/index.html after every build.
  */
 
 import { ScrollViewStyleReset } from 'expo-router/html';
@@ -33,20 +26,15 @@ export default function Root({ children }: Props) {
         <title>Within</title>
         <ScrollViewStyleReset />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <style dangerouslySetInnerHTML={{ __html: SAFE_CSS }} />
+        <style id="wm-boot-style" dangerouslySetInnerHTML={{ __html: SAFE_CSS }} />
         <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
       </head>
       <body>
         {/* Pre-React fallback. Removed by the boot script once React mounts. */}
-        <div id="wm-boot" style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(180deg, #DCE6EC 0%, #EDE4E2 35%, #F1E1D5 70%, #E8D2D2 100%)', zIndex: 1, fontFamily: 'system-ui, -apple-system, sans-serif', color: '#3A3540' }}>
-          <div style={{ textAlign: 'center', maxWidth: 480, padding: 24 }}>
-            <div style={{ fontSize: 11, letterSpacing: 4, marginBottom: 16, color: '#9DBFB2' }}>WITHIN</div>
-            <div style={{ fontSize: 22, lineHeight: 1.4, fontWeight: 500 }}>Loading…</div>
-            <div id="wm-slow-msg" style={{ marginTop: 28, fontSize: 13, lineHeight: 1.6, opacity: 0, transition: 'opacity 0.4s' }}>
-              Taking longer than usual. If this stays here for more than 30 seconds, something is wrong — open the browser console (F12) and share what you see.
-            </div>
-            <div id="wm-error" style={{ marginTop: 20, padding: 16, background: '#1A201D', color: '#E5D9BD', borderRadius: 8, textAlign: 'left', fontSize: 12, lineHeight: 1.5, fontFamily: 'monospace', display: 'none', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}></div>
-          </div>
+        <div id="wm-boot">
+          <div className="wm-dot" />
+          <div className="wm-mark">WITHIN</div>
+          <div id="wm-err" />
         </div>
         {children}
       </body>
@@ -54,62 +42,85 @@ export default function Root({ children }: Props) {
   );
 }
 
-// Plain CSS to make the body full-height + reset for react-native-web
+// Branded boot splash + body styles. Survives expo export reproducibly.
 const SAFE_CSS = `
 html, body { height: 100%; margin: 0; padding: 0; }
-body { overflow: hidden; }
+body {
+  overflow: hidden;
+  background: linear-gradient(180deg, #DCE6EC 0%, #EDE4E2 35%, #F1E1D5 70%, #E8D2D2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #3A3540;
+}
 #root { display: flex; height: 100%; flex: 1; min-height: 100%; }
+#wm-boot {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1;
+  flex-direction: column; gap: 14px;
+  text-align: center; padding: 24px;
+}
+#wm-boot .wm-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #9DBFB2; opacity: 0.6;
+  animation: wm-pulse 1.4s ease-in-out infinite;
+}
+#wm-boot .wm-mark {
+  font-size: 14px; opacity: 0.65; letter-spacing: 1.5px; color: #9DBFB2;
+}
+@keyframes wm-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 0.95; transform: scale(1.1); }
+}
+#wm-err {
+  display: none; max-width: 560px;
+  background: rgba(255, 252, 250, 0.95);
+  border-left: 4px solid #D8A0A0;
+  padding: 18px 20px; border-radius: 12px;
+  text-align: left; font-size: 13px; line-height: 19px;
+  color: #3A3540; white-space: pre-wrap; word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
 `;
 
-// Boot script — runs synchronously in <head>. Sets up:
-//   - 5-second slow-loading hint
-//   - 30-second "really stuck" message
-//   - window.onerror handler that prints to #wm-error
-//   - removes the boot splash once #root has any child element
+// Boot script — synchronous in <head>. Watches #root via MutationObserver
+// and removes the splash the moment React mounts its first child. Captures
+// uncaught errors and surfaces them in #wm-err instead of leaving a blank.
 const BOOT_SCRIPT = `
 (function () {
-  var slowTimer = setTimeout(function () {
-    var s = document.getElementById('wm-slow-msg');
-    if (s) s.style.opacity = '1';
-  }, 5000);
-
-  function showError(msg) {
-    var box = document.getElementById('wm-error');
-    if (!box) return;
-    box.style.display = 'block';
-    box.textContent = (box.textContent ? box.textContent + '\\n\\n' : '') + msg;
+  function ready(fn) {
+    if (document.readyState !== 'loading') fn();
+    else document.addEventListener('DOMContentLoaded', fn);
   }
+  ready(function () {
+    var bootEl = document.getElementById('wm-boot');
+    var errEl  = document.getElementById('wm-err');
+    var rootEl = document.getElementById('root');
 
-  window.addEventListener('error', function (e) {
-    var m = (e && e.error && e.error.stack) ? e.error.stack : (e.message || 'Unknown error');
-    showError('UNCAUGHT ERROR\\n' + m);
-    var s = document.getElementById('wm-slow-msg');
-    if (s) s.style.opacity = '1';
-  });
-
-  window.addEventListener('unhandledrejection', function (e) {
-    var m = (e && e.reason && e.reason.stack) ? e.reason.stack : (e && e.reason && e.reason.message) ? e.reason.message : String(e.reason || 'Unknown rejection');
-    showError('UNHANDLED PROMISE\\n' + m);
-  });
-
-  // Watch for React mounting — once #root has children, hide the splash
-  function checkMounted() {
-    var root = document.getElementById('root');
-    if (root && root.children && root.children.length > 0) {
-      var splash = document.getElementById('wm-boot');
-      if (splash) splash.parentNode && splash.parentNode.removeChild(splash);
-      clearTimeout(slowTimer);
-      return true;
+    function showErr(msg) {
+      if (!errEl) return;
+      errEl.style.display = 'block';
+      errEl.textContent = (errEl.textContent ? errEl.textContent + '\\n\\n' : '') + msg;
     }
-    return false;
-  }
 
-  // Poll for ~30s, then give up the polling and leave the splash + diagnostic
-  var startTs = Date.now();
-  var pollId = setInterval(function () {
-    if (checkMounted() || Date.now() - startTs > 30000) {
-      clearInterval(pollId);
+    if (rootEl) {
+      var observer = new MutationObserver(function () {
+        if (rootEl.childNodes && rootEl.childNodes.length > 0) {
+          if (bootEl && bootEl.parentNode) bootEl.parentNode.removeChild(bootEl);
+          observer.disconnect();
+        }
+      });
+      observer.observe(rootEl, { childList: true });
     }
-  }, 200);
+
+    window.addEventListener('error', function (e) {
+      var m = (e && e.error && e.error.stack) ? e.error.stack : (e && e.message) ? e.message : 'unknown';
+      showErr('Boot error: ' + m);
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+      var r = e && e.reason;
+      var m = (r && r.stack) ? r.stack : (r && r.message) ? r.message : String(r || 'unknown');
+      showErr('Boot promise rejected: ' + m);
+    });
+  });
 })();
 `;

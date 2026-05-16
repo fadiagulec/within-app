@@ -109,6 +109,19 @@ export const usePlanStore = create<PlanState>()(
     {
       name: 'soma:plans',
       storage: createJSONStorage(() => zustandAsyncStorage),
+      version: 1,
+      merge: (persisted, current) => {
+        if (!persisted || typeof persisted !== 'object') return current;
+        const p = persisted as Partial<PlanState>;
+        return {
+          ...current,
+          ...p,
+          progress:
+            p.progress && typeof p.progress === 'object'
+              ? p.progress
+              : current.progress,
+        };
+      },
     }
   )
 );

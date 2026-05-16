@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// Use the shared hardened adapter, not raw AsyncStorage. Ensures the
+// try/catch wrappers in src/store/storage.ts apply here too.
+import { zustandAsyncStorage } from './storage';
 
 export type GratitudeTime = 'morning' | 'evening';
 
@@ -70,7 +72,17 @@ export const useGratitudeStore = create<GratitudeState>()(
     }),
     {
       name: 'soma:gratitude',
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => zustandAsyncStorage),
+      version: 1,
+      merge: (persisted, current) => {
+        if (!persisted || typeof persisted !== 'object') return current;
+        const p = persisted as Partial<GratitudeState>;
+        return {
+          ...current,
+          ...p,
+          entries: Array.isArray(p.entries) ? p.entries : current.entries,
+        };
+      },
     }
   )
 );

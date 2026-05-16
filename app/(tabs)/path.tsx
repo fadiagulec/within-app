@@ -48,10 +48,13 @@ export default function PathTab() {
             const isCurrent = stage.id === currentStageId;
             const isComplete = isStageComplete(stage.id);
             const progress = stageProgress(stage.id);
+            // Guard the lookup — if currentStageId is stale (older
+            // persisted store, schema drift), fall back to stage 1 rather
+            // than throwing on `.find(...)!`.
+            const currentStageOrder =
+              (PATH_STAGES.find((s) => s.id === currentStageId) ?? PATH_STAGES[0])?.order ?? 0;
             const isFuture =
-              !isComplete &&
-              !isCurrent &&
-              PATH_STAGES.find((s) => s.id === currentStageId)!.order < stage.order;
+              !isComplete && !isCurrent && currentStageOrder < stage.order;
             const isLast = idx === PATH_STAGES.length - 1;
 
             return (

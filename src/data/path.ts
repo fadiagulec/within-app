@@ -369,7 +369,7 @@ export const PATH_STAGES: PathStage[] = [
         id: 'release-plan-letting-go',
         title: 'Letting Go of the Past — 21 days',
         kind: 'plan',
-        route: '/plan/letting-go',
+        route: '/plan/letting-go-of-the-past',
         durationMin: 15,
         blurb: '15 minutes a day. Open → Release → Integrate.',
       },

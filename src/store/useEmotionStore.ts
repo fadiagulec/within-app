@@ -37,6 +37,16 @@ export const useEmotionStore = create<EmotionState>()(
     {
       name: 'soma:emotions',
       storage: createJSONStorage(() => zustandAsyncStorage),
+      version: 1,
+      merge: (persisted, current) => {
+        if (!persisted || typeof persisted !== 'object') return current;
+        const p = persisted as Partial<EmotionState>;
+        return {
+          ...current,
+          ...p,
+          entries: Array.isArray(p.entries) ? p.entries : current.entries,
+        };
+      },
     }
   )
 );

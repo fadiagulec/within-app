@@ -69,6 +69,17 @@ export const useJournalStore = create<JournalState>()(
     {
       name: 'soma:journal-entries',
       storage: createJSONStorage(() => zustandAsyncStorage),
+      version: 1,
+      merge: (persisted, current) => {
+        if (!persisted || typeof persisted !== 'object') return current;
+        const p = persisted as Partial<JournalState>;
+        return {
+          ...current,
+          ...p,
+          // Guarantee entries is always an array — otherwise .filter / .map crash.
+          entries: Array.isArray(p.entries) ? p.entries : current.entries,
+        };
+      },
     }
   )
 );

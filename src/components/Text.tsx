@@ -81,20 +81,23 @@ const styles = StyleSheet.create<Record<Variant, TextStyle>>({
   },
   body: {
     fontFamily: tokens.fonts.body,
-    fontSize: tokens.fontSizes.fs14,
-    lineHeight: tokens.fontSizes.fs14 * tokens.lineHeights.normal,
-    color: tokens.semantic.textPrimary,
-  },
-  bodyLarge: {
-    fontFamily: tokens.fonts.body,
+    // Bumped from 14 → 16 to meet the web readability floor (the founder
+    // and users consistently flagged 14px as "hard to read"). Inline
+    // fontSize overrides on individual screens still take precedence.
     fontSize: tokens.fontSizes.fs16,
     lineHeight: tokens.fontSizes.fs16 * tokens.lineHeights.normal,
     color: tokens.semantic.textPrimary,
   },
+  bodyLarge: {
+    fontFamily: tokens.fonts.body,
+    fontSize: 18,
+    lineHeight: 18 * tokens.lineHeights.normal,
+    color: tokens.semantic.textPrimary,
+  },
   bodySmall: {
     fontFamily: tokens.fonts.body,
-    fontSize: tokens.fontSizes.fs12,
-    lineHeight: tokens.fontSizes.fs12 * tokens.lineHeights.normal,
+    fontSize: 13,
+    lineHeight: 13 * tokens.lineHeights.normal,
     color: tokens.semantic.textSecondary,
   },
   label: {
@@ -106,7 +109,7 @@ const styles = StyleSheet.create<Record<Variant, TextStyle>>({
   },
   eyebrow: {
     fontFamily: tokens.fonts.body,
-    fontSize: 11,
+    fontSize: 12,
     letterSpacing: 2,
     textTransform: 'uppercase',
     color: tokens.semantic.textTertiary,

@@ -53,6 +53,19 @@ export const useUserStore = create<UserState>()(
     {
       name: 'soma:user',
       storage: createJSONStorage(() => zustandAsyncStorage),
+      version: 1,
+      // Defensive merge — if a new field is added in a future version,
+      // hydration falls back to the default for that field rather than
+      // leaving it `undefined` and crashing downstream lookups.
+      merge: (persisted, current) => {
+        if (!persisted || typeof persisted !== 'object') return current;
+        const p = persisted as Partial<UserState>;
+        return {
+          ...current,
+          ...p,
+          user: { ...current.user, ...(p.user ?? {}) },
+        };
+      },
     }
   )
 );

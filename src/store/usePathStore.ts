@@ -66,27 +66,28 @@ export const usePathStore = create<PathState>()(
       lastPracticeId: undefined,
       lastPracticeAt: undefined,
 
-      markPracticeComplete: (practiceId) => {
-        const { completedPracticeIds } = get();
-        if (completedPracticeIds.includes(practiceId)) return;
-        set({
-          completedPracticeIds: [...completedPracticeIds, practiceId],
-          lastPracticeId: practiceId,
-          lastPracticeAt: Date.now(),
-        });
-        // If user finishes a practice in a stage they have not yet entered,
-        // soft-promote them to that stage so the Path UI follows them.
-        const stage = findStageForPractice(practiceId);
-        const currentStage = getStage(get().currentStageId);
-        if (stage && currentStage && stage.order > currentStage.order) {
-          const { stageEnteredAt } = get();
-          if (!stageEnteredAt[stage.id]) {
-            set({
-              stageEnteredAt: { ...stageEnteredAt, [stage.id]: Date.now() },
-            });
-          }
-        }
-      },
+      markPracticeComplete: (practiceId) =>
+        // Single atomic set — collapses the previous get→set→get→set chain
+        // which had a race if two completions fired concurrently.
+        set((state) => {
+          if (state.completedPracticeIds.includes(practiceId)) return state;
+          const stage = findStageForPractice(practiceId);
+          const currentStage = getStage(state.currentStageId);
+          const shouldPromote =
+            !!stage &&
+            !!currentStage &&
+            stage.order > currentStage.order &&
+            !state.stageEnteredAt[stage.id];
+          return {
+            ...state,
+            completedPracticeIds: [...state.completedPracticeIds, practiceId],
+            lastPracticeId: practiceId,
+            lastPracticeAt: Date.now(),
+            stageEnteredAt: shouldPromote
+              ? { ...state.stageEnteredAt, [stage.id]: Date.now() }
+              : state.stageEnteredAt,
+          };
+        }),
 
       markPracticeOpened: (practiceId) => {
         set({
@@ -180,6 +181,25 @@ export const usePathStore = create<PathState>()(
       name: 'within-me-path-progress',
       storage: createJSONStorage(() => zustandAsyncStorage),
       version: 1,
+      merge: (persisted, current) => {
+        if (!persisted || typeof persisted !== 'object') return current;
+        const p = persisted as Partial<PathState>;
+        return {
+          ...current,
+          ...p,
+          completedPracticeIds: Array.isArray(p.completedPracticeIds)
+            ? p.completedPracticeIds
+            : current.completedPracticeIds,
+          stageCompletedAt:
+            p.stageCompletedAt && typeof p.stageCompletedAt === 'object'
+              ? p.stageCompletedAt
+              : current.stageCompletedAt,
+          stageEnteredAt:
+            p.stageEnteredAt && typeof p.stageEnteredAt === 'object'
+              ? p.stageEnteredAt
+              : current.stageEnteredAt,
+        };
+      },
     }
   )
 );

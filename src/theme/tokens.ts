@@ -37,7 +37,9 @@ export const palette = {
   // ──────── Text — soft dark warm grey ────────
   ink900: '#3A3540',         // primary — slightly softer than near-black
   ink700: '#6B6470',         // secondary
-  ink500: '#9A93A0',         // tertiary / muted
+  // Bumped from #9A93A0 → #7E7780 to clear WCAG AA contrast (>=4.5:1) on
+  // small text against the bgBase pastel. Was 3.0:1 — fails AA for small text.
+  ink500: '#7E7780',         // tertiary / muted
 
   // ──────── Legacy aliases (kept so existing code that imports
   // palette.obsidian / palette.bone / etc. keeps working) ────────
