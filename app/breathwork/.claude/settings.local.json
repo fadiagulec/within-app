@@ -17,7 +17,10 @@
       "Bash(ls -la \"C:/Users/serka/soma/app/\" 2>&1 | head -20; echo \"---\"; ls -la \"C:/Users/serka/soma/\" 2>&1 | head -10)",
       "Bash(gh --version)",
       "Bash(git --version)",
-      "Bash(gh auth *)"
+      "Bash(gh auth *)",
+      "Bash(gh repo *)",
+      "Read(//c/Users/serka/Downloads/**)",
+      "Bash(unzip -l \"C:/Users/serka/Downloads/files \\(1\\).zip\")"
     ]
   }
 }
