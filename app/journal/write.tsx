@@ -23,6 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Screen } from '@/components/Screen';
 import { Text } from '@/components/Text';
 import { Button } from '@/components/Button';
+import { MicButton } from '@/components/MicButton';
 import { tokens, chakraColors } from '@/theme/tokens';
 import { emotionColors } from '@/data/feelings';
 import {
@@ -258,11 +259,20 @@ export default function WriteEntry() {
         <TextInput
           value={body}
           onChangeText={setBody}
-          placeholder="Let the pen move before the mind catches up."
+          placeholder="Let the pen move before the mind catches up. Or tap the mic and speak."
           placeholderTextColor={tokens.semantic.textTertiary}
           multiline
           style={styles.input}
         />
+        <View style={{ marginTop: 10 }}>
+          <MicButton
+            value={body}
+            onChange={setBody}
+            accent={tokens.semantic.accent}
+            size="md"
+            label="SPEAK INSTEAD"
+          />
+        </View>
 
         <Text variant="eyebrow" style={{ marginTop: 18, marginBottom: 10 }}>
           VOICE NOTE · OPTIONAL
@@ -371,16 +381,16 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 18,
-    minHeight: 200,
-    padding: 14,
+    minHeight: 240,
+    padding: 18,
     borderRadius: tokens.radii.md,
     borderWidth: 1,
     borderColor: tokens.semantic.borderSubtle,
     backgroundColor: tokens.semantic.bgElevated,
     color: tokens.semantic.textPrimary,
     fontFamily: tokens.fonts.body,
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 19,
+    lineHeight: 29,
     textAlignVertical: 'top',
   },
   voiceBtn: {

@@ -7,6 +7,7 @@ import * as Haptics from '@/lib/haptic';
 import { Screen } from '@/components/Screen';
 import { Text } from '@/components/Text';
 import { Button } from '@/components/Button';
+import { MicButton } from '@/components/MicButton';
 import { tokens } from '@/theme/tokens';
 import { useGratitudeStore, GratitudeTime } from '@/store/useGratitudeStore';
 
@@ -237,18 +238,29 @@ export default function GratitudeScreen() {
                     <Text variant="heading3" style={styles.entryNumber}>
                       {i + 1}.
                     </Text>
-                    <TextInput
-                      value={item}
-                      onChangeText={(v) => updateItem(i, v)}
-                      placeholder="Something you are grateful for..."
-                      placeholderTextColor={tokens.semantic.textSecondary}
-                      style={styles.entryInput}
-                      multiline
-                    />
+                    <View style={{ flex: 1 }}>
+                      <TextInput
+                        value={item}
+                        onChangeText={(v) => updateItem(i, v)}
+                        placeholder="Something you are grateful for..."
+                        placeholderTextColor={tokens.semantic.textSecondary}
+                        style={styles.entryInput}
+                        multiline
+                      />
+                      <View style={{ marginTop: 8 }}>
+                        <MicButton
+                          value={item}
+                          onChange={(v) => updateItem(i, v)}
+                          accent={tokens.semantic.accent}
+                          size="sm"
+                          label="SPEAK INSTEAD"
+                        />
+                      </View>
+                    </View>
                   </View>
                 ))}
                 <Pressable onPress={addMoreItem} style={styles.addMore}>
-                  <Text variant="label" style={{ color: tokens.semantic.accent }}>
+                  <Text variant="label" style={{ color: tokens.semantic.accent, fontSize: 14, letterSpacing: 0.5 }}>
                     + Add another
                   </Text>
                 </Pressable>
@@ -272,13 +284,22 @@ export default function GratitudeScreen() {
                 <TextInput
                   value={reflection}
                   onChangeText={setReflection}
-                  placeholder="Write as much or as little as you like..."
+                  placeholder="Write or speak as much as you like..."
                   placeholderTextColor={tokens.semantic.textSecondary}
                   style={styles.reflectionInput}
                   multiline
                   numberOfLines={4}
                   textAlignVertical="top"
                 />
+                <View style={{ marginTop: 10 }}>
+                  <MicButton
+                    value={reflection}
+                    onChange={setReflection}
+                    accent={tokens.semantic.accent}
+                    size="md"
+                    label="SPEAK INSTEAD"
+                  />
+                </View>
               </View>
 
               <View style={{ marginTop: tokens.spacing.s8 }}>
@@ -371,7 +392,8 @@ const styles = StyleSheet.create({
     marginTop: tokens.spacing.s3,
     fontStyle: 'italic',
     color: tokens.semantic.textSecondary,
-    lineHeight: 22,
+    fontSize: 17,
+    lineHeight: 26,
   },
   statsRow: {
     flexDirection: 'row',
@@ -422,22 +444,27 @@ const styles = StyleSheet.create({
   },
   promptTitle: {
     marginTop: tokens.spacing.s2,
+    fontSize: 28,
+    lineHeight: 36,
   },
   promptSubtitle: {
     color: tokens.semantic.textSecondary,
-    marginTop: tokens.spacing.s1,
+    marginTop: tokens.spacing.s2,
     fontStyle: 'italic',
+    fontSize: 17,
+    lineHeight: 25,
   },
   invitation: {
     marginTop: tokens.spacing.s5,
     color: tokens.semantic.accent,
-    fontSize: 20,
-    lineHeight: 28,
+    fontSize: 24,
+    lineHeight: 34,
   },
   guidance: {
     marginTop: tokens.spacing.s3,
     color: tokens.semantic.textSecondary,
-    lineHeight: 22,
+    fontSize: 17,
+    lineHeight: 26,
   },
   alreadyLogged: {
     marginTop: tokens.spacing.s5,
@@ -458,20 +485,21 @@ const styles = StyleSheet.create({
   },
   entryNumber: {
     color: tokens.semantic.accent,
-    width: 28,
-    paddingTop: tokens.spacing.s3,
+    width: 32,
+    paddingTop: tokens.spacing.s4,
+    fontSize: 22,
   },
   entryInput: {
-    flex: 1,
-    padding: tokens.spacing.s3,
-    minHeight: 56,
+    padding: tokens.spacing.s4,
+    minHeight: 72,
     backgroundColor: tokens.semantic.bgElevated,
     borderRadius: tokens.radii.md,
     borderWidth: 1,
     borderColor: tokens.semantic.borderDefault,
     color: tokens.semantic.textPrimary,
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 19,
+    lineHeight: 28,
+    fontFamily: tokens.fonts.body,
   },
   addMore: {
     paddingVertical: tokens.spacing.s2,
@@ -491,19 +519,21 @@ const styles = StyleSheet.create({
   deeperPromptText: {
     marginTop: tokens.spacing.s2,
     fontStyle: 'italic',
-    lineHeight: 22,
+    fontSize: 17,
+    lineHeight: 26,
   },
   reflectionInput: {
     marginTop: tokens.spacing.s3,
-    padding: tokens.spacing.s3,
-    minHeight: 100,
+    padding: tokens.spacing.s4,
+    minHeight: 140,
     backgroundColor: tokens.semantic.bgBase,
     borderRadius: tokens.radii.sm,
     borderWidth: 1,
     borderColor: tokens.semantic.borderDefault,
     color: tokens.semantic.textPrimary,
-    fontSize: 15,
-    lineHeight: 22,
+    fontSize: 18,
+    lineHeight: 27,
+    fontFamily: tokens.fonts.body,
   },
   footerNote: {
     marginTop: tokens.spacing.s5,
