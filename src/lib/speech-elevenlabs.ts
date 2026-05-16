@@ -76,9 +76,12 @@ export async function speakViaElevenLabs(
 ): Promise<SpeechHandle | null> {
   if (!isElevenLabsSupported() || !text) return null;
 
-  // Stop any currently-playing instance before starting a new one —
-  // prevents two voices overlapping on the same screen.
-  stopCurrentElevenLabs();
+  // NOTE: We intentionally do NOT stop the current handle here — doing
+  // so at the top of the function fails to prevent overlap when two
+  // calls fire in parallel (both pass the stop while currentHandle is
+  // null, then both resolve and play). Instead we stop the previous
+  // handle AFTER audio.play() succeeds below, guaranteeing the new
+  // audio is ready to take over before we silence the old one.
 
   const key = cacheKey(text, voiceId);
   let entry = cache.get(key);
@@ -138,6 +141,13 @@ export async function speakViaElevenLabs(
     releaseEntry(key);
     return null;
   }
+
+  // Now that THIS audio is actually playing, silence any previously-
+  // registered handle. Doing it here (not at the top) closes the race
+  // where two parallel speakViaElevenLabs() calls both pass the stop
+  // before either has registered — without this, both audio elements
+  // end up playing simultaneously.
+  stopCurrentElevenLabs();
 
   const handle: SpeechHandle = {
     isPlaying: () => playing && !ended,

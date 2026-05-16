@@ -19,6 +19,7 @@ interface GratitudeState {
   entries: GratitudeEntry[];
   addEntry: (entry: Omit<GratitudeEntry, 'id' | 'createdAt' | 'date'>) => void;
   deleteEntry: (id: string) => void;
+  reset: () => void;
   getEntriesByDate: (date: string) => GratitudeEntry[];
   getStreak: () => number;
   getTodayComplete: () => { morning: boolean; evening: boolean };
@@ -46,6 +47,7 @@ export const useGratitudeStore = create<GratitudeState>()(
       },
       deleteEntry: (id) =>
         set((state) => ({ entries: state.entries.filter((e) => e.id !== id) })),
+      reset: () => set({ entries: [] }),
       getEntriesByDate: (date) =>
         get().entries.filter((e) => e.date === date),
       getStreak: () => {

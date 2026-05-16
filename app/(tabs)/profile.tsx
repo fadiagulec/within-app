@@ -23,6 +23,10 @@ import { useProgressStore } from '@/store/useProgressStore';
 import { useEmotionStore } from '@/store/useEmotionStore';
 import { useWheelStore } from '@/store/useWheelStore';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
+import { useJournalStore } from '@/store/useJournalStore';
+import { useGratitudeStore } from '@/store/useGratitudeStore';
+import { useVisionStore } from '@/store/useVisionStore';
+import { usePlanStore } from '@/store/usePlanStore';
 import { LIFE_AREAS } from '@/data/wheel-of-life';
 import { GET_UNSTUCK_PROGRAM } from '@/data/get-unstuck-program';
 import {
@@ -97,6 +101,10 @@ export default function Profile() {
   const resetEmotion = useEmotionStore((s) => s.reset);
   const resetWheel = useWheelStore((s) => s.reset);
   const resetOnboarding = useOnboardingStore((s) => s.resetOnboarding);
+  const resetJournal = useJournalStore((s) => s.reset);
+  const resetGratitude = useGratitudeStore((s) => s.reset);
+  const resetVision = useVisionStore((s) => s.reset);
+  const resetPlans = usePlanStore((s) => s.reset);
 
   // ============ Derived state ============
 
@@ -181,6 +189,13 @@ export default function Profile() {
             resetProgress();
             resetEmotion();
             resetWheel();
+            // Full content reset on sign-out — private content (journal,
+            // gratitude, vision board, plan progress) shouldn't follow
+            // the previous user if a device is shared.
+            resetJournal();
+            resetGratitude();
+            resetVision();
+            resetPlans();
             // Also reset the welcome-seen flag so the signed-out user
             // gets the same fresh-arrival experience a brand-new user
             // would. Without this they'd skip the welcome flow entirely.

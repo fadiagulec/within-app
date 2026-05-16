@@ -65,7 +65,17 @@ export const useJournalStore = create<JournalState>()(
       },
       updateEntry: (id, patch) =>
         set((state) => ({
-          entries: state.entries.map((e) => (e.id === id ? { ...e, ...patch } : e)),
+          entries: state.entries.map((e) => {
+            if (e.id !== id) return e;
+            // Apply the same 50k cap on edits — otherwise the edit path
+            // bypasses the storage-budget protection.
+            const next = { ...e, ...patch };
+            const MAX_BODY = 50_000;
+            if (typeof next.body === 'string' && next.body.length > MAX_BODY) {
+              next.body = next.body.slice(0, MAX_BODY) + '…';
+            }
+            return next;
+          }),
         })),
       removeEntry: (id) =>
         set((state) => ({
