@@ -36,6 +36,13 @@ export const useJournalStore = create<JournalState>()(
       entries: [],
       addEntry: (entry) => {
         const id = `jrl-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        // Cap body at 50k chars — protects the 5MB AsyncStorage budget
+        // from a single runaway long-form vent silently breaking writes.
+        const MAX_BODY = 50_000;
+        const safeBody =
+          entry.body.length > MAX_BODY
+            ? entry.body.slice(0, MAX_BODY) + '…'
+            : entry.body;
         set((state) => ({
           entries: [
             {
@@ -43,7 +50,7 @@ export const useJournalStore = create<JournalState>()(
               timestamp: entry.timestamp ?? Date.now(),
               promptId: entry.promptId,
               promptText: entry.promptText,
-              body: entry.body,
+              body: safeBody,
               emotionKey: entry.emotionKey,
               chakra: entry.chakra,
               journeyDay: entry.journeyDay,

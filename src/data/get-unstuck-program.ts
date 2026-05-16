@@ -1,5 +1,5 @@
 /**
- * SOMA — GET UNSTUCK
+ * Within — GET UNSTUCK
  *
  * The signature 14-day flagship program.
  * Takes someone from "stuck" → "regulated + clear" in the fastest,
@@ -32,7 +32,7 @@ export interface UnstuckDay {
 
 export const GET_UNSTUCK_PROGRAM = {
   name: 'Get Unstuck',
-  subtitle: 'A 14-day SOMA reset',
+  subtitle: 'A 14-day Within reset',
   positioning:
     'A 14-day guided reset to regulate your body, release internal pressure, and regain clarity.',
   coreTeaching: 'You are not broken. You are dysregulated.',
@@ -352,7 +352,7 @@ export const UNSTUCK_DAYS: UnstuckDay[] = [
       closingAnchor: 'I am clear. I am regulated. I am ready for what comes next.',
     },
     outcome:
-      'Program complete. Invitation into next layer: Deep Emotional Reset · Clarity & Direction · SOMA Experiences (retreats).',
+      'Program complete. Invitation into next layer: Deep Emotional Reset · Clarity & Direction · Within Experiences (retreats).',
   },
 ];
 
@@ -384,8 +384,8 @@ export const COMPLETION_SCREEN = {
         'Vision, values, identity. Turn the clarity you found into a life you choose.',
     },
     {
-      id: 'soma-experience',
-      name: 'SOMA Experience',
+      id: 'within-experience',
+      name: 'Within Experience',
       subtitle: '7 days · in person · complete reset',
       priceUSD: 4500,
       description:

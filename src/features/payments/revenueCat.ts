@@ -1,5 +1,5 @@
 /**
- * SOMA — RevenueCat integration layer
+ * Within — RevenueCat integration layer
  *
  * Handles in-app purchases for iOS + Android (required by Apple/Google).
  * Covers: Get Unstuck $47, Burnout $97, Chakra programs $19/$97, Elevation $297,
@@ -145,7 +145,7 @@ function getStubOfferings(): OfferingInfo[] {
     {
       productId: 'soma_get_unstuck_47',
       title: 'Get Unstuck',
-      description: '14-day SOMA reset',
+      description: '14-day Within reset',
       priceString: '$47',
       isSubscription: false,
     },

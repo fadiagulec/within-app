@@ -1,21 +1,17 @@
 #!/usr/bin/env node
 /**
- * Within — post-export dist/index.html patcher.
+ * Within — post-export dist patcher.
  *
- * The Expo web build (`output: "single"`) emits a minimal HTML shell that
- * doesn't run our app/+html.tsx custom root. Until that's fixed upstream
- * (would require flipping to `output: "static"` which is a bigger lift),
- * we re-write dist/index.html here to inject:
+ * Runs AFTER `npx expo export -p web` to:
+ *   1. Inject the branded pulsing-dot splash + boot error overlay into
+ *      dist/index.html (Expo's default shell doesn't include this)
+ *   2. Inject OG/Twitter/description meta tags so share links to the app
+ *      render rich previews on WhatsApp / iMessage / Slack / Twitter
+ *   3. Auto-resolve the hashed bundle filename so the patched HTML stays
+ *      reproducible across builds — no more hand-editing after each export
+ *   4. Write a permissive robots.txt and minimal sitemap.xml
  *
- *   - The branded pulsing-dot splash (so users see "WITHIN" instantly
- *     while the JS bundle parses)
- *   - The pastel gradient background + body styles
- *   - A visible error surface (#wm-err) for uncaught boot errors
- *
- * The script auto-resolves the bundle filename by reading the dist dir,
- * so the next expo export's hashed bundle is picked up automatically.
- *
- * Run AFTER `npx expo export -p web`. Wired into `npm run build:web`.
+ * Wired into `npm run build:web` so every web deploy is fully reproducible.
  */
 
 const fs = require('fs');
@@ -24,6 +20,15 @@ const path = require('path');
 const DIST = path.resolve(__dirname, '..', 'dist');
 const INDEX = path.join(DIST, 'index.html');
 const BUNDLE_DIR = path.join(DIST, '_expo', 'static', 'js', 'web');
+const ROBOTS = path.join(DIST, 'robots.txt');
+const SITEMAP = path.join(DIST, 'sitemap.xml');
+
+// Canonical public URL — used in OG meta + sitemap. If you alias to a
+// custom domain later, change this in one place.
+const SITE_URL = process.env.WITHIN_SITE_URL || 'https://dist-sage-ten-11.vercel.app';
+const SITE_TITLE = 'Within — Come back to yourself';
+const SITE_DESCRIPTION =
+  'A 21-day burnout recovery journey. Voice-guided breathwork, chakra healing, and somatic practice — to soften what is holding, and remember what is beneath it.';
 
 function main() {
   if (!fs.existsSync(INDEX)) {
@@ -49,9 +54,13 @@ function main() {
   }
   const bundle = bundles[0];
 
-  const html = renderHtml(bundle);
-  fs.writeFileSync(INDEX, html, 'utf8');
+  fs.writeFileSync(INDEX, renderHtml(bundle), 'utf8');
+  fs.writeFileSync(ROBOTS, renderRobotsTxt(), 'utf8');
+  fs.writeFileSync(SITEMAP, renderSitemapXml(), 'utf8');
+
   console.log(`[patch-dist] dist/index.html patched (bundle: ${bundle})`);
+  console.log(`[patch-dist] dist/robots.txt written`);
+  console.log(`[patch-dist] dist/sitemap.xml written`);
 }
 
 function renderHtml(bundle) {
@@ -61,7 +70,27 @@ function renderHtml(bundle) {
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Within</title>
+    <title>${escapeHtml(SITE_TITLE)}</title>
+    <meta name="description" content="${escapeHtml(SITE_DESCRIPTION)}" />
+    <meta name="theme-color" content="#EFE5E2" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Within" />
+    <meta property="og:title" content="${escapeHtml(SITE_TITLE)}" />
+    <meta property="og:description" content="${escapeHtml(SITE_DESCRIPTION)}" />
+    <meta property="og:url" content="${SITE_URL}" />
+    <meta property="og:image" content="${SITE_URL}/favicon.ico" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${escapeHtml(SITE_TITLE)}" />
+    <meta name="twitter:description" content="${escapeHtml(SITE_DESCRIPTION)}" />
+    <meta name="twitter:image" content="${SITE_URL}/favicon.ico" />
+
+    <link rel="canonical" href="${SITE_URL}" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
     <style id="wm-shell">
       html, body { height: 100%; margin: 0; padding: 0; }
       body {
@@ -100,7 +129,6 @@ function renderHtml(bundle) {
         font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       }
     </style>
-    <link rel="shortcut icon" href="/favicon.ico" />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -150,6 +178,40 @@ function renderHtml(bundle) {
   </body>
 </html>
 `;
+}
+
+function renderRobotsTxt() {
+  return `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`;
+}
+
+function renderSitemapXml() {
+  // Minimal: only list the canonical public URL. The app is an SPA so
+  // all real navigation happens client-side; deep-link routes don't need
+  // sitemap entries for indexing.
+  const lastmod = new Date().toISOString().slice(0, 10);
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${SITE_URL}/</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+`;
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 main();

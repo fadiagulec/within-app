@@ -1,5 +1,5 @@
 /**
- * SOMA — Stripe Payment Link integration
+ * Within — Stripe Payment Link integration
  *
  * Handles purchases NOT routed through RevenueCat:
  *   - 1:1 Coaching ($997, $1,497) — Apple's 30% fee makes these prohibitive
@@ -119,7 +119,7 @@ export const STRIPE_PRODUCTS: Record<StripeProductKey, StripeProductInfo> = {
   coaching_breathwork_997: {
     key: 'coaching_breathwork_997',
     title: '1:1 Breathwork Coaching',
-    subtitle: 'Six private sessions with SOMA practitioner',
+    subtitle: 'Six private sessions with a Within practitioner',
     priceString: '$997',
     description: 'Custom protocols. Between-session support. Recordings to revisit.',
     applicationRequired: false,
@@ -134,7 +134,7 @@ export const STRIPE_PRODUCTS: Record<StripeProductKey, StripeProductInfo> = {
   },
   retreat_pulse: {
     key: 'retreat_pulse',
-    title: 'SOMA Pulse',
+    title: 'Within Pulse',
     subtitle: '3-day intensive · Dubai, London, NYC',
     priceString: '$1,500 – $2,500',
     description: 'A compressed reset for the time-constrained. Max 8 participants.',
@@ -142,7 +142,7 @@ export const STRIPE_PRODUCTS: Record<StripeProductKey, StripeProductInfo> = {
   },
   retreat_reset: {
     key: 'retreat_reset',
-    title: 'SOMA Reset',
+    title: 'Within Reset',
     subtitle: '7-day retreat · Bali, Ibiza, Portugal',
     priceString: '$3,500 – $5,000',
     description: 'The flagship. Full identity reset. Max 12 participants.',
@@ -150,7 +150,7 @@ export const STRIPE_PRODUCTS: Record<StripeProductKey, StripeProductInfo> = {
   },
   retreat_private: {
     key: 'retreat_private',
-    title: 'SOMA Private',
+    title: 'Within Private',
     subtitle: 'Custom 1-to-2 retreat · your chosen location',
     priceString: '$10,000+',
     description: 'Bespoke. Fully designed around you. Complete privacy.',

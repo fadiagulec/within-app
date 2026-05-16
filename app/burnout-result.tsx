@@ -44,10 +44,24 @@ export default function BurnoutResultScreen() {
   const answers = useProgressStore((s) => s.progress.burnoutAnswers);
   const startJourney = useProgressStore((s) => s.startJourney);
 
+  // If user lands here without having taken the quiz, redirect them
+  // back to the quiz rather than showing a fake "mild burnout, score 0"
+  // result based on empty answers.
+  const hasAnswers = !!answers && Object.keys(answers).length > 0;
+  useEffect(() => {
+    if (!hasAnswers) {
+      router.replace('/burnout-quiz');
+    }
+  }, [hasAnswers, router]);
+
   const result: BurnoutResult = useMemo(
     () => scoreBurnout(answers ?? {}),
     [answers]
   );
+
+  // Avoid flashing the empty-state result for one frame before the
+  // redirect effect fires.
+  if (!hasAnswers) return null;
 
   const [paywallLevel, setPaywallLevel] = useState<number | null>(null);
 

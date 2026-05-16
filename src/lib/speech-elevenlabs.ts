@@ -30,8 +30,30 @@ interface CacheEntry {
 
 const cache = new Map<string, CacheEntry>();
 
+// Module-level reference to the currently-playing audio element. We track
+// this so that any new ElevenLabs play() call can stop the previous one
+// FIRST — otherwise two SpeechPlayer instances on the same screen (e.g.
+// chakra detail has one per Heal step) produce overlapping voices.
+let currentHandle: { stop: () => void } | null = null;
+
 function cacheKey(text: string, voiceId: string): string {
   return `${voiceId}::${text}`;
+}
+
+/**
+ * Stop any currently-playing ElevenLabs audio across the app. Called
+ * automatically before each new play() so two players never overlap.
+ * Exported so SpeechPlayer can also call it on unmount.
+ */
+export function stopCurrentElevenLabs(): void {
+  if (currentHandle) {
+    try {
+      currentHandle.stop();
+    } catch {
+      // ignore
+    }
+    currentHandle = null;
+  }
 }
 
 /**
@@ -53,6 +75,10 @@ export async function speakViaElevenLabs(
   modelId: string = ELEVENLABS_MODEL_ID
 ): Promise<SpeechHandle | null> {
   if (!isElevenLabsSupported() || !text) return null;
+
+  // Stop any currently-playing instance before starting a new one —
+  // prevents two voices overlapping on the same screen.
+  stopCurrentElevenLabs();
 
   const key = cacheKey(text, voiceId);
   let entry = cache.get(key);
@@ -125,6 +151,11 @@ export async function speakViaElevenLabs(
       ended = true;
       playing = false;
       releaseEntry(key);
+      // If this was the active handle, clear the slot so the next play
+      // doesn't try to stop a now-dead element.
+      if (currentHandle && currentHandle.stop === handle.stop) {
+        currentHandle = null;
+      }
     },
     pause: () => {
       try {
@@ -142,6 +173,8 @@ export async function speakViaElevenLabs(
     },
   };
 
+  // Register this as the currently-playing handle.
+  currentHandle = { stop: handle.stop };
   return handle;
 }
 

@@ -1,9 +1,9 @@
 /**
- * SOMA — Wheel of Life result
+ * Within — Wheel of Life result
  *
  * Shows the completed wheel as a radial SVG (8 segments), the score summary,
  * the lowest-area healing invitation, and CTAs to either begin chakra work
- * or start the 14-day Get Unstuck reset.
+ * or jump into the 21-day Journey.
  */
 
 import React, { useEffect, useMemo } from 'react';
@@ -30,6 +30,8 @@ import {
 } from '@/data/wheel-of-life';
 import { useWheelStore } from '@/store/useWheelStore';
 import { useUserStore } from '@/store/useUserStore';
+// completeOnboarding is destructured below — needed so the welcome→wheel
+// path doesn't trap returning users in re-onboarding.
 import { chakraIdToKey } from '@/data/chakra-id-mapping';
 import { CHAKRA_CONTENT } from '@/data/chakra-content';
 
@@ -159,6 +161,7 @@ export default function WheelResultScreen() {
   const router = useRouter();
   const getLatest = useWheelStore((s) => s.getLatest);
   const setPrimaryChakra = useUserStore((s) => s.setPrimaryChakra);
+  const completeOnboarding = useUserStore((s) => s.completeOnboarding);
   const result = getLatest();
 
   const fadeIn = useSharedValue(0);
@@ -211,6 +214,8 @@ export default function WheelResultScreen() {
   function beginChakraWork() {
     // Remember the direction the wheel pointed to — user's primary chakra.
     setPrimaryChakra(lowChakraKey);
+    // Mark onboarding done so the user isn't bounced back here on next visit.
+    completeOnboarding();
     router.push({
       pathname: '/chakra/[id]',
       params: { id: lowChakraId },
@@ -218,10 +223,14 @@ export default function WheelResultScreen() {
   }
 
   function goGetUnstuck() {
+    completeOnboarding();
     router.push('/(tabs)/journey' as never);
   }
 
   function skipForNow() {
+    // Don't complete onboarding here — chakra-quiz is the next step, and
+    // its own completion handler should flip the flag once the user
+    // actually finishes (or skips from) the quiz.
     router.replace('/(onboarding)/chakra-quiz');
   }
 
@@ -413,7 +422,7 @@ export default function WheelResultScreen() {
         </Button>
         <Pressable onPress={goGetUnstuck} style={styles.secondary}>
           <Text variant="body" color={tokens.semantic.accent}>
-            Start the 14-day Get Unstuck instead
+            Start the 21-day Journey instead
           </Text>
         </Pressable>
         <Pressable onPress={skipForNow} style={styles.tertiary}>

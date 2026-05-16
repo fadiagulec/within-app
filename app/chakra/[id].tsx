@@ -57,8 +57,32 @@ export default function ChakraDetail() {
     return s as ChakraKey;
   })();
 
-  const chakra = getChakra(chakraKey);
-  const content = getChakraContent(normalizedId);
+  // Guard against invalid ids (/chakra/banana). getChakra and
+  // getChakraContent will throw or return undefined for unknown keys —
+  // we'd rather show a polite "not found" than whitescreen the page.
+  let chakra, content;
+  try {
+    chakra = getChakra(chakraKey);
+    content = getChakraContent(normalizedId);
+  } catch {
+    chakra = undefined;
+    content = undefined;
+  }
+  if (!chakra || !content) {
+    return (
+      <Screen>
+        <Text variant="heading2" style={{ marginBottom: 12 }}>
+          Chakra not found.
+        </Text>
+        <Text variant="body" color={tokens.semantic.textSecondary} style={{ marginBottom: 24 }}>
+          That energy centre doesn&apos;t exist in our library.
+        </Text>
+        <Button variant="ghost" onPress={() => router.back()}>
+          ← Back
+        </Button>
+      </Screen>
+    );
+  }
   const unlocked = unlockedLevels.includes(chakra.index);
   const accent = content.color;
 

@@ -22,6 +22,7 @@ import { useUserStore } from '@/store/useUserStore';
 import { useProgressStore } from '@/store/useProgressStore';
 import { useEmotionStore } from '@/store/useEmotionStore';
 import { useWheelStore } from '@/store/useWheelStore';
+import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { LIFE_AREAS } from '@/data/wheel-of-life';
 import { GET_UNSTUCK_PROGRAM } from '@/data/get-unstuck-program';
 import {
@@ -95,6 +96,7 @@ export default function Profile() {
   const resetProgress = useProgressStore((s) => s.reset);
   const resetEmotion = useEmotionStore((s) => s.reset);
   const resetWheel = useWheelStore((s) => s.reset);
+  const resetOnboarding = useOnboardingStore((s) => s.resetOnboarding);
 
   // ============ Derived state ============
 
@@ -179,7 +181,11 @@ export default function Profile() {
             resetProgress();
             resetEmotion();
             resetWheel();
-            router.replace('/(onboarding)/welcome');
+            // Also reset the welcome-seen flag so the signed-out user
+            // gets the same fresh-arrival experience a brand-new user
+            // would. Without this they'd skip the welcome flow entirely.
+            resetOnboarding();
+            router.replace('/(welcome)' as never);
           },
         },
       ]

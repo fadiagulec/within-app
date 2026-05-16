@@ -1,5 +1,5 @@
 /**
- * SOMA — Get Unstuck Paywall
+ * Within — Get Unstuck Paywall
  *
  * The flagship conversion screen.
  * Shown after Wheel of Life + (optional) Burnout Assessment complete.
@@ -118,7 +118,7 @@ export default function GetUnstuckPaywall() {
             variant="displayItalic"
             style={[styles.heroSubtitle, { color: tokens.semantic?.textSecondary ?? '#6B6B6F' }]}
           >
-            A 14-day SOMA reset.
+            A 14-day Within reset.
           </Text>
           <Text
             variant="body"
