@@ -1,0 +1,35 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["REPLACE_WITH_APPLE_TEAM_ID.com.within.app"],
+        "components": [
+          {
+            "/": "/journey/*",
+            "comment": "Match any journey day route"
+          },
+          {
+            "/": "/breathwork/*",
+            "comment": "Match any breathwork session"
+          },
+          {
+            "/": "/chakra/*",
+            "comment": "Match any chakra detail"
+          },
+          {
+            "/": "/full-healing/*",
+            "comment": "Match any healing script"
+          },
+          {
+            "/": "/purchase/*",
+            "comment": "Match purchase success/cancel deep links"
+          }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["REPLACE_WITH_APPLE_TEAM_ID.com.within.app"]
+  }
+}

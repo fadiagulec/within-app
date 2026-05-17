@@ -8,7 +8,12 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "build:web": "expo export -p web && node scripts/patch-dist-html.js"
+    "build:web": "expo export -p web && node scripts/patch-dist-html.js",
+    "eas:init": "npx eas-cli@latest init",
+    "eas:build:preview": "npx eas-cli@latest build --profile preview --platform all",
+    "eas:build:production": "npx eas-cli@latest build --profile production --platform all",
+    "eas:submit:ios": "npx eas-cli@latest submit --platform ios",
+    "eas:submit:android": "npx eas-cli@latest submit --platform android"
   },
   "dependencies": {
     "@expo-google-fonts/cormorant-garamond": "^0.2.3",

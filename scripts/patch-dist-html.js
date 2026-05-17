@@ -18,10 +18,13 @@ const fs = require('fs');
 const path = require('path');
 
 const DIST = path.resolve(__dirname, '..', 'dist');
+const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
 const INDEX = path.join(DIST, 'index.html');
 const BUNDLE_DIR = path.join(DIST, '_expo', 'static', 'js', 'web');
 const ROBOTS = path.join(DIST, 'robots.txt');
 const SITEMAP = path.join(DIST, 'sitemap.xml');
+const WELL_KNOWN_SRC = path.join(PUBLIC_DIR, '.well-known');
+const WELL_KNOWN_DST = path.join(DIST, '.well-known');
 
 // Canonical public URL — used in OG meta + sitemap. If you alias to a
 // custom domain later, change this in one place.
@@ -57,10 +60,33 @@ function main() {
   fs.writeFileSync(INDEX, renderHtml(bundle), 'utf8');
   fs.writeFileSync(ROBOTS, renderRobotsTxt(), 'utf8');
   fs.writeFileSync(SITEMAP, renderSitemapXml(), 'utf8');
+  copyWellKnown();
 
   console.log(`[patch-dist] dist/index.html patched (bundle: ${bundle})`);
   console.log(`[patch-dist] dist/robots.txt written`);
   console.log(`[patch-dist] dist/sitemap.xml written`);
+}
+
+/**
+ * Copy public/.well-known/* into dist/.well-known/ so iOS Universal
+ * Links and Android App Links can fetch the verification JSON from
+ * /.well-known/apple-app-site-association and /.well-known/assetlinks.json
+ * respectively. Vercel headers (see vercel.json) ensure these are served
+ * with the correct Content-Type: application/json.
+ */
+function copyWellKnown() {
+  if (!fs.existsSync(WELL_KNOWN_SRC)) {
+    console.log('[patch-dist] no public/.well-known/ found — skipping');
+    return;
+  }
+  fs.mkdirSync(WELL_KNOWN_DST, { recursive: true });
+  const files = fs.readdirSync(WELL_KNOWN_SRC);
+  for (const f of files) {
+    const src = path.join(WELL_KNOWN_SRC, f);
+    const dst = path.join(WELL_KNOWN_DST, f);
+    fs.copyFileSync(src, dst);
+    console.log(`[patch-dist] copied .well-known/${f}`);
+  }
 }
 
 function renderHtml(bundle) {
