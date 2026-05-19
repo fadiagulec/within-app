@@ -9,8 +9,10 @@ import type { Plan } from './types';
 import { LETTING_GO } from './letting-go-of-the-past';
 import { BUILD_ABUNDANCE } from './build-abundance';
 import { MAGNETIC_SELF } from './magnetic-self';
+import { NRM_PROGRAM } from './nrm';
 
 export const PLANS: Plan[] = [
+  NRM_PROGRAM,         // 28 days — flagship hypnotherapy arc, top of list
   LETTING_GO,
   BUILD_ABUNDANCE,
   MAGNETIC_SELF,

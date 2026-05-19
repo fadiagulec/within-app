@@ -23,6 +23,7 @@ import { CHAKRA_SPINE } from '@/data/chakra-spine';
 import { breathwork } from '@/data/breathwork';
 import { meditations } from '@/data/meditations';
 import { usePlanStore } from '@/store/usePlanStore';
+import { buildNrmScript, NRM_SCRIPT_DURATION_MIN } from '@/data/nrm-script';
 
 export default function PlanDayRunner() {
   const router = useRouter();
@@ -75,10 +76,24 @@ export default function PlanDayRunner() {
   } else if (dayRef.practice.kind === 'unblocking') {
     practiceTitle = `Unblocking — ${chakra.name}`;
     practiceSubtitle = 'Per-chakra unblocking script';
-  } else {
+  } else if (dayRef.practice.kind === 'frequency') {
     practiceTitle = `${chakra.name} frequency · ${dayRef.practice.minutes} min`;
     practiceSubtitle = `${chakra.syllable} tone · ${chakra.frequencyHz ?? 'silence'}Hz`;
+  } else {
+    // hypnotherapy — rendered inline below, not via navigation
+    practiceTitle = `NRM Session · ${NRM_SCRIPT_DURATION_MIN} min`;
+    practiceSubtitle = 'Mountain · river · armor dissolution · identity install';
   }
+
+  // Pre-build the hypnotherapy script once per render so SpeechPlayer
+  // can hand it directly to ElevenLabs without recomputing on every tap.
+  const hypnotherapyScript =
+    dayRef.practice.kind === 'hypnotherapy'
+      ? buildNrmScript({
+          armor: dayRef.practice.armor,
+          emergedSelf: dayRef.practice.emergedSelf,
+        })
+      : null;
 
   function startBreath() {
     if (!breath) return;
@@ -102,6 +117,7 @@ export default function PlanDayRunner() {
         params: { id: dayRef.practice.chakraId },
       } as never);
     }
+    // hypnotherapy: handled inline by SpeechPlayer; no navigation.
   }
 
   function markDone() {
@@ -219,22 +235,46 @@ export default function PlanDayRunner() {
             </Pressable>
           ) : null}
 
-          <Pressable
-            onPress={startPractice}
-            style={[styles.step, { borderColor: `${accent}55` }]}
-            accessibilityRole="button"
-            accessibilityLabel="Begin practice"
-          >
-            <Text variant="mono" color={accent} style={{ fontSize: 10, letterSpacing: 1.5 }}>
-              STEP 2 · PRACTICE
-            </Text>
-            <Text variant="heading3" color={tokens.semantic.textPrimary} style={{ marginTop: 4, fontSize: 18 }}>
-              {practiceTitle}
-            </Text>
-            <Text variant="bodySmall" color={tokens.semantic.textSecondary} style={{ marginTop: 4, fontSize: 13 }}>
-              {practiceSubtitle}
-            </Text>
-          </Pressable>
+          {hypnotherapyScript ? (
+            // Inline hypnotherapy player — NRM sessions don't navigate
+            // away; the 11-minute guided script plays right here so the
+            // user can stay in the theta state without screen-switching.
+            <View style={[styles.step, { borderColor: `${accent}55` }]}>
+              <Text variant="mono" color={accent} style={{ fontSize: 10, letterSpacing: 1.5 }}>
+                STEP 2 · NRM SESSION
+              </Text>
+              <Text variant="heading3" color={tokens.semantic.textPrimary} style={{ marginTop: 4, fontSize: 18 }}>
+                {practiceTitle}
+              </Text>
+              <Text variant="bodySmall" color={tokens.semantic.textSecondary} style={{ marginTop: 4, fontSize: 13 }}>
+                {practiceSubtitle}
+              </Text>
+              <View style={{ marginTop: 14 }}>
+                <SpeechPlayer
+                  text={hypnotherapyScript}
+                  accent={accent}
+                  label="BEGIN THE SESSION"
+                />
+              </View>
+            </View>
+          ) : (
+            <Pressable
+              onPress={startPractice}
+              style={[styles.step, { borderColor: `${accent}55` }]}
+              accessibilityRole="button"
+              accessibilityLabel="Begin practice"
+            >
+              <Text variant="mono" color={accent} style={{ fontSize: 10, letterSpacing: 1.5 }}>
+                STEP 2 · PRACTICE
+              </Text>
+              <Text variant="heading3" color={tokens.semantic.textPrimary} style={{ marginTop: 4, fontSize: 18 }}>
+                {practiceTitle}
+              </Text>
+              <Text variant="bodySmall" color={tokens.semantic.textSecondary} style={{ marginTop: 4, fontSize: 13 }}>
+                {practiceSubtitle}
+              </Text>
+            </Pressable>
+          )}
 
           <View style={[styles.step, { borderColor: `${accent}55` }]}>
             <Text variant="mono" color={accent} style={{ fontSize: 10, letterSpacing: 1.5 }}>

@@ -11,7 +11,16 @@
 
 import type { SpineChakraId } from '@/data/chakra-spine';
 
-export type PlanPhase = 'open' | 'release' | 'integrate';
+export type PlanPhase =
+  // Original 21-day plans (open → release → integrate)
+  | 'open'
+  | 'release'
+  | 'integrate'
+  // NRM 28-day arc (excavate → dissolve → install → activate)
+  | 'excavate'
+  | 'dissolve'
+  | 'install'
+  | 'activate';
 
 export interface PlanDay {
   /** 1-based day number within the plan. */
@@ -27,11 +36,19 @@ export interface PlanDay {
   affirmation: string;
   /** Breathwork id from src/data/breathwork.ts */
   breathworkId: string;
-  /** Practice — either a meditation id or an unblocking script id. */
+  /** Practice — either a meditation id, unblocking script, frequency
+   *  session, or hypnotherapy session. Hypnotherapy is rendered inline
+   *  via SpeechPlayer using the buildNrmScript() generator.
+   *
+   *  For 'hypnotherapy' practice:
+   *    armor       — the weight/belief/fear dissolving in the river today
+   *    emergedSelf — the specific identity dimension installed after float
+   */
   practice:
     | { kind: 'meditation'; id: string }
     | { kind: 'unblocking'; chakraId: SpineChakraId }
-    | { kind: 'frequency'; chakraId: SpineChakraId; minutes: number };
+    | { kind: 'frequency'; chakraId: SpineChakraId; minutes: number }
+    | { kind: 'hypnotherapy'; armor: string; emergedSelf: string };
   /** Journal prompt — keep it short. 1–3 lines. */
   journalPrompt: string;
 }

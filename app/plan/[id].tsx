@@ -59,12 +59,27 @@ export default function PlanDetail() {
     } as never);
   }
 
-  // Group days by phase for the grid header
-  const phases = [
-    { key: 'open', label: 'WEEK 1 · OPEN', days: plan.days.filter((d) => d.phase === 'open') },
-    { key: 'release', label: 'WEEK 2 · RELEASE', days: plan.days.filter((d) => d.phase === 'release') },
-    { key: 'integrate', label: 'WEEK 3 · INTEGRATE', days: plan.days.filter((d) => d.phase === 'integrate') },
-  ];
+  // Group days by phase for the grid header — derived from the plan
+  // itself so plans of any phase shape (3-week, 4-week, etc.) render
+  // correctly without case-by-case code.
+  const PHASE_LABELS: Record<string, string> = {
+    open: 'OPEN',
+    release: 'RELEASE',
+    integrate: 'INTEGRATE',
+    excavate: 'EXCAVATE',
+    dissolve: 'DISSOLVE',
+    install: 'INSTALL',
+    activate: 'ACTIVATE',
+  };
+  const phaseOrder: string[] = [];
+  for (const d of plan.days) {
+    if (!phaseOrder.includes(d.phase)) phaseOrder.push(d.phase);
+  }
+  const phases = phaseOrder.map((key, idx) => ({
+    key,
+    label: `WEEK ${idx + 1} · ${PHASE_LABELS[key] ?? key.toUpperCase()}`,
+    days: plan.days.filter((d) => d.phase === key),
+  }));
 
   return (
     <Screen padded={false}>
