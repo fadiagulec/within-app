@@ -23,7 +23,7 @@ import { CHAKRA_SPINE } from '@/data/chakra-spine';
 import { breathwork } from '@/data/breathwork';
 import { meditations } from '@/data/meditations';
 import { usePlanStore } from '@/store/usePlanStore';
-import { buildNrmScript, NRM_SCRIPT_DURATION_MIN } from '@/data/nrm-script';
+import { getNrmScriptForDay, NRM_SCRIPT_DURATION_MIN } from '@/data/nrm-script';
 
 export default function PlanDayRunner() {
   const router = useRouter();
@@ -87,9 +87,11 @@ export default function PlanDayRunner() {
 
   // Pre-build the hypnotherapy script once per render so SpeechPlayer
   // can hand it directly to ElevenLabs without recomputing on every tap.
+  // Per-day bespoke scripts dispatch through getNrmScriptForDay; days
+  // without a bespoke script fall back to the master template.
   const hypnotherapyScript =
     dayRef.practice.kind === 'hypnotherapy'
-      ? buildNrmScript({
+      ? getNrmScriptForDay(dayRef.day, {
           armor: dayRef.practice.armor,
           emergedSelf: dayRef.practice.emergedSelf,
         })
