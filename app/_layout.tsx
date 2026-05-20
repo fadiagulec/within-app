@@ -276,6 +276,8 @@ function GatedStack() {
       <Stack.Screen name="tarot/spread" />
       <Stack.Screen name="tarot/history" />
       <Stack.Screen name="tarot/card/[id]" />
+      <Stack.Screen name="hypnotherapy/index" />
+      <Stack.Screen name="hypnotherapy/session/[id]" />
 
       {/* Purchase flow — back gesture disabled */}
       <Stack.Screen
