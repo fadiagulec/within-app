@@ -293,6 +293,29 @@ export default function Library() {
           ))}
         </Row>
 
+        {/* Row 5b — Companion */}
+        <Row eyebrow="COMPANION" title="Think out loud with the app">
+          <Pressable
+            onPress={() => router.push('/companion' as never)}
+            style={[styles.card, { width: 240, borderColor: '#9DBFB266', borderWidth: 1 }]}
+            accessibilityRole="button"
+            accessibilityLabel="Open AI companion chat"
+          >
+            <Text variant="eyebrow" color="#9DBFB2">
+              · AI GUIDE
+            </Text>
+            <Text variant="heading3" style={{ marginTop: 12, fontSize: 17 }}>
+              A Quiet Place
+            </Text>
+            <Text variant="bodySmall" color={tokens.semantic.textSecondary} style={{ marginTop: 8, lineHeight: 19 }}>
+              Talk through what&apos;s alive. She knows your journey, your recent journal, your last tarot pull. She holds space — and points you to what helps.
+            </Text>
+            <Text variant="body" color="#9DBFB2" style={{ marginTop: 12, fontSize: 13 }}>
+              Begin →
+            </Text>
+          </Pressable>
+        </Row>
+
         {/* Row 6 — Hypnotherapy */}
         <Row eyebrow="HYPNOTHERAPY" title="Rewire what thinking cannot reach">
           <Pressable

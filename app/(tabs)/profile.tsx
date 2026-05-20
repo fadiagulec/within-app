@@ -27,6 +27,9 @@ import { useJournalStore } from '@/store/useJournalStore';
 import { useGratitudeStore } from '@/store/useGratitudeStore';
 import { useVisionStore } from '@/store/useVisionStore';
 import { usePlanStore } from '@/store/usePlanStore';
+import { useCompanionStore } from '@/store/useCompanionStore';
+import { useTarotStore } from '@/store/useTarotStore';
+import { useHypnotherapyStore } from '@/store/useHypnotherapyStore';
 import { LIFE_AREAS } from '@/data/wheel-of-life';
 import { GET_UNSTUCK_PROGRAM } from '@/data/get-unstuck-program';
 import {
@@ -105,6 +108,9 @@ export default function Profile() {
   const resetGratitude = useGratitudeStore((s) => s.reset);
   const resetVision = useVisionStore((s) => s.reset);
   const resetPlans = usePlanStore((s) => s.reset);
+  const resetCompanion = useCompanionStore((s) => s.reset);
+  const resetTarot = useTarotStore((s) => s.reset);
+  const resetHypno = useHypnotherapyStore((s) => s.reset);
 
   // ============ Derived state ============
 
@@ -196,6 +202,9 @@ export default function Profile() {
             resetGratitude();
             resetVision();
             resetPlans();
+            resetCompanion();
+            resetTarot();
+            resetHypno();
             // Also reset the welcome-seen flag so the signed-out user
             // gets the same fresh-arrival experience a brand-new user
             // would. Without this they'd skip the welcome flow entirely.
