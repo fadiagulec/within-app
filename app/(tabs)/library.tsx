@@ -293,7 +293,30 @@ export default function Library() {
           ))}
         </Row>
 
-        {/* Row 6 — Manifestation */}
+        {/* Row 6 — Tarot */}
+        <Row eyebrow="TAROT" title="What today wants you to see">
+          <Pressable
+            onPress={() => router.push('/tarot' as never)}
+            style={[styles.card, { width: 240, borderColor: '#D4AF6E66', borderWidth: 1 }]}
+            accessibilityRole="button"
+            accessibilityLabel="Open tarot section"
+          >
+            <Text variant="eyebrow" color="#D4AF6E">
+              · DAILY PULL · SPREADS
+            </Text>
+            <Text variant="heading3" style={{ marginTop: 12, fontSize: 17 }}>
+              The Cards
+            </Text>
+            <Text variant="bodySmall" color={tokens.semantic.textSecondary} style={{ marginTop: 8, lineHeight: 19 }}>
+              78-card RWS deck. One card a day, or a three-card spread when you need depth. Each card connects to a journal prompt.
+            </Text>
+            <Text variant="body" color="#D4AF6E" style={{ marginTop: 12, fontSize: 13 }}>
+              Open →
+            </Text>
+          </Pressable>
+        </Row>
+
+        {/* Row 7 — Manifestation */}
         <Row eyebrow="MANIFESTATION" title="Vision, activation, return">
           <Pressable
             onPress={() => router.push('/(tabs)/vision')}

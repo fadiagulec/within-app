@@ -272,6 +272,10 @@ function GatedStack() {
       <Stack.Screen name="coaching" />
       <Stack.Screen name="learn" />
       <Stack.Screen name="breathwork-library" />
+      <Stack.Screen name="tarot/index" />
+      <Stack.Screen name="tarot/spread" />
+      <Stack.Screen name="tarot/history" />
+      <Stack.Screen name="tarot/card/[id]" />
 
       {/* Purchase flow — back gesture disabled */}
       <Stack.Screen
