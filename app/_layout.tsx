@@ -54,6 +54,8 @@ import { tokens } from '@/theme/tokens';
 import { LoadingView } from '@/components/LoadingView';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
+import { useMorningAffirmationStore } from '@/store/useMorningAffirmationStore';
+import { MorningAffirmationSheet } from '@/components/MorningAffirmationSheet';
 import { installGlobalErrorReporter } from '@/lib/reportError';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -138,11 +140,48 @@ export default function RootLayout() {
             <ThemeProvider>
               <StatusBar style="dark" />
               <GatedStack />
+              <MorningAffirmationGate />
             </ThemeProvider>
           </QueryClientProvider>
         </SafeAreaProvider>
       </GestureHandlerRootView>
     </ErrorBoundary>
+  );
+}
+
+/**
+ * MorningAffirmationGate — checks once on app open whether today's
+ * affirmation has been shown yet, and pops the sheet if not. Lives
+ * outside the GatedStack so it appears regardless of which tab/route
+ * the user is on. Will not interrupt the welcome flow — only fires
+ * after the user has crossed onboarding.
+ */
+function MorningAffirmationGate() {
+  const segments = useSegments();
+  const hasSeenWelcome = useOnboardingStore((s) => s.hasSeenWelcome);
+  const shouldShowToday = useMorningAffirmationStore((s) => s.shouldShowToday);
+  const [visible, setVisible] = React.useState(false);
+  const checkedRef = React.useRef(false);
+
+  useEffect(() => {
+    if (checkedRef.current) return;
+    if (!hasSeenWelcome) return;
+    // Don't pop the sheet inside the welcome / onboarding groups
+    const firstSegment = String(segments?.[0] ?? '');
+    if (firstSegment === '(welcome)' || firstSegment === '(onboarding)') return;
+    checkedRef.current = true;
+    if (shouldShowToday()) {
+      // Tiny delay so the app's first paint settles first
+      const t = setTimeout(() => setVisible(true), 700);
+      return () => clearTimeout(t);
+    }
+  }, [hasSeenWelcome, segments, shouldShowToday]);
+
+  return (
+    <MorningAffirmationSheet
+      visible={visible}
+      onClose={() => setVisible(false)}
+    />
   );
 }
 
