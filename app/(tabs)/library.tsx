@@ -293,6 +293,29 @@ export default function Library() {
           ))}
         </Row>
 
+        {/* Row 5a — Guided Unblocking (Dr Espen method) */}
+        <Row eyebrow="GUIDED UNBLOCKING" title="A real session — I'll guide you live">
+          <Pressable
+            onPress={() => router.push('/unblock-session' as never)}
+            style={[styles.card, { width: 260, borderColor: '#C0392B66', borderWidth: 1 }]}
+            accessibilityRole="button"
+            accessibilityLabel="Open guided unblocking sessions"
+          >
+            <Text variant="eyebrow" color="#C0392B">
+              · 8 ENERGY CENTRES · VOICE-LED
+            </Text>
+            <Text variant="heading3" style={{ marginTop: 12, fontSize: 17 }}>
+              The Unblocking
+            </Text>
+            <Text variant="bodySmall" color={tokens.semantic.textSecondary} style={{ marginTop: 8, lineHeight: 19 }}>
+              A complete guided session for each centre — rapport, permission, the timeline, the release, your new truth, the sound. Held the whole way, with a before-and-after that proves the shift.
+            </Text>
+            <Text variant="body" color="#C0392B" style={{ marginTop: 12, fontSize: 13 }}>
+              Begin →
+            </Text>
+          </Pressable>
+        </Row>
+
         {/* Row 5b — Companion */}
         <Row eyebrow="COMPANION" title="Think out loud with the app">
           <Pressable

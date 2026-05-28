@@ -318,6 +318,8 @@ function GatedStack() {
       <Stack.Screen name="hypnotherapy/index" />
       <Stack.Screen name="hypnotherapy/session/[id]" />
       <Stack.Screen name="companion/index" />
+      <Stack.Screen name="unblock-session/index" />
+      <Stack.Screen name="unblock-session/[chakra]" />
 
       {/* Purchase flow — back gesture disabled */}
       <Stack.Screen
