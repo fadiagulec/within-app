@@ -28,8 +28,8 @@ interface Props {
   rate?: number;
   /** Visual size. */
   size?: 'sm' | 'md';
-  /** Override the ElevenLabs voice id (e.g. WHEEL_VOICE_ID for the
-   *  Wheel of Life coaching journey). Defaults to the app voice. */
+  /** Override the ElevenLabs voice id (e.g. COACH_VOICE_ID for the
+   *  coaching-session experience). Defaults to the app voice. */
   voiceId?: string;
 }
 
