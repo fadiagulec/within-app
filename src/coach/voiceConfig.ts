@@ -10,8 +10,16 @@
  * Shipping a key in the client bundle would be a security incident.
  */
 
-/** ElevenLabs voice id supplied by the founder. */
+/** ElevenLabs voice id supplied by the founder — default narration voice. */
 export const ELEVENLABS_VOICE_ID = 'kHL7MFWSwpF69uhr0qwj';
+
+/**
+ * Dedicated voice for the Wheel of Life coaching journey. The founder
+ * wanted the life-audit experience narrated in a distinct coaching
+ * voice — warmer, holding-space, like a live facilitator. Passed
+ * explicitly to SpeechPlayer via the `voiceId` prop on the wheel screens.
+ */
+export const WHEEL_VOICE_ID = 'dbe06835a332495d82e580063e6b9497';
 
 /** ElevenLabs model used for narration. Turbo v2.5 = good quality, fast. */
 export const ELEVENLABS_MODEL_ID = 'eleven_turbo_v2_5';

@@ -28,6 +28,9 @@ interface Props {
   rate?: number;
   /** Visual size. */
   size?: 'sm' | 'md';
+  /** Override the ElevenLabs voice id (e.g. WHEEL_VOICE_ID for the
+   *  Wheel of Life coaching journey). Defaults to the app voice. */
+  voiceId?: string;
 }
 
 export function SpeechPlayer({
@@ -36,6 +39,7 @@ export function SpeechPlayer({
   label,
   rate = 0.92,
   size = 'md',
+  voiceId,
 }: Props) {
   const a = accent ?? tokens.semantic.accent;
   const handleRef = useRef<SpeechHandle | null>(null);
@@ -90,7 +94,7 @@ export function SpeechPlayer({
     // — usually ~1-3s for short text, longer for full healing scripts.
     if (isElevenLabsSupported()) {
       setLoading(true);
-      const h = await speakViaElevenLabs(text);
+      const h = await speakViaElevenLabs(text, voiceId);
       setLoading(false);
       if (h) {
         handleRef.current = h;

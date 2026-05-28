@@ -26,9 +26,31 @@ import Animated, {
 import { Screen } from '@/components/Screen';
 import { Text } from '@/components/Text';
 import { Button } from '@/components/Button';
+import { SpeechPlayer } from '@/components/SpeechPlayer';
 import { tokens } from '@/theme/tokens';
 import { LIFE_AREAS, LifeAreaId } from '@/data/wheel-of-life';
 import { useWheelStore } from '@/store/useWheelStore';
+import { WHEEL_VOICE_ID } from '@/coach/voiceConfig';
+
+// The coaching arrival — spoken by the facilitator voice before the
+// life audit begins. Turns the assessment into a held, intentional
+// moment rather than a form.
+const ARRIVAL_NARRATION = `Welcome.
+
+Before we look at your life, let us arrive together. There is no rush here.
+
+Take one slow breath with me. In through the nose… and all the way out through the mouth. Again. In… and out. Good.
+
+What you are about to do is not a test. It is a mirror. We will move through eight areas of your life, one at a time.
+
+Rate each one — not by where you wish you were, but by where you honestly are today. There are no wrong answers here. Nothing you find is wasted. Honesty is the medicine.
+
+When you are ready, we begin.`;
+
+/** The facilitator's spoken coaching line for a given area. */
+function coachLineForArea(name: string, question: string): string {
+  return `${name}. ${question} Take a breath before you answer. Notice what your body says, before your mind does.`;
+}
 
 // ============ Rating scale (1–10) ============
 
@@ -164,6 +186,10 @@ export default function WheelOfLifeOnboarding() {
   const commitDraft = useWheelStore((s) => s.commitDraft);
 
   const [idx, setIdx] = useState(0);
+  // The journey opens with a cinematic, voice-coached arrival before
+  // the first life area. This is what turns it from a questionnaire
+  // into a held coaching experience.
+  const [arrived, setArrived] = useState(false);
 
   const area = LIFE_AREAS[idx]!;
   const total = LIFE_AREAS.length;
@@ -213,6 +239,65 @@ export default function WheelOfLifeOnboarding() {
     if (value <= 6) return area.scoreMeaning.medium;
     return area.scoreMeaning.high;
   }, [value, area]);
+
+  // ── Cinematic arrival — voice-coached intro before the life audit ──
+  if (!arrived) {
+    return (
+      <Screen scroll padded={false} edges={['top', 'left', 'right']}>
+        <View style={styles.arrivalWrap}>
+          <Text
+            variant="eyebrow"
+            color={tokens.semantic.accent}
+            style={{ letterSpacing: 2.4, fontSize: 13 }}
+          >
+            THE WHEEL OF LIFE
+          </Text>
+          <Text variant="heading1" style={{ marginTop: 14, fontSize: 40, lineHeight: 48 }}>
+            Let&apos;s begin{'\n'}where you are.
+          </Text>
+          <Text
+            variant="displayItalic"
+            color={tokens.semantic.textSecondary}
+            style={{ marginTop: 18, fontSize: 19, lineHeight: 29 }}
+          >
+            This is not a test. It is a mirror. Eight areas of your life — rated honestly, held gently.
+          </Text>
+
+          <View style={styles.arrivalPlayer}>
+            <Text variant="mono" color={tokens.semantic.textTertiary} style={{ fontSize: 11, letterSpacing: 1.8, marginBottom: 12 }}>
+              PRESS PLAY · LET ME GUIDE YOU IN
+            </Text>
+            <SpeechPlayer
+              text={ARRIVAL_NARRATION}
+              voiceId={WHEEL_VOICE_ID}
+              accent={tokens.semantic.accent}
+              label="ARRIVE WITH ME"
+            />
+            <Text
+              variant="bodySmall"
+              color={tokens.semantic.textTertiary}
+              style={{ marginTop: 14, fontSize: 13, lineHeight: 20 }}
+            >
+              Take a breath. When you&apos;re ready, begin the audit below — there&apos;s no rush.
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.footer}>
+          <Button
+            block
+            size="lg"
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+              setArrived(true);
+            }}
+          >
+            I&apos;m ready · begin
+          </Button>
+        </View>
+      </Screen>
+    );
+  }
 
   return (
     <Screen scroll padded={false} edges={['top', 'left', 'right']}>
@@ -322,6 +407,18 @@ export default function WheelOfLifeOnboarding() {
             {area.subPrompt}
           </Text>
 
+          {/* Voice coaching — the facilitator asks the question aloud */}
+          <View style={{ marginTop: 16 }}>
+            <SpeechPlayer
+              key={area.id}
+              text={coachLineForArea(area.name, area.question)}
+              voiceId={WHEEL_VOICE_ID}
+              accent={area.color}
+              label="HEAR THIS REFLECTION"
+              size="sm"
+            />
+          </View>
+
           {/* Why it matters — ALWAYS visible. No more tap-to-reveal. */}
           <View
             style={[
@@ -391,6 +488,19 @@ export default function WheelOfLifeOnboarding() {
 const styles = StyleSheet.create({
   container: {
     paddingBottom: 140,
+  },
+  arrivalWrap: {
+    paddingHorizontal: 24,
+    paddingTop: 48,
+    paddingBottom: 140,
+  },
+  arrivalPlayer: {
+    marginTop: 36,
+    padding: 22,
+    borderRadius: tokens.radii.xl,
+    backgroundColor: tokens.semantic.bgElevated,
+    borderWidth: 1,
+    borderColor: `${tokens.semantic.accent}44`,
   },
   topRow: {
     flexDirection: 'row',

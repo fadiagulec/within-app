@@ -20,7 +20,9 @@ import Animated, {
 import { Screen } from '@/components/Screen';
 import { Text } from '@/components/Text';
 import { Button } from '@/components/Button';
+import { SpeechPlayer } from '@/components/SpeechPlayer';
 import { tokens } from '@/theme/tokens';
+import { WHEEL_VOICE_ID } from '@/coach/voiceConfig';
 import {
   LIFE_AREAS,
   LifeArea,
@@ -263,6 +265,33 @@ export default function WheelResultScreen() {
           <WheelRadial result={result} size={300} />
         </View>
 
+        {/* Narrated reveal — the facilitator reflects on the wheel */}
+        <View style={styles.revealPlayer}>
+          <Text variant="mono" color={tokens.semantic.textTertiary} style={{ fontSize: 11, letterSpacing: 1.8, marginBottom: 10 }}>
+            LET ME READ YOUR WHEEL BACK TO YOU
+          </Text>
+          <SpeechPlayer
+            text={[
+              `Here is your wheel. Look at it gently.`,
+              ``,
+              `This is not a verdict. It is a map — a map of where your life is asking for your attention.`,
+              ``,
+              `The areas that are full: let yourself feel grateful for them. You built those.`,
+              ``,
+              `The areas that are low are not failures. They are simply the places that are ready for your care next.`,
+              ``,
+              `Your average today is ${result.average.toFixed(1)} out of ten. ${avg.body}`,
+              ``,
+              `And the area asking for your attention first is ${lowArea.name}. Not because you have failed there. Because it is ready.`,
+              ``,
+              `This is where we begin. Gently. Together.`,
+            ].join('\n')}
+            voiceId={WHEEL_VOICE_ID}
+            accent={tokens.semantic.accent}
+            label="HEAR YOUR REFLECTION"
+          />
+        </View>
+
         {/* Score summary */}
         <View style={styles.summary}>
           <View style={styles.summaryLeft}>
@@ -439,6 +468,16 @@ const styles = StyleSheet.create({
   wheelWrap: {
     alignItems: 'center',
     marginTop: 24,
+  },
+  revealPlayer: {
+    marginTop: 24,
+    marginHorizontal: 20,
+    padding: 18,
+    borderRadius: tokens.radii.lg,
+    backgroundColor: tokens.semantic.bgElevated,
+    borderWidth: 1,
+    borderColor: `${tokens.semantic.accent}44`,
+    alignItems: 'center',
   },
   summary: {
     marginTop: 32,
